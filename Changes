@@ -1,5 +1,10 @@
 Changes for Farabi
 
+0.03  2012.9.3
+    - Removed the concept of selector and started using Ctrl-1, Ctrl-2,..etc to 
+      open actions, output, options and help dialogs
+    - Perl::Critic results dialog 
+
 0.02  2012.9.3
     - More UI fixes
     - Added Help about Frabi dialog

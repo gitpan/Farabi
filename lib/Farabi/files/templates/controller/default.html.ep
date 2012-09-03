@@ -181,14 +181,8 @@ __END__</textarea>
 				<div class="preview">
 				</div>
 	</div>
-	<div id="selector">
-		<div id="actions_dialog_selector">
-		</div>
-		<div id="output_dialog_selector">
-		</div>
-		<div id="options_dialog_selector">
-		</div>
-		<div id="help_dialog_selector">
+	<div id="perl_critic_dialog">
+		<div class="results">
 		</div>
 	</div>
  </body>

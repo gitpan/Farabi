@@ -10,18 +10,28 @@ sub perl_critic {
 	my $self = shift;
 	my $source = $self->param('source');
 
-	my @violations;
-
 	# Check for problems
 	unless ( defined $source ) {
-		$self->render( json => \@violations );
+		$self->render( json => [] );
 		return;
 	}
 
 	# Hand off to Perl::Critic
     require Perl::Critic;
-    @violations = Perl::Critic->new->critique( \$source );
- 	$self->render( json => \@violations );
+    my @violations = Perl::Critic->new->critique( \$source );
+
+	my @results;
+	for my $violation (@violations) {
+		push @results, {
+			policy      => $violation->policy,
+			line_number => $violation->line_number,
+			description => $violation->description,
+			explanation => $violation->explanation,
+			diagnostics => $violation->diagnostics,
+		};
+	}
+
+ 	$self->render( json => \@results );
 }
 
 # Taken from Padre::Plugin::PerlTidy

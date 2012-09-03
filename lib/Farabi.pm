@@ -4,13 +4,12 @@ use Mojo::Base 'Mojolicious';
 use File::Basename 'dirname';
 use File::Spec::Functions 'catdir';
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 sub startup {
 	my $app = shift;
 
 	# Use content from directories under lib/Farabi/files
-	
 	$app->home->parse(catdir(dirname(__FILE__), 'Farabi'));
 	$app->static->paths->[0] = $app->home->rel_dir('files/public');
 	$app->renderer->paths->[0] = $app->home->rel_dir('files/templates');
