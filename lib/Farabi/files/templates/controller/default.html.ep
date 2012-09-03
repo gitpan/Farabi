@@ -1,0 +1,186 @@
+<html>
+<head>
+	<title>Farabi - Modern Perl Editor</title>
+
+	<!-- jQuery UI CSS -->
+	<link rel="stylesheet" href="assets/ui-lightness/jquery-ui-1.8.23.custom.css" type="text/css"/>
+	<link rel="stylesheet" href="farabi.css" type="text/css"/>
+
+	<!-- CodeMirror CSS -->
+	<link rel="stylesheet" href="assets/codemirror/codemirror.css" type="text/css"/>
+	<link rel="stylesheet" href="assets/codemirror/dialog.css">
+	<link rel="stylesheet" href="assets/codemirror/theme/neat.css">
+	<link rel="stylesheet" href="assets/codemirror/theme/elegant.css">
+	<link rel="stylesheet" href="assets/codemirror/theme/erlang-dark.css">
+	<link rel="stylesheet" href="assets/codemirror/theme/night.css">
+	<link rel="stylesheet" href="assets/codemirror/theme/monokai.css">
+	<link rel="stylesheet" href="assets/codemirror/theme/cobalt.css">
+	<link rel="stylesheet" href="assets/codemirror/theme/eclipse.css">
+	<link rel="stylesheet" href="assets/codemirror/theme/rubyblue.css">
+	<link rel="stylesheet" href="assets/codemirror/theme/lesser-dark.css">
+	<link rel="stylesheet" href="assets/codemirror/theme/xq-dark.css">
+	<link rel="stylesheet" href="assets/codemirror/theme/ambiance.css">
+	<link rel="stylesheet" href="assets/codemirror/theme/blackboard.css">
+	<link rel="stylesheet" href="assets/codemirror/theme/vibrant-ink.css">
+
+	<!-- Humane.js CSS -->
+	<link rel="stylesheet" href="assets/humane/libnotify.css">
+
+	<!-- The jQuery -->
+	<script src="../js/jquery.js"></script>
+	<script src="farabi.js"></script>
+
+	<!-- CodeMirror editor -->
+	<script src="assets/codemirror/codemirror.js"></script>
+	<script src="assets/codemirror/util/loadmode.js"></script>
+	<script src="assets/codemirror/util/searchcursor.js"></script>
+	<script src="assets/codemirror/util/match-highlighter.js"></script>
+	<script src="assets/codemirror/util/search.js"></script>
+	<script src="assets/codemirror/util/dialog.js"></script>
+
+	<!-- Perlito - Perl 5 to JS Compiler -->
+	<script src="assets/perlito/perlito5.js"></script>
+
+	<!-- jQuery UI -->
+	<script src="assets/jquery-ui-1.8.23.custom.min.js"></script>
+
+	<!-- Humane.js CSS -->
+	<script src="assets/humane/humane.min.js"></script>
+
+	<!-- Farabi startup -->
+	<script type="text/javascript">
+		$(function() {
+			StartFarabi("editor");
+		});
+	</script>
+</head>
+<body>
+	<textarea id="editor" name="editor" class="editor">#!/usr/bin/env perl
+
+use 5.010;
+use strict;
+use warnings;
+
+say 'START';
+
+my $fred = 'fred';
+
+foreach ( 0 .. 7 ) {
+	my $line = $_;
+	last unless defined $line; # exit loop if $line is not defined
+	print "$_ : $line \n";
+}
+
+my %HoH = (
+flintstones=>{
+husband=>"fred",
+pal=>"barney",
+},
+jetsons=>{
+husband=>"george",
+wife=>"jane",
+"his boy"=>"elroy",  # Key quotes needed.
+},
+simpsons=>{husband=>"homer",wife=>"marge",kid=>"bart",},
+);
+
+say 'END';
+
+1;
+
+__END__</textarea>
+	<div id="options_dialog">
+		<table>
+			<tr>
+				<td>Mode:</td>
+				<td>
+					<select id="mode_selector">
+						<option value="clike">C, C++, C#</option>
+						<option value="css">CSS</option>
+						<option value="diff">diff</option>
+						<option value="javascript">JavaScript</option>
+						<option value="less">LESS</option>
+						<option value="markdown">Github Markdown</option>
+						<option value="perl" selected>Perl</option>
+						<option value="plsql">PL/SQL</option>
+						<option value="properties">Properties files</option>
+						<option value="shell">Shell</option>
+						<option value="stex">sTeX, LaTeX</option>
+						<option value="xml">XML/HTML</option>
+						<option value="yaml">YAML</option>
+					</select>
+				</td>
+			</tr>
+		<tr>
+			<td>Theme:</td>
+			<td>
+				<select id="theme_selector">
+					<option value="default" selected>Default</option>
+					<option value="ambiance" >Ambiance</option>
+					<option value="blackboard" >Black Board</option>
+					<option value="cobalt" >Cobalt</option>
+					<option value="eclipse" >Eclipse</option>
+					<option value="elegant" >Elegant</option>
+					<option value="erlang-dark" >Erlang Dark</option>
+					<option value="lesser-ark" >Lesser ark</option>
+					<option value="monokai" >Monokai</option>
+					<option value="neat" >Neat</option>
+					<option value="night" >Night</option>
+					<option value="rubyblue" >Ruby Blue</option>
+					<option value="vibrant-ink" >Vibrant Ink</option>
+					<option value="xq-dark" >XQ Dark</option>
+				</select>
+			</td>
+		</tr>
+		</table>
+	</div>
+	<div id="help_dialog">
+		<dl>
+			<dt>F1</dt><dd>Display context-sensitive help for selected text</dd>
+			<dt>F11</dt><dd>Toggle fullscreen mode</dd>
+			<dt>ESC</dt><dd>Exit fullscreen</dd>
+			<dt>Ctrl-F / Cmd-F</dt><dd>Start searching</dd>
+			<dt>Ctrl-G / Cmd-G</dt><dd>Find next</dd>
+			<dt>Shift-Ctrl-G / Shift-Cmd-G</dt><dd>Find previous</dd>
+			<dt>Shift-Ctrl-F / Cmd-Option-F</dt><dd>Replace</dd>
+			<dt>Shift-Ctrl-R / Shift-Cmd-Option-F</dt><dd>Replace all</dd>
+		</dl>
+	</div>
+	<div id="actions_dialog">
+		<button id="perl_tidy_button">Tidy Code</button>
+		<button id="perl_critic_button">Critique Code</button>
+		<button id="run_in_browser_button">Run in Browser</button>
+		<br/>
+		<button id="open_button">Open</button>
+		<button id="save_button">Save</button>
+		<button id="save_as_button">Save As</button>
+		<button id="run_button">Run</button>
+	</div>
+	<div id="output_dialog">
+		<div id="output_tabs">
+			<ul>
+				<li><a href="#output-tab">Output</a></li>
+				<li><a href="#log-tab">Log</a></li>
+				<li><a href="#js-source-tab">Compiled to Javascript</a></li>
+			</ul>
+			<div id="output-tab">
+				<textarea id="output" readonly="true" cols="70" rows="5"></textarea><br/>
+			</div>
+			<div id="log-tab">
+				<textarea id="log-result" readonly="true" cols="70" rows="5"></textarea><br/>
+			</div>
+			<div id="js-source-tab">
+				<textarea id="js-result" readonly="true" cols="70" rows="5"></textarea><br/>
+			</div>
+		</div>
+	</div>
+	<div id="selector">
+		<div id="actions_dialog_selector">
+		</div>
+		<div id="output_dialog_selector">
+		</div>
+		<div id="options_dialog_selector">
+		</div>
+	</div>
+ </body>
+</html>
