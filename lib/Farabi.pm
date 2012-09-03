@@ -4,7 +4,7 @@ use Mojo::Base 'Mojolicious';
 use File::Basename 'dirname';
 use File::Spec::Functions 'catdir';
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub startup {
 	my $app = shift;
@@ -42,10 +42,11 @@ Farabi - A web-based Perl editor
 This is a web-based Perl editor that runs inside your favorite modern
 browser.
 
-please run the following command and it will launch the default browser
-automatically:
+Please run the following command automatically:
 
   farabi daemon
+
+Open http://127.0.0.1:3000/ in your favourite modern browser
 
 =head1 SUPPORT
 

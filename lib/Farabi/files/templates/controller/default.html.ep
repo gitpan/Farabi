@@ -3,7 +3,7 @@
 	<title>Farabi - Modern Perl Editor</title>
 
 	<!-- jQuery UI CSS -->
-	<link rel="stylesheet" href="assets/ui-lightness/jquery-ui-1.8.23.custom.css" type="text/css"/>
+	<link rel="stylesheet" href="assets/jquery-ui/ui-lightness/jquery-ui-1.8.23.custom.css" type="text/css"/>
 	<link rel="stylesheet" href="farabi.css" type="text/css"/>
 
 	<!-- CodeMirror CSS -->
@@ -42,7 +42,7 @@
 	<script src="assets/perlito/perlito5.js"></script>
 
 	<!-- jQuery UI -->
-	<script src="assets/jquery-ui-1.8.23.custom.min.js"></script>
+	<script src="assets/jquery-ui/jquery-ui-1.8.23.custom.min.js"></script>
 
 	<!-- Humane.js CSS -->
 	<script src="assets/humane/humane.min.js"></script>
@@ -134,18 +134,6 @@ __END__</textarea>
 		</tr>
 		</table>
 	</div>
-	<div id="help_dialog">
-		<dl>
-			<dt>F1</dt><dd>Display context-sensitive help for selected text</dd>
-			<dt>F11</dt><dd>Toggle fullscreen mode</dd>
-			<dt>ESC</dt><dd>Exit fullscreen</dd>
-			<dt>Ctrl-F / Cmd-F</dt><dd>Start searching</dd>
-			<dt>Ctrl-G / Cmd-G</dt><dd>Find next</dd>
-			<dt>Shift-Ctrl-G / Shift-Cmd-G</dt><dd>Find previous</dd>
-			<dt>Shift-Ctrl-F / Cmd-Option-F</dt><dd>Replace</dd>
-			<dt>Shift-Ctrl-R / Shift-Cmd-Option-F</dt><dd>Replace all</dd>
-		</dl>
-	</div>
 	<div id="actions_dialog">
 		<button id="perl_tidy_button">Tidy Code</button>
 		<button id="perl_critic_button">Critique Code</button>
@@ -174,12 +162,33 @@ __END__</textarea>
 			</div>
 		</div>
 	</div>
+	<div id="help_dialog">
+		<dl>
+			<dt>F1</dt><dd>Display context-sensitive help for selected text</dd>
+			<dt>F11</dt><dd>Toggle fullscreen mode</dd>
+			<dt>ESC</dt><dd>Exit fullscreen</dd>
+			<dt>Ctrl-F / Cmd-F</dt><dd>Start searching</dd>
+			<dt>Ctrl-G / Cmd-G</dt><dd>Find next</dd>
+			<dt>Shift-Ctrl-G / Shift-Cmd-G</dt><dd>Find previous</dd>
+			<dt>Shift-Ctrl-F / Cmd-Option-F</dt><dd>Replace</dd>
+			<dt>Shift-Ctrl-R / Shift-Cmd-Option-F</dt><dd>Replace all</dd>
+		</dl>
+	</div>
+	<div id="help_search_dialog">
+				Search:<input type="text" class="topic"></input>
+				Results:<select class="results">
+				</select>
+				<div class="preview">
+				</div>
+	</div>
 	<div id="selector">
 		<div id="actions_dialog_selector">
 		</div>
 		<div id="output_dialog_selector">
 		</div>
 		<div id="options_dialog_selector">
+		</div>
+		<div id="help_dialog_selector">
 		</div>
 	</div>
  </body>

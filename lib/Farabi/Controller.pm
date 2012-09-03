@@ -1,7 +1,7 @@
 package Farabi::Controller;
 use Mojo::Base 'Mojolicious::Controller';
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use Config;
 
@@ -74,7 +74,7 @@ sub help_search {
 	my $topic = $self->param('topic') // '';
 
 	require File::Spec;
-	my $pod_path = File::Spec->catfile($Config{archlibexp}, 'pods');
+	my $pod_path = File::Spec->catfile( $Config{archlibexp}, 'pods' );
 	my $pod_index_filename = 'index.txt';
 	unless ( -f $pod_index_filename ) {
 
@@ -83,7 +83,7 @@ sub help_search {
 		require Pod::Index::Builder;
 		my $p     = Pod::Index::Builder->new;
 		require File::Glob;
-		my @files = File::Glob::glob($pod_path, '*.pod');
+		my @files = File::Glob::glob(File::Spec->catfile($pod_path, '*.pod'));
 		my $t0    = time;
 		for my $file (@files) {
 			say "Parsing $file";
@@ -110,14 +110,29 @@ sub help_search {
 	my @help_results;
 	for my $r (@results) {
 		next if $r->podname =~ /perltoc/;
+		my $podname = $r->podname;
+		$podname =~ s/^.+::(.+)$/$1/;
 		push @help_results, {
-			'podname' => $r->podname,
-			'line'    => $r->line,
-			'pod'     => $r->pod,
+			'podname' => $podname,
+			'context' => $r->context,
+			'html'    => _pod2html($r->pod),
 		};
 	}
 
 	$self->render( json => \@help_results );
+}
+
+sub _pod2html {
+	my $pod = shift;
+
+	require Pod::Simple::XHTML;
+	my $psx = Pod::Simple::XHTML->new;
+	$psx->no_errata_section(1);
+	$psx->no_whining(1);
+	$psx->output_string(\my $html);
+	$psx->parse_string_document($pod);
+
+	return $html;
 }
 
 sub default {

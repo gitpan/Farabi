@@ -34,6 +34,14 @@ html {
 	background-color: blue;
 	border-radius: 5px;
 }
+#help_dialog_selector {
+	float: left;
+	width: 50px;
+	height: 10px;
+	opacity: 0.3;
+	background-color: orange;
+	border-radius: 5px;
+}
 .CodeMirror {
 	border: 1px solid #aaa;
 	width: 50%;
@@ -76,4 +84,10 @@ dt {
 }
 #bottom_panel div textarea {
 	width: 100%;
+}
+
+#help_search_dialog .preview {
+	width: 100%;
+	height: 300px;
+	overflow: auto;
 }

@@ -1,4 +1,9 @@
 Changes for Farabi
 
+0.02  2012.9.3
+    - More UI fixes
+    - Added Help about Frabi dialog
+    - F1 triggers a help search dialog that shows X<> references for that selection
+
 0.01  2012.9.3
     - Initial release to CPAN
