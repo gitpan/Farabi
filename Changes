@@ -1,5 +1,20 @@
 Changes for Farabi
 
+0.04  2012.9.5
+    - Stopped using jQuery UI. Frabi now uses Twitter Bootstrap
+    - Fixed output tab selection
+    - Better determination of perl POD/PODS path using @INC
+    - Lots of refactoring and UI changes
+    - Actions, options and help are shown on the left and the editor on the right
+    - In "Run in browser", Perlito 5 is now loaded at runtime instead of at startup
+    - Moved modes list creation into the Perl backend
+    - Rename Farabi::Controller into Farabi::Editor
+    - Remove ambiance theme since it changes the size of the view
+    - Completely remove "Compiled to JavaScript" tab
+    - Less dialogs. More simple perl critic and help search dialogs. They're modal now.
+    - Output and log is now visible in the lower pane
+    - Ctrl-1,... is not no longer used
+
 0.03  2012.9.3
     - Removed the concept of selector and started using Ctrl-1, Ctrl-2,..etc to 
       open actions, output, options and help dialogs

@@ -1,18 +1,8 @@
-html {
-	margin: 0px 0px 0px 0px;
-	font: Arial 11px normal;
-}
 .CodeMirror {
-	border: 1px solid #aaa;
-	width: 50%;
+	height: 60%;
 }
-.CodeMirror-fullscreen {
-	display: block;
-	position: absolute;
-	top: 0; left: 0;
-	width: 100%;
+.CodeMirror-scroll {
 	height: 100%;
-	z-index: 1;
 }
 .CodeMirror-gutter {
 	width: 3em;
@@ -27,23 +17,13 @@ span.CodeMirror-matchhighlight {
 .CodeMirror-focused span.CodeMirror-matchhighlight { 
 	background: #e7e4ff; !important;
 }
-dt {
-	font-family: monospace; color: #666;
-}
 .cm-tab {
          background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAMCAYAAAAkuj5RAAAAAXNSR0IArs4c6QAAAGFJREFUSMft1LsRQFAQheHPowAKoACx3IgEKtaEHujDjORSgWTH/ZOdnZOcM/sgk/kFFWY0qV8foQwS4MKBCS3qR6ixBJvElOobYAtivseIE120FaowJPN75GMu8j/LfMwNjh4HUpwg4LUAAAAASUVORK5CYII=);
          background-position: right;
          background-repeat: no-repeat;
 }
-.ui-widget { 
-	font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif; 
-	font-size: 11px; 
-}
-#bottom_panel {
-	width: 50%;
-}
-#bottom_panel div textarea {
-	width: 100%;
+.tab-pane textarea {
+	width: 90%;
 }
 
 #help_search_dialog .preview {

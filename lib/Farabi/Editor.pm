@@ -1,7 +1,7 @@
-package Farabi::Controller;
+package Farabi::Editor;
 use Mojo::Base 'Mojolicious::Controller';
 
-our $VERSION = '0.02';
+our $VERSION = '0.04';
 
 use Config;
 
@@ -83,8 +83,21 @@ sub help_search {
 	my $self = shift;
 	my $topic = $self->param('topic') // '';
 
+	# Determine perlfunc POD path
 	require File::Spec;
-	my $pod_path = File::Spec->catfile( $Config{archlibexp}, 'pods' );
+	my $pod_path;
+	for my $path (@INC) {
+		for (qw(pod pods)) {
+			if(-e File::Spec->catfile($path, $_, 'perlfunc.pod')) {
+				$pod_path = File::Spec->catfile($path, $_);
+				last;
+			}
+		}
+	}
+
+	# TODO improve this check...
+	return unless defined $pod_path;
+
 	my $pod_index_filename = 'index.txt';
 	unless ( -f $pod_index_filename ) {
 
@@ -145,10 +158,37 @@ sub _pod2html {
 	return $html;
 }
 
+# Returns the list of modes that Farabi actively supports
+sub modes {
+	my $self = shift;
+
+	my %modes = (
+		"clike"      => "C, C++, C#",
+		"css"        => "CSS",
+		"diff"       => "Diff",
+		"javascript" => "JavaScript",
+		"markdown"   => "Github Markdown",
+		"perl"       => "Perl",
+		"plsql"      => "PL/SQL",
+		"properties" => "Properties file",
+		"shell"      => "Shell",
+		"stex"       => "sTeX, LaTeX",
+		"xml"        => "XML/HTML",
+		"yaml"       => "YAML",
+	);
+	
+	my $html = '';
+	for my $mode (sort keys %modes) {
+		$html .= '<option value="' . $mode . '">' . $modes{$mode} . '</option>';
+	}
+
+	$self->render( json => $html );
+}
+
 sub default {
 	my $self = shift;
 
-	# Render template "controller/default.html.ep"
+	# Render template "editor/default.html.ep"
 	$self->render;
 }
 

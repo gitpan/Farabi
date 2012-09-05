@@ -4,7 +4,7 @@ use Mojo::Base 'Mojolicious';
 use File::Basename 'dirname';
 use File::Spec::Functions 'catdir';
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 sub startup {
 	my $app = shift;
@@ -15,10 +15,11 @@ sub startup {
 	$app->renderer->paths->[0] = $app->home->rel_dir('files/templates');
 
 	my $route  = $app->routes;
-	$route->get('/')->to('controller#default');
-	$route->post('/help_search')->to('controller#help_search');
-	$route->post('/perl_tidy')->to('controller#perl_tidy');
-	$route->post('/perl_critic')->to('controller#perl_critic');
+	$route->get('/')->to('editor#default');
+	$route->get('/modes')->to('editor#modes');
+	$route->post('/help_search')->to('editor#help_search');
+	$route->post('/perl_tidy')->to('editor#perl_tidy');
+	$route->post('/perl_critic')->to('editor#perl_critic');
 }
 
 1;
