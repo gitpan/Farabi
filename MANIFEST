@@ -45,6 +45,8 @@ lib/Farabi/files/public/assets/perlito/perlito5.js
 lib/Farabi/files/public/farabi.css
 lib/Farabi/files/public/farabi.js
 lib/Farabi/files/templates/editor/default.html.ep
+lib/Farabi/files/templates/editor/mode_selector.html.ep
+lib/Farabi/files/templates/editor/theme_selector.html.ep
 Makefile.PL
 MANIFEST			This list of files
 MYMETA.json

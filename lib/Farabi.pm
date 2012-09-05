@@ -1,25 +1,24 @@
 package Farabi;
 use Mojo::Base 'Mojolicious';
 
-use File::Basename 'dirname';
-use File::Spec::Functions 'catdir';
-
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 sub startup {
 	my $app = shift;
 
 	# Use content from directories under lib/Farabi/files
-	$app->home->parse(catdir(dirname(__FILE__), 'Farabi'));
-	$app->static->paths->[0] = $app->home->rel_dir('files/public');
+	require File::Basename;
+	require File::Spec::Functions;
+	$app->home->parse( File::Spec::Functions::catdir( File::Basename::dirname(__FILE__), 'Farabi' ) );
+	$app->static->paths->[0]   = $app->home->rel_dir('files/public');
 	$app->renderer->paths->[0] = $app->home->rel_dir('files/templates');
 
-	my $route  = $app->routes;
+	my $route = $app->routes;
 	$route->get('/')->to('editor#default');
-	$route->get('/modes')->to('editor#modes');
 	$route->post('/help_search')->to('editor#help_search');
 	$route->post('/perl_tidy')->to('editor#perl_tidy');
 	$route->post('/perl_critic')->to('editor#perl_critic');
+	$route->post('/typeahead')->to('editor#typeahead');
 }
 
 1;

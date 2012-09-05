@@ -1,13 +1,13 @@
 package Farabi::Editor;
 use Mojo::Base 'Mojolicious::Controller';
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 use Config;
 
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {
-	my $self = shift;
+	my $self   = shift;
 	my $source = $self->param('source');
 
 	# Check for problems
@@ -17,21 +17,22 @@ sub perl_critic {
 	}
 
 	# Hand off to Perl::Critic
-    require Perl::Critic;
-    my @violations = Perl::Critic->new->critique( \$source );
+	require Perl::Critic;
+	my @violations = Perl::Critic->new->critique( \$source );
 
 	my @results;
 	for my $violation (@violations) {
-		push @results, {
+		push @results,
+			{
 			policy      => $violation->policy,
 			line_number => $violation->line_number,
 			description => $violation->description,
 			explanation => $violation->explanation,
 			diagnostics => $violation->diagnostics,
-		};
+			};
 	}
 
- 	$self->render( json => \@results );
+	$self->render( json => \@results );
 }
 
 # Taken from Padre::Plugin::PerlTidy
@@ -39,7 +40,7 @@ sub perl_critic {
 sub perl_tidy {
 	my $self   = shift;
 	my $source = $self->param('source');
-	
+
 	my %result = (
 		'error'  => '',
 		'source' => '',
@@ -76,7 +77,30 @@ sub perl_tidy {
 
 	$result{source} = $destination;
 
-	return $self->render( json => \%result );;
+	return $self->render( json => \%result );
+}
+
+# i.e. Autocompletion
+sub typeahead {
+	my $self = shift;
+	my $query = quotemeta( $self->param('query') // '' );
+
+	my %items;
+	if ( open my $fh, '<', 'index.txt' ) {
+		while (<$fh>) {
+			$items{$1} = 1 if /^(.+?)\t/;
+		}
+		close $fh;
+	}
+
+	my @matches;
+	for my $item ( keys %items ) {
+		if ( $item =~ /$query/ ) {
+			push @matches, $item;
+		}
+	}
+
+	return $self->render( json => \@matches );
 }
 
 sub help_search {
@@ -88,8 +112,8 @@ sub help_search {
 	my $pod_path;
 	for my $path (@INC) {
 		for (qw(pod pods)) {
-			if(-e File::Spec->catfile($path, $_, 'perlfunc.pod')) {
-				$pod_path = File::Spec->catfile($path, $_);
+			if ( -e File::Spec->catfile( $path, $_, 'perlfunc.pod' ) ) {
+				$pod_path = File::Spec->catfile( $path, $_ );
 				last;
 			}
 		}
@@ -104,10 +128,10 @@ sub help_search {
 		# Create an index
 		say "Creating POD index";
 		require Pod::Index::Builder;
-		my $p     = Pod::Index::Builder->new;
+		my $p = Pod::Index::Builder->new;
 		require File::Glob;
-		my @files = File::Glob::glob(File::Spec->catfile($pod_path, '*.pod'));
-		my $t0    = time;
+		my @files = File::Glob::glob( File::Spec->catfile( $pod_path, '*.pod' ) );
+		my $t0 = time;
 		for my $file (@files) {
 			say "Parsing $file";
 			$p->parse_from_file($file);
@@ -122,8 +146,8 @@ sub help_search {
 		filename => $pod_index_filename,
 		filemap  => sub {
 			my $podname = shift;
-			if($podname =~ /^.+::(.+?)$/) {
-				$podname = File::Spec->catfile($pod_path, "$1.pod");
+			if ( $podname =~ /^.+::(.+?)$/ ) {
+				$podname = File::Spec->catfile( $pod_path, "$1.pod" );
 			}
 			return $podname;
 		}
@@ -135,11 +159,12 @@ sub help_search {
 		next if $r->podname =~ /perltoc/;
 		my $podname = $r->podname;
 		$podname =~ s/^.+::(.+)$/$1/;
-		push @help_results, {
+		push @help_results,
+			{
 			'podname' => $podname,
 			'context' => $r->context,
-			'html'    => _pod2html($r->pod),
-		};
+			'html'    => _pod2html( $r->pod ),
+			};
 	}
 
 	$self->render( json => \@help_results );
@@ -152,37 +177,10 @@ sub _pod2html {
 	my $psx = Pod::Simple::XHTML->new;
 	$psx->no_errata_section(1);
 	$psx->no_whining(1);
-	$psx->output_string(\my $html);
+	$psx->output_string( \my $html );
 	$psx->parse_string_document($pod);
 
 	return $html;
-}
-
-# Returns the list of modes that Farabi actively supports
-sub modes {
-	my $self = shift;
-
-	my %modes = (
-		"clike"      => "C, C++, C#",
-		"css"        => "CSS",
-		"diff"       => "Diff",
-		"javascript" => "JavaScript",
-		"markdown"   => "Github Markdown",
-		"perl"       => "Perl",
-		"plsql"      => "PL/SQL",
-		"properties" => "Properties file",
-		"shell"      => "Shell",
-		"stex"       => "sTeX, LaTeX",
-		"xml"        => "XML/HTML",
-		"yaml"       => "YAML",
-	);
-	
-	my $html = '';
-	for my $mode (sort keys %modes) {
-		$html .= '<option value="' . $mode . '">' . $modes{$mode} . '</option>';
-	}
-
-	$self->render( json => $html );
 }
 
 sub default {

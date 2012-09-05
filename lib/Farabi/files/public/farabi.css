@@ -36,3 +36,6 @@ span.CodeMirror-matchhighlight {
 	height: 300px;
 	overflow: auto;
 }
+.typeahead {
+	z-index: 1051;
+}

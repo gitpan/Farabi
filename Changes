@@ -1,5 +1,9 @@
 Changes for Farabi
 
+0.05  2012.9.6
+    - Added missing META.yml information to Makefile.PL
+    - Autocomplete X<> references in your local perl documentation
+
 0.04  2012.9.5
     - Stopped using jQuery UI. Frabi now uses Twitter Bootstrap
     - Fixed output tab selection
