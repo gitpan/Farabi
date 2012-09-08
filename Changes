@@ -1,5 +1,28 @@
 Changes for Farabi
 
+0.06  2012.9.8
+    - Added a search engine selector: Local Help (current working), MetaCPAN and CPAN Search (for the future)
+    - Added an example on how to use a different port.
+    - Preserve newlines with <br/> for Perl::Critic diagnostics
+    - Remove breakpoints unused feature
+    - Trim whitespace while searching
+    - Display editor statistics at the bottom
+    - Changed the location of script/farabi into bin/farabi
+    - Added tab size numeric field
+    - New vertical UI for options and added line numbers on/off checkbox
+    - Added a simple line divider between perl critic results
+    - Better parameter validation
+    - Search autocompletion input is now visible above the editor
+    - Ability to change Perl::Critic severity in Options.
+    - Updated Perlito 5 runtime to fix some Perl compiler bugs. fglock++
+    - Add version information to header
+    - When a Perlito error occurs the log tab is shown.
+    - Added modules name search
+    - POD X<> index now includes all *.pm and *.pm on your local system instead of only the pod|pods folder
+    - Al-Farabi quote of the day is basically hidden after 8 seconds. bowtie++
+    - Refactored code
+    - Improved documentation
+
 0.05  2012.9.6
     - Added missing META.yml information to Makefile.PL
     - Autocomplete X<> references in your local perl documentation

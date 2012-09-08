@@ -39,3 +39,6 @@ span.CodeMirror-matchhighlight {
 .typeahead {
 	z-index: 1051;
 }
+.farabi-centered {
+	text-align: center;
+}

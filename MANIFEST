@@ -1,3 +1,4 @@
+bin/farabi
 Changes
 lib/Farabi.pm
 lib/Farabi/Editor.pm
@@ -44,15 +45,16 @@ lib/Farabi/files/public/assets/humane/libnotify.css
 lib/Farabi/files/public/assets/perlito/perlito5.js
 lib/Farabi/files/public/farabi.css
 lib/Farabi/files/public/farabi.js
+lib/Farabi/files/templates/editor/critic_severity_selector.html.ep
 lib/Farabi/files/templates/editor/default.html.ep
 lib/Farabi/files/templates/editor/mode_selector.html.ep
+lib/Farabi/files/templates/editor/sample_script.html.ep
 lib/Farabi/files/templates/editor/theme_selector.html.ep
 Makefile.PL
 MANIFEST			This list of files
 MYMETA.json
 MYMETA.yml
 README
-script/farabi
 t/basic.t
 META.yml                                 Module YAML meta-data (added by MakeMaker)
 META.json                                Module JSON meta-data (added by MakeMaker)

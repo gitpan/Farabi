@@ -1,17 +1,12 @@
 Farabi
 
-This is a web-based Perl editor that runs inside your favorite modern
-browser.
-
-This is the successor of Mojolicious::Plugin::Pedro.
-
-Farabi is a web-based Perl editor that runs inside your favorite modern browser.
+This is a modern web-based Perl editor that runs inside your favorite browser.
 
 To start Farabi, please type the following command:
 
 $ farabi daemon
 
-To access Farabi, please type http://127.0.0.1:3000/ after it.
+Open http://127.0.0.1:3000/ in your favourite modern browser.
 
 INSTALLATION
 

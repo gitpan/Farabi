@@ -14,7 +14,7 @@ WriteMakefile(
 		'Perl::Tidy'   => '20120714',
 		'Perl::Critic' => '1.118',
 	},
-	EXE_FILES  => ['script/farabi'],
+	EXE_FILES  => ['bin/farabi'],
 	test       => { TESTS => 't/*.t' },
 	META_MERGE => {
 		no_index => {

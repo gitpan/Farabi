@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Farabi - Modern Perl Editor</title>
+		<title>Farabi: Modern Perl Editor</title>
 		<!-- CodeMirror CSS -->
 		<link rel="stylesheet" href="assets/codemirror/codemirror.css" type="text/css" />
 		<link rel="stylesheet" href="assets/codemirror/dialog.css" />
@@ -38,65 +38,104 @@
 		<script src="assets/codemirror/util/dialog.js"></script>
 		<!-- Humane.js CSS -->
 		<script src="assets/humane/humane.min.js"></script>
-		<!-- Farabi startup -->
-		<script type="text/javascript">
-			$(function() {
-				StartFarabi("editor");
-			});
-		</script>
 	</head>
 	<body>
 		<div class="container">
 		<div class="row">
-			<div class="span1"></div>
-			<div class="span10">
-				<h1>Farabi - Modern Web-based Perl Editor</h1>
+			<div class="span12 farabi-centered">
+				<h1>Farabi, a Modern Perl editor v<%= $Farabi::VERSION %></h1>
 			</div>
 		</div>
-		<div class="row">
-			<div class="span12">
+		<div class="row farabi-quote-of-the-day">
+			<div class="span12 farabi-centered">
 				<blockquote>
 					<p>An art, which has an aim to achieve the beauty, is called a philosophy or in the absolute sense it is named wisdom.</p>
-					<small>Al-Farabi</small>
+					<small><a target="_blank" href="http://en.wikipedia.org/wiki/Al-Farabi">Al-Farabi</a></small>
 				</blockquote>
 			</div>
 		</div>
+		<div class="row form-inline">
+			<div class="pull-right">
+				<div class="input-append">
+					<input type="text" class="span3 topic" data-provide="typeahead" data-items="4">
+					<button class="btn" type="button">Search</button>
+				</div>
+				<div class="btn-group">
+					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+						Local Help
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="#">Local Help</a></li>
+						<li><a href="#">MetaCPAN.org</a></li>
+						<li><a href="#">CPAN Search</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
 		<div class="row">
+				<br/>
 				<div class="span3">
-					<div class="accordion" id="accordion2">
+					<div class="accordion" id="accordion">
 						<div class="accordion-group">
 							<div class="accordion-heading">
-								<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-								Actions
+								<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+								<i class="icon-tasks"></i> Tasks
 								</a>
 							</div>
 							<div id="collapseOne" class="accordion-body collapse in">
 								<div class="accordion-inner">
-									<p><a href="#" class="perl_tidy_button">Tidy Code</a></p>
-									<p><a href="#" class="perl_critic_button">Critique Code</a></p>
-									<p><a href="#" class="run_in_browser_button">Run in Browser</a></p>
+									<ul class="nav nav-list">
+									<li><a href="#" class="perl_tidy_button"><i class="icon-th"></i> Tidy Code</a></li>
+									<li><a href="#" class="perl_critic_button"><i class="icon-ok-sign"></i> Critique Code</a></li>
+									<li><a href="#" class="run_in_browser_button"><i class="icon-play"></i> Run in Browser</a></li>
+									</ul>
 								</div>
 							</div>
 						</div>
 						<div class="accordion-group">
 							<div class="accordion-heading">
-								<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-								Options
+								<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+								<i class="icon-wrench"></i> Options
 								</a>
 							</div>
 							<div id="collapseTwo" class="accordion-body collapse">
 								<div class="accordion-inner">
 									<table>
 										<tr>
-											<td>Mode:</td>
 											<td>
+												<strong>Mode:</strong><br>
 												%= include 'editor/mode_selector'
 											</td>
 										</tr>
 										<tr>
-											<td>Theme:</td>
 											<td>
+												<strong>Theme:<strong><br>
 												%= include 'editor/theme_selector'
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<strong>Critic Severity:</strong><br>
+												%= include 'editor/critic_severity_selector'
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label class="checkbox">
+													<input id="line_numbers_checkbox" type="checkbox" value="" checked>
+													<strong>Line Numbers?</strong>
+												</label>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<div class="control-group">
+													<label class="control-label" for="inputError"><strong>Tab Size:</strong></label>
+													<div class="controls">
+														<input class="input-mini" type="text" value="4" id="tab_size">
+													</div>
+												</div>
 											</td>
 										</tr>
 									</table>
@@ -106,7 +145,7 @@
 						<div class="accordion-group">
 							<div class="accordion-heading">
 								<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
-								Help
+								<i class="icon-info-sign"></i> Help
 								</a>
 							</div>
 							<div id="collapseThree" class="accordion-body collapse">
@@ -134,59 +173,29 @@
 					<tbody>
 						<tr>
 							<td>
-								<textarea id="editor" name="editor" class="editor">#!/usr/bin/env perl
-use 5.010;
-use strict;
-use warnings;
-
-say 'START';
-
-my $fred = 'fred';
-
-foreach ( 0 .. 7 ) {
-my $line = $_;
-last unless defined $line; # exit loop if $line is not defined
-print "$_ : $line \n";
-}
-
-my %HoH = (
-flintstones=>{
-husband=>"fred",
-pal=>"barney",
-},
-jetsons=>{
-husband=>"george",
-wife=>"jane",
-"his boy"=>"elroy",  # Key quotes needed.
-},
-simpsons=>{husband=>"homer",wife=>"marge",kid=>"bart",},
-);
-
-say 'END';
-
-1;
-__END__</textarea>
+								<textarea id="editor" name="editor" class="editor"><%= include "editor/sample_script" %></textarea>
 							</td>
 						</tr>
 						<tr>
 							<td>
-							&nbsp;
+								<div id="editor_stats" class="pull-right"></div>
+							</div>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<ul id="myTab" class="nav nav-tabs">
+								<ul id="outputTab" class="nav nav-tabs">
 									<li class="active"><a href="#output-tab" data-toggle="tab">Output</a></li>
 									<li class=""><a href="#log-tab" data-toggle="tab">Log</a></li>
 								</ul>
-								<div id="myTabContent" class="tab-content">
+								<div id="outputTabContent" class="tab-content">
 									<div class="tab-pane fade active in" id="output-tab">
 											<textarea id="output" readonly="true" cols="70" rows="5"></textarea>
 									</div>
 									<div class="tab-pane fade" id="log-tab">
 											<textarea id="log-result" readonly="true" cols="70" rows="5"></textarea>
 									</div>
-								</div>	
+								</div>
 							</td>
 						</tr>
 					</tbody>
@@ -199,10 +208,6 @@ __END__</textarea>
 			<h3 id="myModalLabel">Search Perl Documentation</h3>
 			</div>
 			<div class="modal-body">
-				<div class="input-append">
-					<input type="text" class="span3 topic" style="margin: 0 auto;" data-provide="typeahead" data-items="4" data-source='["$_","$$","$*", "perlsyn"]'>
-					<button class="btn" type="button">Search</button>
-				</div>
 				<select class="results">
 				</select>
 				<div class="preview">
@@ -211,7 +216,7 @@ __END__</textarea>
 			<div class="modal-footer">
 				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 			</div>
-		</div>	
+		</div>
 		<div class="modal" id="perl_critic_dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -224,7 +229,6 @@ __END__</textarea>
 			<div class="modal-footer">
 				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 			</div>
-		</div>	
-		
+		</div>
 	</body>
 </html>

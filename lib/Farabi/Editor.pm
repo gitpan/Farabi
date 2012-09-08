@@ -1,24 +1,29 @@
 package Farabi::Editor;
 use Mojo::Base 'Mojolicious::Controller';
 
-our $VERSION = '0.05';
-
-use Config;
+our $VERSION = '0.06';
 
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {
 	my $self   = shift;
 	my $source = $self->param('source');
+	my $severity  = $self->param('severity');
 
-	# Check for problems
-	unless ( defined $source ) {
-		$self->render( json => [] );
+	# Check source parameter
+	if( !defined $source ) {
+		$self->app->log->warn('Undefined "source" parameter');
 		return;
 	}
 
+	# Check severity parameter
+	if( !defined $severity ) {
+		$self->app->log->warn('Undefined "severity" parameter');
+		return;
+	};
+
 	# Hand off to Perl::Critic
 	require Perl::Critic;
-	my @violations = Perl::Critic->new->critique( \$source );
+	my @violations = Perl::Critic->new(-severity => $severity)->critique( \$source );
 
 	my @results;
 	for my $violation (@violations) {
@@ -41,16 +46,16 @@ sub perl_tidy {
 	my $self   = shift;
 	my $source = $self->param('source');
 
+	# Check 'source' parameter
+	unless ( defined $source ) {
+		$self->app->log->warn('Undefined "source" parameter');
+		return;
+	}
+
 	my %result = (
 		'error'  => '',
 		'source' => '',
 	);
-
-	# Check for problems
-	unless ( defined $source ) {
-		$self->render( json => \%result );
-		return;
-	}
 
 	my $destination = undef;
 	my $errorfile   = undef;
@@ -93,12 +98,24 @@ sub typeahead {
 		close $fh;
 	}
 
+	if ( open my $fh, '<', 'index-modules.txt' ) {
+		while (<$fh>) {
+			chomp;
+			my ($module, $file) = split /\t/;
+			$items{$module} = 1;
+		}
+		close $fh;
+	}
+
 	my @matches;
 	for my $item ( keys %items ) {
-		if ( $item =~ /$query/ ) {
+		if ( $item =~ /$query/i ) {
 			push @matches, $item;
 		}
 	}
+
+	# Sort so that shorter matches appear first
+	@matches = sort @matches;
 
 	return $self->render( json => \@matches );
 }
@@ -125,19 +142,34 @@ sub help_search {
 	my $pod_index_filename = 'index.txt';
 	unless ( -f $pod_index_filename ) {
 
+		# Find all the .pm and .pod files in @INC
+		$self->app->log->info("Finding all of *.pm and *.pod files in Perl search path");
+		require File::Find::Rule;
+		my @files = File::Find::Rule->file()->name( '*.pm', '*.pod' )->in(@INC);
+
 		# Create an index
-		say "Creating POD index";
+		$self->app->log->info("Creating POD index");
 		require Pod::Index::Builder;
 		my $p = Pod::Index::Builder->new;
-		require File::Glob;
-		my @files = File::Glob::glob( File::Spec->catfile( $pod_path, '*.pod' ) );
 		my $t0 = time;
 		for my $file (@files) {
-			say "Parsing $file";
+			$self->app->log->info("Parsing $file");
 			$p->parse_from_file($file);
 		}
-		say "Job took " . ( time - $t0 ) . " seconds";
+		$self->app->log->info("Job took " . ( time - $t0 ) . " seconds");
 		$p->print_index($pod_index_filename);
+	}
+
+	my $module_index_filename = 'index-modules.txt';
+	unless ( -f $module_index_filename ) {
+		$self->app->log->info("Creating Module index");
+		my %modules = $self->_find_installed_modules;
+		if ( open my $fh, ">", $module_index_filename ) {
+			for my $module (sort keys %modules) {
+				say $fh "$module\t" . $modules{$module};
+			}
+			close $fh;
+		}
 	}
 
 	# Search for a keyword in the file-based index
@@ -148,6 +180,10 @@ sub help_search {
 			my $podname = shift;
 			if ( $podname =~ /^.+::(.+?)$/ ) {
 				$podname = File::Spec->catfile( $pod_path, "$1.pod" );
+				unless( -e $podname ) {
+					$podname = s/::/\//g;
+					$podname .= '.pm';
+				}
 			}
 			return $podname;
 		}
@@ -156,7 +192,7 @@ sub help_search {
 	my @results = $q->search($topic);
 	my @help_results;
 	for my $r (@results) {
-		next if $r->podname =~ /perltoc/;
+		next if $r->podname =~ /perltoc/i;
 		my $podname = $r->podname;
 		$podname =~ s/^.+::(.+)$/$1/;
 		push @help_results,
@@ -167,7 +203,67 @@ sub help_search {
 			};
 	}
 
+	if ( open my $fh, '<', $module_index_filename ) {
+		my $filter = quotemeta $topic;
+		while (<$fh>) {
+			chomp;
+			my ($module, $filename) = split /\t/;
+			if ($module =~ /^$filter$/i) {
+				push @help_results,
+					{
+					'podname' => $module,
+					'context' => '',
+					'html'    => _pod2html( $self->_module_pod($filename) ),
+					},
+					;
+			}
+		}
+		close $fh;
+	}
+
 	$self->render( json => \@help_results );
+}
+
+sub _module_pod {
+	my $self     = shift;
+	my $filename = shift;
+
+	$self->app->log->info("Opening '$filename'");
+	my $pod = '';
+	if(open my $fh, '<', $filename) {
+		$pod = do { local $/ = <$fh> };
+		close $fh;
+	} else {
+		$self->app->log->warn("Cannot open $filename");
+	}
+
+	return $pod;
+}
+
+#
+# q{Taken from Padre}... Written by AZAWAWI :)
+#
+# Finds installed CPAN modules via @INC
+# This solution resides at:
+# http://stackoverflow.com/questions/115425/how-do-i-get-a-list-of-installed-cpan-modules
+sub _find_installed_modules {
+	my $self = shift;
+
+	my %modules;
+	require File::Find::Rule;
+	require File::Basename;
+	foreach my $path (@INC) {
+		next if $path eq '.'; # Traversing this is a bad idea
+		                      # as it may be the root of the file
+		                      # system or the home directory
+		foreach my $file ( File::Find::Rule->name( '*.pm', '*.pod' )->in($path) ) {
+			my $module = substr( $file, length($path) + 1 );
+			$module =~ s/.(pm|pod)$//;
+			$module =~ s{[\\/]}{::}g;
+			$modules{$module} = $file;
+		}
+	}
+	return %modules;
 }
 
 sub _pod2html {
