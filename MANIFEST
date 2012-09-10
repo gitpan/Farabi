@@ -47,6 +47,7 @@ lib/Farabi/files/public/farabi.css
 lib/Farabi/files/public/farabi.js
 lib/Farabi/files/templates/editor/critic_severity_selector.html.ep
 lib/Farabi/files/templates/editor/default.html.ep
+lib/Farabi/files/templates/editor/menu.html.ep
 lib/Farabi/files/templates/editor/mode_selector.html.ep
 lib/Farabi/files/templates/editor/sample_script.html.ep
 lib/Farabi/files/templates/editor/theme_selector.html.ep

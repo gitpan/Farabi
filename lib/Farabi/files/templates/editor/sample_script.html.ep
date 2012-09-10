@@ -30,3 +30,15 @@ say 'END';
 
 1;
 __END__
+
+=head1 NAME
+
+MyModule - My first module
+
+=head1 SYNOPSIS
+
+  use MyModule;
+  my $o = MyModule->new;
+  ...
+
+=cut

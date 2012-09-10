@@ -1,7 +1,7 @@
 package Farabi;
 use Mojo::Base 'Mojolicious';
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 sub startup {
 	my $app = shift;
@@ -16,12 +16,14 @@ sub startup {
 	$app->static->paths->[0]   = $app->home->rel_dir('files/public');
 	$app->renderer->paths->[0] = $app->home->rel_dir('files/templates');
 
+	# Define routes
 	my $route = $app->routes;
 	$route->get('/')->to('editor#default');
 	$route->post('/help_search')->to('editor#help_search');
 	$route->post('/perl_tidy')->to('editor#perl_tidy');
 	$route->post('/perl_critic')->to('editor#perl_critic');
 	$route->post('/typeahead')->to('editor#typeahead');
+	$route->post('/pod2html')->to('editor#pod2html');
 }
 
 1;
@@ -45,11 +47,9 @@ Farabi - Modern Perl editor
 
 This is a modern web-based Perl editor that runs inside your favorite browser.
 
-Please run the following command automatically:
+Please run the following command and then open http://127.0.0.1:3000 in your browser:
 
   farabi daemon
-
-Open http://127.0.0.1:3000/ in your browser
 
 =head1 SEE ALSO
 

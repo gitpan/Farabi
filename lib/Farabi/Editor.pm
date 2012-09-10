@@ -1,29 +1,29 @@
 package Farabi::Editor;
 use Mojo::Base 'Mojolicious::Controller';
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {
-	my $self   = shift;
-	my $source = $self->param('source');
-	my $severity  = $self->param('severity');
+	my $self     = shift;
+	my $source   = $self->param('source');
+	my $severity = $self->param('severity');
 
 	# Check source parameter
-	if( !defined $source ) {
+	if ( !defined $source ) {
 		$self->app->log->warn('Undefined "source" parameter');
 		return;
 	}
 
 	# Check severity parameter
-	if( !defined $severity ) {
+	if ( !defined $severity ) {
 		$self->app->log->warn('Undefined "severity" parameter');
 		return;
-	};
+	}
 
 	# Hand off to Perl::Critic
 	require Perl::Critic;
-	my @violations = Perl::Critic->new(-severity => $severity)->critique( \$source );
+	my @violations = Perl::Critic->new( -severity => $severity )->critique( \$source );
 
 	my @results;
 	for my $violation (@violations) {
@@ -101,7 +101,7 @@ sub typeahead {
 	if ( open my $fh, '<', 'index-modules.txt' ) {
 		while (<$fh>) {
 			chomp;
-			my ($module, $file) = split /\t/;
+			my ( $module, $file ) = split /\t/;
 			$items{$module} = 1;
 		}
 		close $fh;
@@ -150,13 +150,13 @@ sub help_search {
 		# Create an index
 		$self->app->log->info("Creating POD index");
 		require Pod::Index::Builder;
-		my $p = Pod::Index::Builder->new;
+		my $p  = Pod::Index::Builder->new;
 		my $t0 = time;
 		for my $file (@files) {
 			$self->app->log->info("Parsing $file");
 			$p->parse_from_file($file);
 		}
-		$self->app->log->info("Job took " . ( time - $t0 ) . " seconds");
+		$self->app->log->info( "Job took " . ( time - $t0 ) . " seconds" );
 		$p->print_index($pod_index_filename);
 	}
 
@@ -165,7 +165,7 @@ sub help_search {
 		$self->app->log->info("Creating Module index");
 		my %modules = $self->_find_installed_modules;
 		if ( open my $fh, ">", $module_index_filename ) {
-			for my $module (sort keys %modules) {
+			for my $module ( sort keys %modules ) {
 				say $fh "$module\t" . $modules{$module};
 			}
 			close $fh;
@@ -180,7 +180,7 @@ sub help_search {
 			my $podname = shift;
 			if ( $podname =~ /^.+::(.+?)$/ ) {
 				$podname = File::Spec->catfile( $pod_path, "$1.pod" );
-				unless( -e $podname ) {
+				unless ( -e $podname ) {
 					$podname = s/::/\//g;
 					$podname .= '.pm';
 				}
@@ -207,8 +207,8 @@ sub help_search {
 		my $filter = quotemeta $topic;
 		while (<$fh>) {
 			chomp;
-			my ($module, $filename) = split /\t/;
-			if ($module =~ /^$filter$/i) {
+			my ( $module, $filename ) = split /\t/;
+			if ( $module =~ /^$filter$/i ) {
 				push @help_results,
 					{
 					'podname' => $module,
@@ -230,7 +230,7 @@ sub _module_pod {
 
 	$self->app->log->info("Opening '$filename'");
 	my $pod = '';
-	if(open my $fh, '<', $filename) {
+	if ( open my $fh, '<', $filename ) {
 		$pod = do { local $/ = <$fh> };
 		close $fh;
 	} else {
@@ -264,6 +264,15 @@ sub _find_installed_modules {
 		}
 	}
 	return %modules;
+}
+
+# Convert Perl POD source to HTML
+sub pod2html {
+	my $self = shift;
+	my $source = $self->param('source') // '';
+
+	my $html = _pod2html($source);
+	return $self->render( json => $html );
 }
 
 sub _pod2html {

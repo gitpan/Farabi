@@ -1,0 +1,87 @@
+<br />
+<div class="span3">
+	<div class="accordion" id="accordion">
+		<div class="accordion-group">
+			<div class="accordion-heading">
+				<a class="accordion-toggle" data-toggle="collapse"
+					data-parent="#accordion" href="#collapseOne"> <i
+					class="icon-tasks"></i> Tasks
+				</a>
+			</div>
+			<div id="collapseOne" class="accordion-body collapse in">
+				<div class="accordion-inner">
+					<ul class="nav nav-list">
+						<li><a href="#" class="perl_tidy_button"><i
+								class="icon-th"></i> Tidy Code</a></li>
+						<li><a href="#" class="perl_critic_button"><i
+								class="icon-ok-sign"></i> Critique Code</a></li>
+						<li><a href="#" class="run_in_browser_button"><i
+								class="icon-play"></i> Run in Browser</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="accordion-group">
+			<div class="accordion-heading">
+				<a class="accordion-toggle" data-toggle="collapse"
+					data-parent="#accordion" href="#collapseTwo"> <i
+					class="icon-wrench"></i> Options
+				</a>
+			</div>
+			<div id="collapseTwo" class="accordion-body collapse">
+				<div class="accordion-inner">
+					<table>
+						<tr>
+							<td><strong>Mode:</strong><br><%= include
+								"editor/mode_selector"%></td>
+						</tr>
+						<tr>
+							<td><strong>Theme:<strong><br><%=
+										include "editor/theme_selector"%></td>
+						</tr>
+						<tr>
+							<td><strong>Critic Severity:</strong><br><%= include
+								"editor/critic_severity_selector"%></td>
+						</tr>
+						<tr>
+							<td><label class="checkbox"> <input
+									id="line_numbers_checkbox" type="checkbox" value="" checked>
+									<strong>Line Numbers?</strong>
+							</label></td>
+						</tr>
+						<tr>
+							<td>
+								<div class="control-group">
+									<label class="control-label" for="inputError"><strong>Tab
+											Size:</strong></label>
+									<div class="controls">
+										<input class="input-mini" type="text" value="4"
+											id="tab_size">
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="accordion-group">
+			<div class="accordion-heading">
+				<a class="accordion-toggle" data-toggle="collapse"
+					data-parent="#accordion2" href="#collapseThree"> <i
+					class="icon-star"></i> Help
+				</a>
+			</div>
+			<div id="collapseThree" class="accordion-body collapse">
+				<div class="accordion-inner">
+					<ul class="nav nav-list">
+						<li><a href="#" class="help_button"><i
+								class="icon-question-sign"></i> Getting started</a></li>
+						<li><a href="#" class="about_button"><i
+								class="icon-info-sign"></i> About Frabi</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

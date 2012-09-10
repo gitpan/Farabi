@@ -1,5 +1,11 @@
 Changes for Farabi
 
+0.07  2012.9.10
+    - Added POD tab that automatically shows editor POD as HTML in realtime
+    - Added Help and about dialog
+    - Various HTML fixes that fix the long editor bug
+    - Improved documentation
+
 0.06  2012.9.8
     - Added a search engine selector: Local Help (current working), MetaCPAN and CPAN Search (for the future)
     - Added an example on how to use a different port.
