@@ -2,14 +2,12 @@ bin/farabi
 Changes
 lib/Farabi.pm
 lib/Farabi/Editor.pm
-lib/Farabi/files/public/assets/bootstrap/css/bootstrap-responsive.min.css
 lib/Farabi/files/public/assets/bootstrap/css/bootstrap.min.css
 lib/Farabi/files/public/assets/bootstrap/img/glyphicons-halflings-white.png
 lib/Farabi/files/public/assets/bootstrap/img/glyphicons-halflings.png
 lib/Farabi/files/public/assets/bootstrap/js/bootstrap.min.js
 lib/Farabi/files/public/assets/codemirror/codemirror.css
 lib/Farabi/files/public/assets/codemirror/codemirror.js
-lib/Farabi/files/public/assets/codemirror/dialog.css
 lib/Farabi/files/public/assets/codemirror/mode/clike.js
 lib/Farabi/files/public/assets/codemirror/mode/css.js
 lib/Farabi/files/public/assets/codemirror/mode/diff.js
@@ -35,6 +33,7 @@ lib/Farabi/files/public/assets/codemirror/theme/night.css
 lib/Farabi/files/public/assets/codemirror/theme/rubyblue.css
 lib/Farabi/files/public/assets/codemirror/theme/vibrant-ink.css
 lib/Farabi/files/public/assets/codemirror/theme/xq-dark.css
+lib/Farabi/files/public/assets/codemirror/util/dialog.css
 lib/Farabi/files/public/assets/codemirror/util/dialog.js
 lib/Farabi/files/public/assets/codemirror/util/loadmode.js
 lib/Farabi/files/public/assets/codemirror/util/match-highlighter.js
@@ -42,12 +41,11 @@ lib/Farabi/files/public/assets/codemirror/util/search.js
 lib/Farabi/files/public/assets/codemirror/util/searchcursor.js
 lib/Farabi/files/public/assets/humane/humane.min.js
 lib/Farabi/files/public/assets/humane/libnotify.css
-lib/Farabi/files/public/assets/perlito/perlito5.js
+lib/Farabi/files/public/assets/perlito/perlito5.min.js
 lib/Farabi/files/public/farabi.css
 lib/Farabi/files/public/farabi.js
 lib/Farabi/files/templates/editor/critic_severity_selector.html.ep
 lib/Farabi/files/templates/editor/default.html.ep
-lib/Farabi/files/templates/editor/menu.html.ep
 lib/Farabi/files/templates/editor/mode_selector.html.ep
 lib/Farabi/files/templates/editor/sample_script.html.ep
 lib/Farabi/files/templates/editor/theme_selector.html.ep
@@ -56,6 +54,7 @@ MANIFEST			This list of files
 MYMETA.json
 MYMETA.yml
 README
-t/basic.t
+t/00-basic.t
+xt/eol.t
 META.yml                                 Module YAML meta-data (added by MakeMaker)
 META.json                                Module JSON meta-data (added by MakeMaker)

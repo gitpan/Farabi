@@ -23,13 +23,15 @@ no_index:
     - share
     - inc
 requires:
+  IO::String: 1.08
   Mojolicious: 3.36
   Perl::Critic: 1.118
   Perl::Tidy: 20120714
   Pod::Index: 0.14
+  Pod::Parser: 1.51
 resources:
   bugtracker: http://code.google.com/p/farabi/issues/list
   homepage: http://code.google.com/p/farabi/
   license: http://dev.perl.org/licenses/
   repository: http://farabi.googlecode.com/svn/trunk/
-version: 0.07
+version: 0.08

@@ -1,7 +1,7 @@
 package Farabi::Editor;
 use Mojo::Base 'Mojolicious::Controller';
 
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {
@@ -286,6 +286,40 @@ sub _pod2html {
 	$psx->parse_string_document($pod);
 
 	return $html;
+}
+
+# Code borrowed from Padre::Plugin::Experimento - written by me :)
+sub pod_check {
+	my $self = shift;
+	my $source = $self->param('source') // '';
+
+	require Pod::Checker;
+	require IO::String;
+
+	my $checker = Pod::Checker->new;
+	my $output  = '';
+	$checker->parse_from_file( IO::String->new($source), IO::String->new($output) );
+
+	my $num_errors   = $checker->num_errors;
+	my $num_warnings = $checker->num_warnings;
+	my @problems;
+
+	say "$num_warnings, $num_errors";
+
+	# Handle only errors/warnings. Forget about 'No POD in current document'
+	if ( $num_errors != -1 and ( $num_errors != 0 or $num_warnings != 0 ) ) {
+		for ( split /^/, $output ) {
+			if (/^(.+?) at line (\d+) in file \S+$/) {
+				push @problems,
+					{
+					message => $1,
+					line    => int($2),
+					};
+			}
+		}
+	}
+
+	return $self->render( json => \@problems );
 }
 
 sub default {

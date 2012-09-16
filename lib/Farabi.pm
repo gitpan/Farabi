@@ -1,7 +1,7 @@
 package Farabi;
 use Mojo::Base 'Mojolicious';
 
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 sub startup {
 	my $app = shift;
@@ -24,6 +24,7 @@ sub startup {
 	$route->post('/perl_critic')->to('editor#perl_critic');
 	$route->post('/typeahead')->to('editor#typeahead');
 	$route->post('/pod2html')->to('editor#pod2html');
+	$route->post('/pod_check')->to('editor#pod_check');
 }
 
 1;
@@ -50,6 +51,9 @@ This is a modern web-based Perl editor that runs inside your favorite browser.
 Please run the following command and then open http://127.0.0.1:3000 in your browser:
 
   farabi daemon
+
+Please note that Farabi is purely expermintal at the moment. Things are moving fast
+as I try some new ideas. Feedback is welcome.
 
 =head1 SEE ALSO
 
@@ -103,9 +107,13 @@ If you find this module useful, please rate it in:
 
 L<http://cpanratings.perl.org/d/Farabi>
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Ahmad M. Zawawi E<lt>ahmad.zawawi@gmail.comE<gt>
+
+=head1 CONTRIBUTORS
+
+Kevin Dawson E<lt>bowtie@cpan.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 

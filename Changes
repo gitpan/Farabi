@@ -1,5 +1,33 @@
 Changes for Farabi
 
+0.08  2012.9.16
+    - Added a help icon over the annotated line
+    - Bigger side-by-side POD preview
+    - Bigger editor
+    - Perl mode is by default selected
+    - Dynamically load CodeMirror themes
+    - Run perl critic on severity option change
+    - Better editor statistics. More Humane :)
+    - Add POD checking using Pod::Checker
+    - Perl Critic and pod checking are performed on every editor change
+    - Removed pod check and critique code buttons. There are always run in the background.
+    - Removed humane.js notification noise from perl critic and checker
+    - Added proper POD check and Perl::Critic under-the-line annotations
+    - 20% smaller minified Perlito 5
+    - Improved documentation
+    - Perl::Critic violations are shown under the line where they occurred and when clicked
+      they open the detailed dialog for that violation.
+    - Switched to development CodeMirror v3 branch
+    - Updated sample script POD by Kevin dawson (bowtie++)
+    - Added Perl 5.10.1 requirement at the beginning because Mojolicious already defines that. We do not want to fail later.
+    - Added 'Learn' tab
+    - Updated humane.min.js to 3.0.5
+    - A better about dialog that shows more technologies used version information
+    - Added dummy Perlito IO API implementation. use Modern::Perl; does not croak anymore but does nothing at the same time :)
+    - F5 is now "Run in browser". Please note that it is only active when the editor is focused.
+    - Fixed long-line-in-editor layout bug
+    - xt/eol.t (release testing) now checks all files for UNIX newlines.
+
 0.07  2012.9.10
     - Added POD tab that automatically shows editor POD as HTML in realtime
     - Added Help and about dialog
