@@ -9,12 +9,17 @@ WriteMakefile(
 	ABSTRACT_FROM => 'lib/Farabi.pm',
 	AUTHOR        => 'Ahmad M. Zawawi <ahmad.zawawi@gmail.com>',
 	PREREQ_PM     => {
-		'IO::String'   => '1.08',
-		'Mojolicious'  => '3.36',
-		'Perl::Critic' => '1.118',
-		'Perl::Tidy'   => '20120714',
-		'Pod::Index'   => '0.14',
-		'Pod::Parser'  => '1.51',
+		'File::Find::Rule' => '0.33',
+		'IO::String'       => '1.08',
+		'Mojolicious'      => '3.36',
+		'Perl::Critic'     => '1.118',
+		'Perl::Tidy'       => '20120714',
+		'Pod::Index'       => '0.14',
+		'Pod::Parser'      => '1.51',
+
+		# For testing
+		'Test::More'       => '0.98',
+		'Test::EOL'	       => '1.5', 
 	},
 	EXE_FILES  => ['bin/farabi'],
 	test       => { TESTS => 't/*.t xt/*.t' },
