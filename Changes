@@ -1,9 +1,12 @@
 Changes for Farabi
 
+0.10  2012.9.20
+    - Fix xt/eol.t for CPAN testers with RELEASE_TESTING enabled (CPAN testers; Thank you)
+
 0.09  2012.9.19
     - Added missing File::Find::Rule to dependencies (Yuni Kim; Thank you)
-    - Added missing Test::EOL and Test::More dependencies.
-    - Update CodeMirror to 20481c3 for more bug fixes.
+    - Added missing Test::EOL and Test::More dependencies
+    - Update CodeMirror to 20481c3 for more bug fixes
 
 0.08  2012.9.16
     - Added a help icon over the annotated line

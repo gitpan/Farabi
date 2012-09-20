@@ -18,8 +18,8 @@ WriteMakefile(
 		'Pod::Parser'      => '1.51',
 
 		# For testing
-		'Test::More'       => '0.98',
-		'Test::EOL'	       => '1.5', 
+		'Test::More' => '0.98',
+		'Test::EOL'  => '1.5',
 	},
 	EXE_FILES  => ['bin/farabi'],
 	test       => { TESTS => 't/*.t xt/*.t' },

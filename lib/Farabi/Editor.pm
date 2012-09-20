@@ -1,7 +1,7 @@
 package Farabi::Editor;
 use Mojo::Base 'Mojolicious::Controller';
 
-our $VERSION = '0.09';
+our $VERSION = '0.10';
 
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {

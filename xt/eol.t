@@ -16,8 +16,8 @@ use Test::EOL;
 use File::Find::Rule;
 
 my @files =
-	File::Find::Rule->file->name( '*.pm', '*.pod', '*.pl', '*.t', '*.ep', '*.js', '*.css' )->in( 'lib', 't', 'share' );
-@files = ( @files, 'MANIFEST.SKIP', 'README', 'TODO', 'Changes' );
+	File::Find::Rule->file->name( '*.pm', '*.pod', '*.pl', '*.t', '*.ep', '*.js', '*.css' )->in( 'lib', 't' );
+@files = ( @files, 'README', 'Changes' );
 plan( tests => scalar @files );
 foreach my $file (@files) {
 	eol_unix_ok( $file, "$file is ^M free" );

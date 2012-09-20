@@ -178,7 +178,7 @@
 					</tr>
 					<tr>
 						<td><a target="_blank" href="http://codemirror.net/">CodeMirror</a></td>
-						<td><span id="codemirror-version">2.33</span></td>
+						<td><span id="codemirror-version"></span></td>
 					</tr>
 					<tr>
 						<td><a target="_blank" href="http://wavded.github.com/humane-js">Humane.js</a></td>
