@@ -1,7 +1,9 @@
 package Farabi::Editor;
 use Mojo::Base 'Mojolicious::Controller';
 
-our $VERSION = '0.11';
+use Capture::Tiny qw(capture);
+
+our $VERSION = '0.12';
 
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {
@@ -38,6 +40,38 @@ sub perl_critic {
 	}
 
 	$self->render( json => \@results );
+}
+
+sub perl_execute {
+	my $self     = shift;
+	my $source   = $self->param('source');
+
+	# Check source parameter
+	unless ( defined $source ) {
+		$self->app->log->warn('Undefined "source" parameter');
+		return;
+	}
+
+	unless ( $self->app->unsafe_features ) {
+		$self->app->log->warn('FARABI_UNSAFE not defined');
+		return;
+	}
+	
+	require File::Temp;
+	my $tmp = File::Temp->new;
+	print $tmp $source;
+	close $tmp;
+
+	my ($stdout, $stderr, $exit) = capture {
+		system($^X, $tmp->filename);
+	};
+	my $result = {
+		stdout => $stdout,
+		stderr => $stderr,
+		'exit' => $exit,
+	};
+	
+	$self->render(json => $result);
 }
 
 # Taken from Padre::Plugin::PerlTidy

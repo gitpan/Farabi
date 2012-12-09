@@ -37,6 +37,7 @@
       },
       "runtime" : {
          "requires" : {
+            "Capture::Tiny" : "0.21",
             "File::Find::Rule" : "0.33",
             "IO::String" : "1.08",
             "Mojolicious" : "3.36",
@@ -63,5 +64,5 @@
          "url" : "git://github.com/azawawi/farabi.git"
       }
    },
-   "version" : "0.11"
+   "version" : "0.12"
 }
