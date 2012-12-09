@@ -1,7 +1,7 @@
 package Farabi;
 use Mojo::Base 'Mojolicious';
 
-our $VERSION = '0.12';
+our $VERSION = '0.13';
 
 sub startup {
 	my $app = shift;
@@ -76,10 +76,6 @@ L<jQuery|http://jquery.com/> - A new kind of JavaScript Library
 =item *
 
 L<Bootstrap|http://twitter.github.com/bootstrap> - Sleek, intuitive, and powerful front-end framework for faster and easier web development
-
-=item *
-
-L<HumaneJS|http://wavded.github.com/humane-js/> - A simple, modern, browser notification system
 
 =item *
 
