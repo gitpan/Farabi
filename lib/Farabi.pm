@@ -1,7 +1,7 @@
 package Farabi;
 use Mojo::Base 'Mojolicious';
 
-our $VERSION = '0.13';
+our $VERSION = '0.14';
 
 sub startup {
 	my $app = shift;
@@ -22,10 +22,17 @@ sub startup {
 	$route->post('/help_search')->to('editor#help_search');
 	$route->post('/perl_tidy')->to('editor#perl_tidy');
 	$route->post('/perl_critic')->to('editor#perl_critic');
-	$route->post('/perl_execute')->to('editor#perl_execute');
 	$route->post('/typeahead')->to('editor#typeahead');
 	$route->post('/pod2html')->to('editor#pod2html');
 	$route->post('/pod_check')->to('editor#pod_check');
+	$route->post('/open_file')->to('editor#open_file');
+	$route->post('/search_file')->to('editor#search_file');
+	$route->post('/open_url')->to('editor#open_url');
+	
+	# Unsafe features
+	$route->post('/run_perl')->to('editor#run_perl');
+	$route->post('/run_rakudo')->to('editor#run_rakudo');
+	$route->post('/run_niecza')->to('editor#run_niecza');
 }
 
 sub unsafe_features {
@@ -103,7 +110,7 @@ of the Islamic Golden Age. He was also a cosmologist, logician,and musician.
 
 If you find a bug, please report it in:
 
-L<http://code.google.com/p/farabi/issues/list>
+L<https://github.com/azawawi/farabi/issues>
 
 If you find this module useful, please rate it in:
 

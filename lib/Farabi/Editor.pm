@@ -3,7 +3,7 @@ use Mojo::Base 'Mojolicious::Controller';
 
 use Capture::Tiny qw(capture);
 
-our $VERSION = '0.13';
+our $VERSION = '0.14';
 
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {
@@ -42,8 +42,9 @@ sub perl_critic {
 	$self->render( json => \@results );
 }
 
-sub perl_execute {
+sub _capture_cmd_output {
 	my $self     = shift;
+	my $cmd      = shift;
 	my $source   = $self->param('source');
 
 	# Check source parameter
@@ -63,15 +64,39 @@ sub perl_execute {
 	close $tmp;
 
 	my ($stdout, $stderr, $exit) = capture {
-		system($^X, $tmp->filename);
+		system($cmd, $tmp->filename);
 	};
 	my $result = {
 		stdout => $stdout,
 		stderr => $stderr,
-		'exit' => $exit,
+		'exit' => $exit & 128,
 	};
 	
 	$self->render(json => $result);
+}
+
+sub run_perl {
+	$_[0]->_capture_cmd_output($^X);
+}
+
+sub run_niecza {
+	$_[0]->_capture_cmd_output('Niecza.exe');
+}
+
+sub run_rakudo {
+	$_[0]->_capture_cmd_output('perl6');
+}
+
+sub open_url {
+	warn "Not implemented yet!";
+}
+
+sub search_file {
+	warn "Not implemented yet!";
+}
+
+sub open_file {
+	warn "Not implemented yet!";
 }
 
 # Taken from Padre::Plugin::PerlTidy
