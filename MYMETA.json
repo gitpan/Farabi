@@ -52,15 +52,15 @@
    "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
-         "web" : "http://code.google.com/p/farabi/issues/list"
+         "web" : "https://github.com/azawawi/farabi/issues"
       },
-      "homepage" : "http://code.google.com/p/farabi/",
+      "homepage" : "https://github.com/azawawi/farabi",
       "license" : [
-         "http://dev.perl.org/licenses/"
+         "http://dev.perl.org/licenses"
       ],
       "repository" : {
-         "url" : "http://farabi.googlecode.com/svn/trunk/"
+         "url" : "git://github.com/azawawi/farabi.git"
       }
    },
-   "version" : "0.10"
+   "version" : "0.11"
 }

@@ -34,8 +34,8 @@ requires:
   Test::More: 0.98
   perl: 5.010001
 resources:
-  bugtracker: http://code.google.com/p/farabi/issues/list
-  homepage: http://code.google.com/p/farabi/
-  license: http://dev.perl.org/licenses/
-  repository: http://farabi.googlecode.com/svn/trunk/
-version: 0.10
+  bugtracker: https://github.com/azawawi/farabi/issues
+  homepage: https://github.com/azawawi/farabi
+  license: http://dev.perl.org/licenses
+  repository: git://github.com/azawawi/farabi.git
+version: 0.11
