@@ -15,10 +15,10 @@
 <script src="farabi.js"></script>
 
 <!-- CodeMirror editor -->
-<link rel="stylesheet" href="assets/codemirror/codemirror.css"
+<link rel="stylesheet" href="assets/codemirror/lib/codemirror.css"
 	type="text/css" />
 <link rel="stylesheet" href="assets/codemirror/util/dialog.css" />
-<script src="assets/codemirror/codemirror.js"></script>
+<script src="assets/codemirror/lib/codemirror.js"></script>
 <script src="assets/codemirror/util/loadmode.js"></script>
 <script src="assets/codemirror/util/searchcursor.js"></script>
 <script src="assets/codemirror/util/match-highlighter.js"></script>
@@ -54,7 +54,9 @@
 					</div>
 					<div class="row-fluid">
 						<div class="span6 farabi-bordered" id="editor-border">
-							<textarea id="editor" name="editor" class="editor"><%= include "editor/sample_script" %></textarea>
+							<textarea id="editor" name="editor" class="editor"><%=
+								defined $source ? $source : include "editor/sample_script"
+							%></textarea>
 							<div id="editor_stats" class="pull-right"></div>
 						</div>
 						<div class="span6 table-bordered" id="pod-tab">
@@ -212,6 +214,10 @@
               <option id="niecza">
                 Niecza
               </option>
+
+              <option id="parrot">
+		Parrot
+	      </option>
 
               <option id="perlito-6">
                 Perlito 6

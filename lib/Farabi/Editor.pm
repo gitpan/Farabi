@@ -3,7 +3,7 @@ use Mojo::Base 'Mojolicious::Controller';
 
 use Capture::Tiny qw(capture);
 
-our $VERSION = '0.14';
+our $VERSION = '0.15';
 
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {
@@ -85,6 +85,10 @@ sub run_niecza {
 
 sub run_rakudo {
 	$_[0]->_capture_cmd_output('perl6');
+}
+
+sub run_parrot {
+	$_[0]->_capture_cmd_output('parrot');
 }
 
 sub open_url {
@@ -383,6 +387,8 @@ sub pod_check {
 
 sub default {
 	my $self = shift;
+
+	$self->stash(source => scalar $self->param('source'));
 
 	# Render template "editor/default.html.ep"
 	$self->render;

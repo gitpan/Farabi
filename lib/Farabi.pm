@@ -1,7 +1,7 @@
 package Farabi;
 use Mojo::Base 'Mojolicious';
 
-our $VERSION = '0.14';
+our $VERSION = '0.15';
 
 sub startup {
 	my $app = shift;
@@ -19,6 +19,7 @@ sub startup {
 	# Define routes
 	my $route = $app->routes;
 	$route->get('/')->to('editor#default');
+	$route->post('/')->to('editor#default');
 	$route->post('/help_search')->to('editor#help_search');
 	$route->post('/perl_tidy')->to('editor#perl_tidy');
 	$route->post('/perl_critic')->to('editor#perl_critic');
@@ -33,6 +34,7 @@ sub startup {
 	$route->post('/run_perl')->to('editor#run_perl');
 	$route->post('/run_rakudo')->to('editor#run_rakudo');
 	$route->post('/run_niecza')->to('editor#run_niecza');
+	$route->post('/run_parrot')->to('editor#run_parrot');
 }
 
 sub unsafe_features {
