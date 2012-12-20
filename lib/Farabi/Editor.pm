@@ -3,7 +3,7 @@ use Mojo::Base 'Mojolicious::Controller';
 
 use Capture::Tiny qw(capture);
 
-our $VERSION = '0.17';
+our $VERSION = '0.18';
 
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {
@@ -385,34 +385,45 @@ sub pod_check {
 	return $self->render( json => \@problems );
 }
 
-# Action Autocompletion
-sub actions_typeahead {
+# Find a list of matched actions
+sub find_action {
 	my $self = shift;
 	
 	# Quote every special regex character
-	my $query = quotemeta( $self->param('query') // '' );
+	my $query = quotemeta( $self->param('action') // '' );
 
 	# The actions
 	my %actions = (
-		'open-file'   => 'Open File',
-		'open-url'   => 'Open URL',
-		'perl-tidy'   => 'Perl Tidy',
-		'perl-critic' => 'Perl Critic',
-		'syntax-check' => 'Syntax Check',
-		'run'          => 'Run',
-		'options'      => 'Options',
+		'action-open-file'   => 'Open File',
+		'action-open-url'   => 'Open URL',
+		'action-perl-tidy'   => 'Perl Tidy',
+		'action-perl-critic' => 'Perl Critic',
+		'action-syntax-check' => 'Syntax Check',
+		'action-run'          => 'Run',
+		'action-options'      => 'Options',
+		'action-help' => 'Help - Getting Started',
+		'action-about'       => 'About Farabi',
+		'action-perl-doc' => 'Help - Perl Documentation',
 	);
 
 	# Find matched actions
 	my @matches;
 	for my $action ( keys %actions ) {
-		if ( $action =~ /$query/i ) {
-			push @matches, $actions{$action};
+		my $action_name = $actions{$action};
+		if ( $action_name =~ /$query/i ) {
+			push @matches, { 
+				id =>  $action, 
+				name =>  $action_name,
+			};
 		}
 	}
-
+	
 	# Sort so that shorter matches appear first
-	@matches = sort @matches;
+	@matches = sort { $a->{name} cmp $b->{name} }@matches;
+	
+	if(scalar @matches > 5) {
+		@matches = $matches[0..4];
+	}
 
 	# And return as JSON
 	return $self->render( json => \@matches );

@@ -3,6 +3,7 @@ Changes
 CREDITS.md
 lib/Farabi.pm
 lib/Farabi/Editor.pm
+lib/Farabi/files/farabi.conf
 lib/Farabi/files/public/assets/bootstrap/css/bootstrap.min.css
 lib/Farabi/files/public/assets/bootstrap/img/glyphicons-halflings-white.png
 lib/Farabi/files/public/assets/bootstrap/img/glyphicons-halflings.png

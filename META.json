@@ -4,7 +4,7 @@
       "Ahmad M. Zawawi <ahmad.zawawi@gmail.com>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "ExtUtils::MakeMaker version 6.6302, CPAN::Meta::Converter version 2.120921",
+   "generated_by" : "ExtUtils::MakeMaker version 6.64, CPAN::Meta::Converter version 2.120921",
    "license" : [
       "unknown"
    ],
@@ -66,5 +66,5 @@
          "url" : "git://github.com/azawawi/farabi.git"
       }
    },
-   "version" : "0.17"
+   "version" : "0.18"
 }
