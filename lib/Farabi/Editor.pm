@@ -3,7 +3,7 @@ use Mojo::Base 'Mojolicious::Controller';
 
 use Capture::Tiny qw(capture);
 
-our $VERSION = '0.18';
+our $VERSION = '0.19';
 
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {
@@ -92,14 +92,6 @@ sub run_parrot {
 }
 
 sub open_url {
-	warn "Not implemented yet!";
-}
-
-sub search_file {
-	warn "Not implemented yet!";
-}
-
-sub open_file {
 	warn "Not implemented yet!";
 }
 
@@ -410,7 +402,7 @@ sub find_action {
 	my @matches;
 	for my $action ( keys %actions ) {
 		my $action_name = $actions{$action};
-		if ( $action_name =~ /$query/i ) {
+		if ( $action_name =~ /^.*$query.*$/i ) {
 			push @matches, { 
 				id =>  $action, 
 				name =>  $action_name,
@@ -421,17 +413,118 @@ sub find_action {
 	# Sort so that shorter matches appear first
 	@matches = sort { $a->{name} cmp $b->{name} }@matches;
 	
-	if(scalar @matches > 5) {
-		@matches = $matches[0..4];
+	# And return as JSON
+	return $self->render( json => \@matches );
+}
+
+# Find a list of matches files
+sub find_file {
+	my $self = shift;
+	
+	# Quote every special regex character
+	my $query = quotemeta( $self->param('filename') // '' );
+
+	require File::Find::Rule;
+	my $rule = File::Find::Rule->new;
+	$rule->or(
+			$rule->new->directory->name( 'CVS', '.svn', '.git', 'blib', '.build' )->prune->discard,
+			$rule->new
+	);
+	
+	require Cwd;
+	$rule->file->name(qr/$query/i);
+	my @files = $rule->in(Cwd::getcwd);
+	
+	require File::Basename;
+	my @matches;
+	for my $file (@files) {
+		push @matches, {
+			id => $file,
+			name => File::Basename::basename($file),
+		}
+	}
+
+	# Sort so that shorter matches appear first
+	@matches = sort { $a->{name} cmp $b->{name} }@matches;
+	
+	my $MAX_RESULTS = 100;
+	if(scalar @files > $MAX_RESULTS) {
+		@matches = @matches[0..$MAX_RESULTS-1];
 	}
 
 	# And return as JSON
 	return $self->render( json => \@matches );
 }
 
+# Return the file contents or a failure string
+sub open_file {
+	my $self = shift;
+	
+	my $filename = $self->param('filename') // '';
+
+	my %result = ();
+	if( open my $fh, '<', $filename ) {
+		# Slurp the file contents
+		local $/ = undef;
+		$result{value} = <$fh>;
+		close $fh;
+		
+		# Retrieve editor mode
+		$result{mode} = _find_editor_mode_from_filename($filename);
+		
+		# We're ok :)
+		$result{ok} = 1;
+	} else {
+		# Error!
+		$result{value} = "Could not open file: $filename";
+		$result{ok} = 0;
+	}
+	
+	# Return the file contents or the error message
+	return $self->render( json => \%result );
+}
+
+# Finds the editor mode from the the filename
+sub _find_editor_mode_from_filename {
+	my $filename = shift;
+	
+	my $extension;
+	if($filename =~ /\.(.+)$/) {
+		# Extract file extension greedily
+		$extension = $1;
+	}
+	
+	my %extension_to_mode = (
+		pl         => 'perl',
+		pm         => 'perl',
+		p6         => 'perl6',
+		pm6        => 'perl6',
+		pir        => 'pir',
+		css        => 'css',
+		'min.css'  => 'javascript',
+		js         => 'javascript',
+		json       => 'javascript',
+		'min.js'   => 'javascript',
+		html       => 'xml',
+		'html.ep'  => 'xml',
+		md         => 'markdown',
+		markdown   => 'markdown',
+		conf       => 'properties',
+		properties => 'properties',
+		yml        => 'yaml',
+		yaml       => 'yaml',
+	);
+	
+	# No extension, let us use default text mode
+	return 0 if !defined $extension;
+	return $extension_to_mode{$extension};
+}
+
+# The default root handler
 sub default {
 	my $self = shift;
 
+	# Stash the source parameter so it can be used inside the template
 	$self->stash(source => scalar $self->param('source'));
 
 	# Render template "editor/default.html.ep"

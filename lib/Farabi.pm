@@ -1,7 +1,7 @@
 package Farabi;
 use Mojo::Base 'Mojolicious';
 
-our $VERSION = '0.18';
+our $VERSION = '0.19';
 
 sub startup {
 	my $app = shift;
@@ -21,14 +21,14 @@ sub startup {
 	$route->get('/')->to('editor#default');
 	$route->post('/')->to('editor#default');
 	$route->post('/help_search')->to('editor#help_search');
-	$route->post('/perl_tidy')->to('editor#perl_tidy');
-	$route->post('/perl_critic')->to('editor#perl_critic');
+	$route->post('/perl-tidy')->to('editor#perl_tidy');
+	$route->post('/perl-critic')->to('editor#perl_critic');
 	$route->post('/typeahead')->to('editor#typeahead');
 	$route->post('/pod2html')->to('editor#pod2html');
-	$route->post('/pod_check')->to('editor#pod_check');
-	$route->post('/open_file')->to('editor#open_file');
-	$route->post('/search_file')->to('editor#search_file');
-	$route->post('/open_url')->to('editor#open_url');
+	$route->post('/pod-check')->to('editor#pod_check');
+	$route->post('/open-file')->to('editor#open_file');
+	$route->post('/find-file')->to('editor#find_file');
+	$route->post('/open-url')->to('editor#open_url');
 	$route->post('/find-action')->to('editor#find_action');
 	
 	# Unsafe features
@@ -39,7 +39,8 @@ sub startup {
 }
 
 sub unsafe_features {
-	return defined $ENV{FARABI_UNSAFE};
+	# Enable unsafe features by default for now
+	return 1; # defined $ENV{FARABI_UNSAFE};
 }
 
 
