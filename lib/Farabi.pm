@@ -1,7 +1,7 @@
 package Farabi;
 use Mojo::Base 'Mojolicious';
 
-our $VERSION = '0.19';
+our $VERSION = '0.20';
 
 sub startup {
 	my $app = shift;
@@ -31,11 +31,14 @@ sub startup {
 	$route->post('/open-url')->to('editor#open_url');
 	$route->post('/find-action')->to('editor#find_action');
 	
-	# Unsafe features
-	$route->post('/run_perl')->to('editor#run_perl');
-	$route->post('/run_rakudo')->to('editor#run_rakudo');
-	$route->post('/run_niecza')->to('editor#run_niecza');
-	$route->post('/run_parrot')->to('editor#run_parrot');
+	# Unsafe actions. But really who's safe these days.
+	$route->post('/run-perl')->to('editor#run_perl');
+	$route->post('/run-rakudo')->to('editor#run_rakudo');
+	$route->post('/run-niecza')->to('editor#run_niecza');
+	$route->post('/run-parrot')->to('editor#run_parrot');
+	
+	# Web-based Read-Eval-Print-Loop (REPL) action
+	$route->post('/repl-eval')->to('editor#repl_eval');
 }
 
 sub unsafe_features {

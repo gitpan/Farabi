@@ -2,8 +2,9 @@ package Farabi::Editor;
 use Mojo::Base 'Mojolicious::Controller';
 
 use Capture::Tiny qw(capture);
+use IPC::Run qw( start pump finish timeout );
 
-our $VERSION = '0.19';
+our $VERSION = '0.20';
 
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {
@@ -386,26 +387,62 @@ sub find_action {
 
 	# The actions
 	my %actions = (
-		'action-open-file'   => 'Open File',
-		'action-open-url'   => 'Open URL',
-		'action-perl-tidy'   => 'Perl Tidy',
-		'action-perl-critic' => 'Perl Critic',
-		'action-syntax-check' => 'Syntax Check',
-		'action-run'          => 'Run',
-		'action-options'      => 'Options',
-		'action-help' => 'Help - Getting Started',
-		'action-about'       => 'About Farabi',
-		'action-perl-doc' => 'Help - Perl Documentation',
+		'action-open-file'   => {
+			name=>'Open File',
+			help=>"Opens a file in a new editor tab",
+		},
+		'action-open-url'   => {
+			name=> 'Open URL',
+			help=>  'Opens a file from a URL is new editor tab',
+		},
+		'action-perl-tidy'   => {
+			name=> 'Perl Tidy',
+			help=>'Run the Perl::Tidy tool on the current editor tab',
+		},
+		'action-perl-critic' => {
+			name=> 'Perl Critic',
+			help=> 'Run the Perl::Critic tool on the current editor tab',
+		},
+		'action-syntax-check' => {
+			name=>'Syntax Check',
+			help=>'Run the syntax check tool on the current editor tab',
+		},
+		'action-run'          => {
+			name=>'Run',
+			help=> 'Run the current editor source file using the run dialog',
+		},
+		'action-options'      => {
+			name=> 'Options',
+			help=> 'Open the options dialog',
+		},
+		'action-help' => {
+			name=>'Help - Getting Started',
+			help=> 'A quick getting started help dialog',
+		},
+		'action-about'       => {
+			name=> 'About Farabi',
+			help=> 'Opens an dialog about the current application',
+		},
+		'action-perl-doc' => {
+			name => 'Help - Perl Documentation',
+			help =>'Opens the Perl help documentation dialog',
+		},
+		'action-repl' => {
+			name =>'REPL - Read-Print-Eval-Loop',
+			help => 'Opens the Read-Print-Eval-Loop dialog',
+		},
 	);
 
 	# Find matched actions
 	my @matches;
-	for my $action ( keys %actions ) {
-		my $action_name = $actions{$action};
+	for my $action_id ( keys %actions ) {
+		my $action = $actions{$action_id};
+		my $action_name = $action->{name};
 		if ( $action_name =~ /^.*$query.*$/i ) {
 			push @matches, { 
-				id =>  $action, 
+				id =>  $action_id, 
 				name =>  $action_name,
+				help => $action->{help},
 			};
 		}
 	}
@@ -518,6 +555,47 @@ sub _find_editor_mode_from_filename {
 	# No extension, let us use default text mode
 	return 0 if !defined $extension;
 	return $extension_to_mode{$extension};
+}
+
+
+# Perl REPL (Read-Eval-Print-Loop)
+sub perl_repl_eval {
+	warn "perl_repl_eval is not implemented\n";
+}
+
+# Perl6 REPL (Read-Eval-Print-Loop)
+sub repl_eval {
+	my $self = shift;
+	my $runtime = $self->param('runtime') // 'perl';
+	my $command = $self->param('command') // '';
+
+	# The process that we're gonna REPL
+	my @perl6 = qw( perl6 );
+	
+	# The input, output and error strings
+	my ($in, $out, $err);
+	
+	# Open process with a timeout
+	my $h = start \@perl6, \$in, \$out, \$err, timeout( 5 );
+
+	# Send command to process and wait for prompt
+	$in .= "$command\n";
+	pump $h until $out =~ /> \Z/m;
+	finish $h or $err = "perl6 returned $?";
+	
+	# Remove prompt
+	$out =~ s/> \Z//;
+	
+	say $out;
+
+	# Result...
+	my %result = (
+		out => $out,
+		err  => $err,
+	);
+
+	# Return the REPL result
+	return $self->render( json => \%result );
 }
 
 # The default root handler
