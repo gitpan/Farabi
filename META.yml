@@ -42,4 +42,4 @@ resources:
   homepage: https://github.com/azawawi/farabi
   license: http://dev.perl.org/licenses
   repository: git://github.com/azawawi/farabi.git
-version: 0.21
+version: 0.22

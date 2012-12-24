@@ -4,7 +4,7 @@ use Mojo::Base 'Mojolicious::Controller';
 use Capture::Tiny qw(capture);
 use IPC::Run qw( start pump finish timeout );
 
-our $VERSION = '0.21';
+our $VERSION = '0.22';
 
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {
@@ -513,6 +513,10 @@ sub open_file {
 		# Retrieve editor mode
 		$result{mode} = _find_editor_mode_from_filename($filename);
 		
+		# Simplify filename
+		require File::Basename;
+		$result{filename} = File::Basename::basename($filename);
+		
 		# We're ok :)
 		$result{ok} = 1;
 	} else {
@@ -554,6 +558,7 @@ sub _find_editor_mode_from_filename {
 		properties => 'properties',
 		yml        => 'yaml',
 		yaml       => 'yaml',
+		coffee     => 'coffeescript'
 	);
 	
 	# No extension, let us use default text mode
