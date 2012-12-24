@@ -141,6 +141,12 @@ lib/Farabi/files/public/assets/perlito/perlito5.min.js
 lib/Farabi/files/public/assets/perlito/perlito6.min.js
 lib/Farabi/files/public/farabi.css
 lib/Farabi/files/public/farabi.js
+lib/Farabi/files/public/farabi_actions_dialog.js
+lib/Farabi/files/public/farabi_open_file_dialog.js
+lib/Farabi/files/public/farabi_options_dialog.js
+lib/Farabi/files/public/farabi_perl_critic_dialog.js
+lib/Farabi/files/public/farabi_repl_dialog.js
+lib/Farabi/files/public/farabi_run_dialog.js
 lib/Farabi/files/templates/editor/about_dialog.html.ep
 lib/Farabi/files/templates/editor/actions_dialog.html.ep
 lib/Farabi/files/templates/editor/critic_severity_selector.html.ep
@@ -163,6 +169,7 @@ MYMETA.yml
 pithub_test.pl
 README.md
 t/00-basic.t
+test_repl.pl
 xt/eol.t
 META.yml                                 Module YAML meta-data (added by MakeMaker)
 META.json                                Module JSON meta-data (added by MakeMaker)
