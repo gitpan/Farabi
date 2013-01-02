@@ -1,7 +1,7 @@
 package Farabi;
 use Mojo::Base 'Mojolicious';
 
-our $VERSION = '0.22';
+our $VERSION = '0.23';
 
 sub startup {
 	my $app = shift;
@@ -28,10 +28,9 @@ sub startup {
 	$route->post('/pod-check')->to('editor#pod_check');
 	$route->post('/open-file')->to('editor#open_file');
 	$route->post('/find-file')->to('editor#find_file');
+	$route->post('/save-file')->to('editor#save_file');
 	$route->post('/open-url')->to('editor#open_url');
 	$route->post('/find-action')->to('editor#find_action');
-	
-	# Unsafe actions. But really who's safe these days.
 	$route->post('/run-perl')->to('editor#run_perl');
 	$route->post('/run-rakudo')->to('editor#run_rakudo');
 	$route->post('/run-niecza')->to('editor#run_niecza');

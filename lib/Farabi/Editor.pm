@@ -4,7 +4,7 @@ use Mojo::Base 'Mojolicious::Controller';
 use Capture::Tiny qw(capture);
 use IPC::Run qw( start pump finish timeout );
 
-our $VERSION = '0.22';
+our $VERSION = '0.23';
 
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {
@@ -391,6 +391,14 @@ sub find_action {
 			name=>'New File',
 			help=>"Opens a new file in a new editor tab",
 		},
+		'action-close-file' => {
+			name=>'Close File',
+			help=>"Closes the current open file",
+		},
+		'action-close-all-files' => {
+			name=>'Close All Files',
+			help=>"Closes all of the open files",
+		},
 		'action-open-file'   => {
 			name=>'Open File',
 			help=>"Opens a file in a new editor tab",
@@ -398,6 +406,10 @@ sub find_action {
 		'action-open-url'   => {
 			name=> 'Open URL',
 			help=>  'Opens a file from a URL is new editor tab',
+		},
+		'action-save-file'   => {
+			name=>'Save File',
+			help=>"Saves the current file ",
 		},
 		'action-perl-tidy'   => {
 			name=> 'Perl Tidy',
@@ -464,6 +476,13 @@ sub find_file {
 	
 	# Quote every special regex character
 	my $query = quotemeta( $self->param('filename') // '' );
+	
+	# Determine directory
+	require Cwd;
+	my $dir = $self->param('dir');
+	if( !$dir || $dir eq '') {
+		$dir = Cwd::getcwd;
+	}
 
 	require File::Find::Rule;
 	my $rule = File::Find::Rule->new;
@@ -472,12 +491,11 @@ sub find_file {
 			$rule->new
 	);
 	
-	require Cwd;
 	$rule->file->name(qr/$query/i);
-	my @files = $rule->in(Cwd::getcwd);
-	
+	my @files = $rule->in($dir);
+
 	require File::Basename;
-	my @matches;
+		my @matches;
 	for my $file (@files) {
 		push @matches, {
 			id => $file,
@@ -542,6 +560,7 @@ sub _find_editor_mode_from_filename {
 	my %extension_to_mode = (
 		pl         => 'perl',
 		pm         => 'perl',
+		t          => 'perl',
 		p6         => 'perl6',
 		pm6        => 'perl6',
 		pir        => 'pir',
@@ -567,22 +586,22 @@ sub _find_editor_mode_from_filename {
 }
 
 
-# Perl REPL (Read-Eval-Print-Loop)
-sub perl_repl_eval {
-	warn "perl_repl_eval is not implemented\n";
-}
-
-# Perl6 REPL (Read-Eval-Print-Loop)
+# Generic REPL (Read-Eval-Print-Loop)
 sub repl_eval {
 	my $self = shift;
 	my $runtime_id = $self->param('runtime') // 'perl';
 	my $command = $self->param('command') // '';
 
+	# The Result object
+	my %result = (
+		out => '',
+		err  => '',
+	);
+
 	# TODO make these configurable?
 	my %runtimes = (
 		'perl' => {
-			cmd => 're.pl',
-			prompt => '$\Z',
+			# Special case that uses an internal inprocess Devel::REPL object
 		},
 		'rakudo' => {
 			cmd => 'perl6',
@@ -593,17 +612,21 @@ sub repl_eval {
 			prompt => 'niecza> \Z',
 		},
 	);
-	
-	
 
 	# The process that we're gonna REPL
 	my $runtime = $runtimes{$runtime_id};
+	
+	# Handle the special case for Devel::REPL
+	if($runtime_id eq 'perl') {
+		return $self->_devel_repl_eval($command);
+	}
+
+	# Get the REPL prompt
 	my $prompt = $runtime->{prompt};
 	
 	# If runtime is not defined, let us report it back
 	unless(defined $runtime) {
 		my %result = (
-			ok  => 0,
 			err => "Failed to find runtime '$runtime_id'",
 		);
 		# Return the REPL result
@@ -630,12 +653,97 @@ sub repl_eval {
 
 	# Result...
 	my %result = (
-	    ok  => 1,
 		out => $out,
 		err  => $err,
 	);
 
 	# Return the REPL result
+	return $self->render( json => \%result );
+}
+
+# Global shared object at the moment
+# TODO should be stored in session
+my $devel_repl;
+
+# Devel::REPL (Perl)
+sub _devel_repl_eval {
+	my ($self, $code) = @_;
+
+	# The Result object
+	my %result = (
+		out => '',
+		err  => '',
+	);
+
+	unless($devel_repl) {
+		# Try to load Devel::REPL
+		eval { require Devel::REPL; };
+		if($@) {
+			# The error
+			$result{err} = 'Unable to find Devel::REPL';
+			
+			# Return the REPL result
+			return $self->render( json => \%result );
+		}
+
+		# Create the REPL object
+		$devel_repl = Devel::REPL->new;
+
+		# Provide Lexical environment for a Perl repl
+		# Without this, it wont remember :)
+		$devel_repl->load_plugin('LexEnv'); 
+	}
+
+	if ($code eq '') {
+		# Special case for empty input
+		$result{out} = "\$\n";
+	} else {
+		my @ret = $devel_repl->eval("$code");
+		
+		if($devel_repl->is_error(@ret)) {
+			$result{err} = $devel_repl->format_error(@ret);
+			$result{out} = "\$ $code";
+		} else {
+			$result{out} = "\$ $code\n@ret\n";
+		}
+	}
+
+	# Return the REPL result
+	return $self->render( json => \%result );
+}
+
+# Save(s) the specified filename
+sub save_file {
+	my $self = shift;
+	my $filename = $self->param('filename') ;
+	my $contents = $self->param('contents');
+
+	# Define output and error strings
+	my %result = (
+		out => '',
+		err  => '',
+	);
+
+	# Check filename parameter
+	unless($filename) {
+		# The error
+		$result{err} = "filename parameter is invalid";
+
+		# Return the REPL result
+		return $self->render( json => \%result );
+	}
+	
+	# Check contents parameter
+	unless($contents) {
+		# The error
+		$result{err} = "contents parameter is invalid";
+
+		# Return the REPL result
+		return $self->render( json => \%result );
+	}
+	
+	warn "TODO save file $filename\n";
+	
 	return $self->render( json => \%result );
 }
 

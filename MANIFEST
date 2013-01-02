@@ -147,6 +147,7 @@ lib/Farabi/files/public/farabi_options_dialog.js
 lib/Farabi/files/public/farabi_perl_critic_dialog.js
 lib/Farabi/files/public/farabi_repl_dialog.js
 lib/Farabi/files/public/farabi_run_dialog.js
+lib/Farabi/files/public/farabi_save_question_dialog.js
 lib/Farabi/files/templates/editor/about_dialog.html.ep
 lib/Farabi/files/templates/editor/actions_dialog.html.ep
 lib/Farabi/files/templates/editor/critic_severity_selector.html.ep
@@ -160,6 +161,7 @@ lib/Farabi/files/templates/editor/perl_doc_dialog.html.ep
 lib/Farabi/files/templates/editor/repl_dialog.html.ep
 lib/Farabi/files/templates/editor/run_dialog.html.ep
 lib/Farabi/files/templates/editor/sample_script.html.ep
+lib/Farabi/files/templates/editor/save_question_dialog.html.ep
 lib/Farabi/files/templates/editor/theme_selector.html.ep
 LICENSE
 Makefile.PL
@@ -169,7 +171,6 @@ MYMETA.yml
 pithub_test.pl
 README.md
 t/00-basic.t
-test_repl.pl
 xt/eol.t
 META.yml                                 Module YAML meta-data (added by MakeMaker)
 META.json                                Module JSON meta-data (added by MakeMaker)
