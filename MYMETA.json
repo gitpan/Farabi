@@ -17,11 +17,8 @@
       "directory" : [
          "t",
          "inc",
-         "t",
          "xt",
-         "eg",
-         "share",
-         "inc"
+         "lib/Farabi/files"
       ]
    },
    "prereqs" : {
@@ -67,5 +64,5 @@
          "url" : "git://github.com/azawawi/farabi.git"
       }
    },
-   "version" : "0.24"
+   "version" : "0.25"
 }

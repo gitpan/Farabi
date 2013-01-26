@@ -132,6 +132,8 @@ lib/Farabi/files/public/assets/codemirror/theme/solarized.css
 lib/Farabi/files/public/assets/codemirror/theme/twilight.css
 lib/Farabi/files/public/assets/codemirror/theme/vibrant-ink.css
 lib/Farabi/files/public/assets/codemirror/theme/xq-dark.css
+lib/Farabi/files/public/assets/coffeescript/coffee-script.js
+lib/Farabi/files/public/assets/jquery/jquery.1.9.0.min.js
 lib/Farabi/files/public/assets/perlito/perlito5.min.js
 lib/Farabi/files/public/assets/perlito/perlito6.min.js
 lib/Farabi/files/public/farabi.css

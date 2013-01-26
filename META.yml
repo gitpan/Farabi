@@ -17,11 +17,8 @@ no_index:
   directory:
     - t
     - inc
-    - t
     - xt
-    - eg
-    - share
-    - inc
+    - lib/Farabi/files
 requires:
   Capture::Tiny: 0.21
   Debug::Client: 0.20
@@ -43,4 +40,4 @@ resources:
   homepage: https://github.com/azawawi/farabi
   license: http://dev.perl.org/licenses
   repository: git://github.com/azawawi/farabi.git
-version: 0.24
+version: 0.25

@@ -4,7 +4,7 @@ use Mojo::Base 'Mojolicious::Controller';
 use Capture::Tiny qw(capture);
 use IPC::Run qw( start pump finish timeout );
 
-our $VERSION = '0.24';
+our $VERSION = '0.25';
 
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {
@@ -552,7 +552,7 @@ sub _find_editor_mode_from_filename {
 	my $filename = shift;
 	
 	my $extension;
-	if($filename =~ /\.(.+)$/) {
+	if($filename =~ /\.([^.]+)$/) {
 		# Extract file extension greedily
 		$extension = $1;
 	}
@@ -565,12 +565,10 @@ sub _find_editor_mode_from_filename {
 		pm6        => 'perl6',
 		pir        => 'pir',
 		css        => 'css',
-		'min.css'  => 'javascript',
 		js         => 'javascript',
 		json       => 'javascript',
-		'min.js'   => 'javascript',
 		html       => 'xml',
-		'html.ep'  => 'xml',
+		ep         => 'xml',
 		md         => 'markdown',
 		markdown   => 'markdown',
 		conf       => 'properties',
@@ -581,7 +579,7 @@ sub _find_editor_mode_from_filename {
 	);
 	
 	# No extension, let us use default text mode
-	return 0 if !defined $extension;
+	return 'plain' if !defined $extension;
 	return $extension_to_mode{$extension};
 }
 
