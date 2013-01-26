@@ -21,6 +21,7 @@ no_index:
     - lib/Farabi/files
 requires:
   Capture::Tiny: 0.21
+  Code::CutNPaste: 0.04
   Debug::Client: 0.20
   File::Find::Rule: 0.33
   File::Which: 1.09
@@ -39,4 +40,4 @@ resources:
   homepage: https://github.com/azawawi/farabi
   license: http://dev.perl.org/licenses
   repository: git://github.com/azawawi/farabi.git
-version: 0.25
+version: 0.26

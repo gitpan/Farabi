@@ -4,7 +4,7 @@ use Mojo::Base 'Mojolicious::Controller';
 use Capture::Tiny qw(capture);
 use IPC::Run qw( start pump finish timeout );
 
-our $VERSION = '0.25';
+our $VERSION = '0.26';
 
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {
@@ -407,6 +407,10 @@ sub find_action {
 			name=> 'Open URL',
 			help=>  'Opens a file from a URL is new editor tab',
 		},
+		'action-find-duplicate-perl-code'   => {
+			name=> 'Find Duplicate Perl Code',
+			help=>  'Finds any duplicate perl code in the current lib folder',
+		},
 		'action-save-file'   => {
 			name=>'Save File',
 			help=>"Saves the current file ",
@@ -746,6 +750,70 @@ sub save_file {
 		$result{err} = "Cannot save $filename";
 	}
 	
+	return $self->render( json => \%result );
+}
+
+# Find duplicate Perl code in the current 'lib' folder
+sub find_duplicate_perl_code {
+
+	my $self = shift;
+	my $dirs = $self->param('dirs') ;
+
+	my %result = (
+		count  => 0,
+		output => '',
+		error  => '',
+	);
+
+	unless($dirs) {
+		# Return the error result
+		$result{error} = "Error:\ndirs parameter is invalid";
+		return $self->render( json => \%result );
+	}
+
+	my @dirs;
+	$dirs =~ s/^\s+|\s+$//g;
+	if($dirs ne '') {
+		# Extract search directories
+		@dirs = split ',', $dirs;
+	}
+
+	my $cutnpaste;
+	eval {
+		# Create an cut-n-paste object
+		require Code::CutNPaste;
+		$cutnpaste = Code::CutNPaste->new(
+			dirs         => [@dirs],
+			renamed_vars => 1,
+			renamed_subs => 1,
+		);
+	};
+	if($@) {
+		# Return the error result
+		$result{error} = "Code::CutNPaste validation error:\n" . $@;
+		return $self->render( json => \%result );
+	}
+
+	# Finds the duplicates
+	my $duplicates = $cutnpaste->duplicates;
+
+	# Construct the output
+	my $output = '';
+	foreach my $duplicate (@$duplicates) {
+		my ( $left, $right ) = ( $duplicate->left, $duplicate->right );
+		$output .= sprintf <<'END', $left->file, $left->line, $right->file, $right->line;
+
+	Possible duplicate code found
+	Left:  %s line %d
+	Right: %s line %d
+
+END
+		$output .= $duplicate->report;
+	}
+
+	# Returns the find duplicate perl code result
+	$result{count} = scalar @$duplicates;
+	$result{output} = $output;
 	return $self->render( json => \%result );
 }
 

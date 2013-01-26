@@ -139,6 +139,7 @@ lib/Farabi/files/public/assets/perlito/perlito6.min.js
 lib/Farabi/files/public/farabi.css
 lib/Farabi/files/public/farabi.js
 lib/Farabi/files/public/farabi_actions_dialog.js
+lib/Farabi/files/public/farabi_duplicate_perl_code_dialog.js
 lib/Farabi/files/public/farabi_open_file_dialog.js
 lib/Farabi/files/public/farabi_options_dialog.js
 lib/Farabi/files/public/farabi_perl_critic_dialog.js
@@ -149,6 +150,7 @@ lib/Farabi/files/templates/editor/about_dialog.html.ep
 lib/Farabi/files/templates/editor/actions_dialog.html.ep
 lib/Farabi/files/templates/editor/critic_severity_selector.html.ep
 lib/Farabi/files/templates/editor/default.html.ep
+lib/Farabi/files/templates/editor/duplicate_perl_code_dialog.html.ep
 lib/Farabi/files/templates/editor/help_dialog.html.ep
 lib/Farabi/files/templates/editor/mode_selector.html.ep
 lib/Farabi/files/templates/editor/open_file_dialog.html.ep
