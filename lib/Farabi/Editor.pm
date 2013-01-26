@@ -4,7 +4,7 @@ use Mojo::Base 'Mojolicious::Controller';
 use Capture::Tiny qw(capture);
 use IPC::Run qw( start pump finish timeout );
 
-our $VERSION = '0.23';
+our $VERSION = '0.24';
 
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {
@@ -652,10 +652,8 @@ sub repl_eval {
 	$out =~ s/$prompt//;
 
 	# Result...
-	my %result = (
-		out => $out,
-		err  => $err,
-	);
+	$result{out} = $out;
+	$result{err} = $err;
 
 	# Return the REPL result
 	return $self->render( json => \%result );
@@ -716,11 +714,10 @@ sub _devel_repl_eval {
 sub save_file {
 	my $self = shift;
 	my $filename = $self->param('filename') ;
-	my $contents = $self->param('contents');
+	my $source = $self->param('source');
 
 	# Define output and error strings
 	my %result = (
-		out => '',
 		err  => '',
 	);
 
@@ -734,15 +731,22 @@ sub save_file {
 	}
 	
 	# Check contents parameter
-	unless($contents) {
+	unless($source) {
 		# The error
-		$result{err} = "contents parameter is invalid";
+		$result{err} = "source parameter is invalid";
 
 		# Return the REPL result
 		return $self->render( json => \%result );
 	}
 	
-	warn "TODO save file $filename\n";
+	if(open my $fh, ">", $filename) {
+		# Saving...
+		print $fh $source;
+		close $fh;
+	} else {
+		# Error: Cannot open the file for writing/saving
+		$result{err} = "Cannot save $filename";
+	}
 	
 	return $self->render( json => \%result );
 }
