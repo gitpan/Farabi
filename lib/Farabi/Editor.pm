@@ -4,7 +4,7 @@ use Mojo::Base 'Mojolicious::Controller';
 use Capture::Tiny qw(capture);
 use IPC::Run qw( start pump finish timeout );
 
-our $VERSION = '0.26';
+our $VERSION = '0.27';
 
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {
@@ -398,6 +398,10 @@ sub find_action {
 		'action-close-all-files' => {
 			name=>'Close All Files',
 			help=>"Closes all of the open files",
+		},
+		'action-dump-ppi-tree' => {
+			name=>'Dump the PPI tree',
+			help=>"Dumps the PPI tree into the output pane",
 		},
 		'action-open-file'   => {
 			name=>'Open File',
@@ -817,6 +821,44 @@ END
 	return $self->render( json => \%result );
 }
 
+# Dumps the PPI tree for the given source parameter
+sub dump_ppi_tree {
+
+	my $self = shift;
+	my $source = $self->param('source') ;
+
+	my %result = (
+		output => '',
+		error  => '',
+	);
+
+	# Make sure that the source parameter is not undefined
+	unless(defined $source) {
+		# Return the error JSON result
+		$result{error} = "Error:\nSource parameter is undefined";
+		return $self->render( json => \%result );
+	}
+
+	# Load PPI at runtime
+	require PPI;
+	require PPI::Dumper;
+
+	# Load a document
+	my $module = PPI::Document->new( \$source );
+
+	# No whitespace tokens
+ 	$module->prune('PPI::Token::Whitespace');
+
+	# Create the dumper
+	my $dumper = PPI::Dumper->new( $module );
+ 
+	# Dump the document as a string
+	$result{output} = $dumper->string;
+
+	# Return the JSON result
+	return $self->render( json => \%result );
+}
+
 # The default root handler
 sub default {
 	my $self = shift;
@@ -829,3 +871,16 @@ sub default {
 }
 
 1;
+
+__END__
+
+=pod
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2012-2013 by Ahmad M. Zawawi
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut

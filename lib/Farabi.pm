@@ -1,7 +1,7 @@
 package Farabi;
 use Mojo::Base 'Mojolicious';
 
-our $VERSION = '0.26';
+our $VERSION = '0.27';
 
 sub startup {
 	my $app = shift;
@@ -36,6 +36,7 @@ sub startup {
 	$route->post('/run-niecza')->to('editor#run_niecza');
 	$route->post('/run-parrot')->to('editor#run_parrot');
 	$route->post('/find-duplicate-perl-code')->to('editor#find_duplicate_perl_code');
+	$route->post('/dump-ppi-tree')->to('editor#dump_ppi_tree');
 
 	# Web-based Read-Eval-Print-Loop (REPL) action
 	$route->post('/repl-eval')->to('editor#repl_eval');
@@ -133,7 +134,7 @@ Kevin Dawson E<lt>bowtie@cpan.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Ahmad M. Zawawi
+This software is copyright (c) 2012-2013 by Ahmad M. Zawawi
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

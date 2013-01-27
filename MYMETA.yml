@@ -27,6 +27,7 @@ requires:
   File::Which: 1.09
   IO::String: 1.08
   IPC::Run: 0.92
+  MediaWiki::API: 0.39
   Module::Pluggable: 4.6
   Mojolicious: 3.36
   Perl::Critic: 1.118
@@ -40,4 +41,4 @@ resources:
   homepage: https://github.com/azawawi/farabi
   license: http://dev.perl.org/licenses
   repository: git://github.com/azawawi/farabi.git
-version: 0.26
+version: 0.27
