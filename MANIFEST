@@ -1,3 +1,4 @@
+.perltidyrc
 bin/farabi
 Changes
 CREDITS.md
@@ -133,7 +134,7 @@ lib/Farabi/files/public/assets/codemirror/theme/twilight.css
 lib/Farabi/files/public/assets/codemirror/theme/vibrant-ink.css
 lib/Farabi/files/public/assets/codemirror/theme/xq-dark.css
 lib/Farabi/files/public/assets/coffeescript/coffee-script.js
-lib/Farabi/files/public/assets/jquery/jquery.1.9.0.min.js
+lib/Farabi/files/public/assets/jquery/jquery-1.9.1.min.js
 lib/Farabi/files/public/assets/perlito/perlito5.min.js
 lib/Farabi/files/public/assets/perlito/perlito6.min.js
 lib/Farabi/files/public/farabi.css
@@ -176,6 +177,10 @@ MYMETA.yml
 pithub_test.pl
 README.md
 t/00-basic.t
+test_file_finder.pl
+test_path_tiny.pl
+test_perltidy_options.pl
+test_splitjoin.pl
 xt/eol.t
 META.yml                                 Module YAML meta-data (added by MakeMaker)
 META.json                                Module JSON meta-data (added by MakeMaker)

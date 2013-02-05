@@ -4,7 +4,7 @@ use Mojo::Base 'Mojolicious::Controller';
 use Capture::Tiny qw(capture);
 use IPC::Run qw( start pump finish timeout );
 
-our $VERSION = '0.29';
+our $VERSION = '0.30';
 
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {
@@ -142,40 +142,6 @@ sub perl_tidy {
 }
 
 # i.e. Autocompletion
-sub typeahead {
-	my $self = shift;
-	my $query = quotemeta( $self->param('query') // '' );
-
-	my %items;
-	if ( open my $fh, '<', 'index.txt' ) {
-		while (<$fh>) {
-			$items{$1} = 1 if /^(.+?)\t/;
-		}
-		close $fh;
-	}
-
-	if ( open my $fh, '<', 'index-modules.txt' ) {
-		while (<$fh>) {
-			chomp;
-			my ( $module, $file ) = split /\t/;
-			$items{$module} = 1;
-		}
-		close $fh;
-	}
-
-	my @matches;
-	for my $item ( keys %items ) {
-		if ( $item =~ /$query/i ) {
-			push @matches, $item;
-		}
-	}
-
-	# Sort so that shorter matches appear first
-	@matches = sort @matches;
-
-	return $self->render( json => \@matches );
-}
-
 sub help_search {
 	my $self = shift;
 	my $topic = $self->param('topic') // '';
@@ -880,15 +846,83 @@ sub find_plugins {
 	for my $plugin ($finder->plugins) {
 		my $o;
 		eval { $o = $plugin->new; };
-		next unless defined $o;
+		if($@) {
+			push @plugins, {
+				id => $plugin,
+				name => $plugin,
+				status => 'Plugin creation failure',
+			};
+
+			# No need to process anymore
+			next;
+		}
+
+		unless(defined $o) {
+			push @plugins, {
+				id => $plugin,
+				name => $plugin,
+				status => 'Plugin creation failure',
+			};
+			
+			# No need to process anymore
+			next;
+		}
+
 		if($o->can('plugin_name')) {
+			# plugin_name is supported
 			push @plugins, {
 				id   => $plugin,
 				name =>	$o->plugin_name,
+				status => '',
+			};
+
+		} else {
+			# No plugin_name support
+			push @plugins, {
+				id => $plugin,
+				name => '',
+				status => 'Does not support plugin_name!',
+			};
+			
+			# No need to process anymore
+			next;
+		}
+		
+		if($o->can('plugin_deps')) {
+
+			my $status = '';
+
+			my $plugin_deps = $o->plugin_deps;
+			for my $dep_name (keys %$plugin_deps) {
+				my $dep_version = $plugin_deps->{$dep_name};
+
+				# Validate module dependency rule
+				eval "require $dep_name $dep_version";
+				if ($@) {
+
+					# Dependency rule not met
+					$status .= "$dep_name $dep_version+ not found\n";
+				}
+
+			}
+
+			# plugin_deps is supported
+			push @plugins, {
+				id   => $plugin,
+				name =>	$o->plugin_deps,
+				status => $status,
 			};
 		} else {
-			warn "$plugin does not support plugin_name";
+			# No plugin_name support
+			push @plugins, {
+				id => $plugin,
+				name => '',
+				status => 'Does not support plugin_name!',
+			};
 		}
+		
+
+
 	}
 
 	# Return the JSON result
@@ -911,6 +945,10 @@ sub default {
 __END__
 
 =pod
+
+=head1 NAME
+
+Farabi::Editor - Action Controller
 
 =head1 COPYRIGHT AND LICENSE
 

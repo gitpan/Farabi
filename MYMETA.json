@@ -36,18 +36,16 @@
          "requires" : {
             "Capture::Tiny" : "0.21",
             "Code::CutNPaste" : "0.04",
-            "Debug::Client" : "0.20",
+            "DBD::SQLite" : "1.37",
+            "DBIx::Simple" : "1.35",
             "File::Find::Rule" : "0.33",
             "File::Which" : "1.09",
             "IO::String" : "1.08",
             "IPC::Run" : "0.92",
-            "MediaWiki::API" : "0.39",
             "Module::Pluggable" : "4.5",
             "Mojolicious" : "3.36",
             "Perl::Critic" : "1.118",
             "Perl::Tidy" : "20120714",
-            "Pod::Index" : "0.14",
-            "Pod::Parser" : "1.51",
             "Test::EOL" : "1.5",
             "Test::More" : "0.98"
          }
@@ -66,5 +64,5 @@
          "url" : "git://github.com/azawawi/farabi.git"
       }
    },
-   "version" : "0.29"
+   "version" : "0.30"
 }

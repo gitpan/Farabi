@@ -1,7 +1,7 @@
 package Farabi;
 use Mojo::Base 'Mojolicious';
 
-our $VERSION = '0.29';
+our $VERSION = '0.30';
 
 sub startup {
 	my $app = shift;
@@ -12,7 +12,11 @@ sub startup {
 	# Use content from directories under lib/Farabi/files
 	require File::Basename;
 	require File::Spec::Functions;
-	$app->home->parse( File::Spec::Functions::catdir( File::Basename::dirname(__FILE__), 'Farabi' ) );
+	$app->home->parse(
+		File::Spec::Functions::catdir(
+			File::Basename::dirname(__FILE__), 'Farabi'
+		)
+	);
 	$app->static->paths->[0]   = $app->home->rel_dir('files/public');
 	$app->renderer->paths->[0] = $app->home->rel_dir('files/templates');
 
@@ -23,7 +27,6 @@ sub startup {
 	$route->post('/help_search')->to('editor#help_search');
 	$route->post('/perl-tidy')->to('editor#perl_tidy');
 	$route->post('/perl-critic')->to('editor#perl_critic');
-	$route->post('/typeahead')->to('editor#typeahead');
 	$route->post('/pod2html')->to('editor#pod2html');
 	$route->post('/pod-check')->to('editor#pod_check');
 	$route->post('/open-file')->to('editor#open_file');
@@ -35,19 +38,47 @@ sub startup {
 	$route->post('/run-rakudo')->to('editor#run_rakudo');
 	$route->post('/run-niecza')->to('editor#run_niecza');
 	$route->post('/run-parrot')->to('editor#run_parrot');
-	$route->post('/find-duplicate-perl-code')->to('editor#find_duplicate_perl_code');
+	$route->post('/find-duplicate-perl-code')
+	  ->to('editor#find_duplicate_perl_code');
 	$route->post('/dump-ppi-tree')->to('editor#dump_ppi_tree');
 	$route->post('/find-plugins')->to('editor#find_plugins');
-
-	# Web-based Read-Eval-Print-Loop (REPL) action
 	$route->post('/repl-eval')->to('editor#repl_eval');
+
+	# Setup the Farabi database
+	eval {
+		$app->_setup_database;
+	};
+	if($@) {
+		warn "Database not setup, reason: $@";
+	}
+}
+
+# Setup the Farabi database
+sub _setup_database {
+
+	# Connect and create the Farabi SQLite database if not found
+	require DBIx::Simple;
+	my $db = DBIx::Simple->connect('dbi:SQLite:dbname=farabi.db');
+
+	# Create tables if they do not exist
+	$db->query(<<SQL);
+CREATE TABLE IF NOT EXISTS recent_list (
+	id        INTEGER PRIMARY KEY AUTOINCREMENT, 
+	name      TEXT,
+	type      TEXT,
+	last_used TEXT
+)
+SQL
+
+	# Disconnect from database
+	$db->disconnect;
 }
 
 sub unsafe_features {
-	# Enable unsafe features by default for now
-	return 1; # defined $ENV{FARABI_UNSAFE};
-}
 
+	# Enable unsafe features by default for now
+	return 1;    # defined $ENV{FARABI_UNSAFE};
+}
 
 1;
 __END__
