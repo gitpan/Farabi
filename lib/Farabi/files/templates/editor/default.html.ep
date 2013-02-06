@@ -40,25 +40,25 @@
 <body>
 	<div class="container-fluid">
 		<div class="row-fluid">
-			<div>
-				<br/>
-				&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="actions-button"><i class="icon-th"></i> <b>A</b>ctions</a>
-				<br/>
-				<br/>
+			<div id="action_button_div">
+				<a href="#" class="actions-button"><i class="icon-th"></i> <b>A</b>ctions</a>
 			</div>
 			<div class="row-fluid">
-				<div class="span6">
+				<div class="span6 left-side">
 					<ul id="myTab" class="nav nav-tabs"></ul>
 					<div id="myTabContent" class="tab-content"></div>
 				</div>
-				<div class="span6">
+				<div class="span6 right-side">
 					<ul id="rightTab" class="nav nav-tabs">
 						<li class="active"><a href="#output-tab" data-toggle="tab">Output</a></li>
 						<li><a href="#pod-preview-tab" data-toggle="tab">POD Preview</a></li>
 					</ul>
 					<div id="rightTabContent" class="tab-content">
 						<div class="tab-pane active" id="output-tab">
-							<textarea id="output" cols="80" rows="27"></textarea>
+							<div class="farabi-bordered">
+								<textarea id="output"></textarea>
+								<br>
+							</div>
 						</div>
 						<div class="tab-pane" id="pod-preview-tab">
 							<div class="farabi-bordered">

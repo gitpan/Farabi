@@ -44,6 +44,7 @@
             "IPC::Run" : "0.92",
             "Module::Pluggable" : "4.5",
             "Mojolicious" : "3.36",
+            "Moo" : "1.000008",
             "Perl::Critic" : "1.118",
             "Perl::Tidy" : "20120714",
             "Test::EOL" : "1.5",
@@ -64,5 +65,5 @@
          "url" : "git://github.com/azawawi/farabi.git"
       }
    },
-   "version" : "0.30"
+   "version" : "0.31"
 }

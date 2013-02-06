@@ -1,15 +1,24 @@
 package Farabi::Plugin::PerlTidy;
 
-our $VERSION = '0.30';
+use Moo;
 
-sub new {
-	return bless {};
-}
+our $VERSION = '0.31';
 
-# Returns the plugin's name
-sub plugin_name {
-	return 'Perl::Tidy support';
-}
+# Plugin module dependencies
+has 'deps' => (
+	is      => 'ro',
+	default => sub {
+		[ 'Perl::Tidy' => '20120714', ];
+	}
+);
+s
+# Plugin's name
+has 'name' => (
+	is      => 'ro',
+	default => sub {
+		'Perl::Tidy support';
+	}
+);
 
 1;
 

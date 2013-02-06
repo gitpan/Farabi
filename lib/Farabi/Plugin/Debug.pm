@@ -1,22 +1,24 @@
 package Farabi::Plugin::Debug;
 
-our $VERSION = '0.30';
+use Moo;
 
-sub new {
-	return bless {};
-}
+our $VERSION = '0.31';
 
-# Returns the plugin module dependencies
-sub plugin_deps {
-	return [
-		'Debug::Client' => '0.20',
-	];
-}
+# Plugin module dependencies
+has 'deps' => (
+	is      => 'ro',
+	default => sub {
+		[ 'Debug::Client' => '0.20', ];
+	}
+);
 
-# Returns the plugin's name
-sub plugin_name {
-	return 'Perl 5 Debugger';
-}
+# Plugin's name
+has 'name' => (
+	is      => 'ro',
+	default => sub {
+		'Perl 5 Debugger';
+	}
+);
 
 1;
 

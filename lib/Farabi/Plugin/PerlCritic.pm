@@ -1,15 +1,24 @@
 package Farabi::Plugin::PerlCritic;
 
-our $VERSION = '0.30';
+use Moo;
 
-sub new {
-	return bless {};
-}
+our $VERSION = '0.31';
 
-# Returns the plugin's name
-sub plugin_name {
-	return 'Perl::Critic support';
-}
+# Plugin module dependencies
+has 'deps' => (
+	is      => 'ro',
+	default => sub {
+		[ 'Perl::Critic' => '1.118', ];
+	}
+);
+
+# Plugin's name
+has 'name' => (
+	is      => 'ro',
+	default => sub {
+		'Perl::Critic support';
+	}
+);
 
 1;
 

@@ -177,7 +177,6 @@ MYMETA.yml
 pithub_test.pl
 README.md
 t/00-basic.t
-test_file_finder.pl
 test_path_tiny.pl
 test_perltidy_options.pl
 test_splitjoin.pl
