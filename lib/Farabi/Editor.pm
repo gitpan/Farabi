@@ -4,13 +4,13 @@ use Mojo::Base 'Mojolicious::Controller';
 use Capture::Tiny qw(capture);
 use IPC::Run qw( start pump finish timeout );
 
-our $VERSION = '0.31';
+our $VERSION = '0.32';
 
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {
 	my $self     = shift;
-	my $source   = $self->param('source');
-	my $severity = $self->param('severity');
+	my $source   = $_[0]->{source};
+	my $severity = $_[0]->{severity};
 
 	# Check source parameter
 	if ( !defined $source ) {
@@ -41,22 +41,17 @@ sub perl_critic {
 		  };
 	}
 
-	$self->render( json => \@results );
+	return \@results;
 }
 
 sub _capture_cmd_output {
 	my $self   = shift;
 	my $cmd    = shift;
-	my $source = $self->param('source');
+	my $source = shift->{source};
 
 	# Check source parameter
 	unless ( defined $source ) {
 		$self->app->log->warn('Undefined "source" parameter');
-		return;
-	}
-
-	unless ( $self->app->unsafe_features ) {
-		$self->app->log->warn('FARABI_UNSAFE not defined');
 		return;
 	}
 
@@ -74,34 +69,30 @@ sub _capture_cmd_output {
 		'exit' => $exit & 128,
 	};
 
-	$self->render( json => $result );
+	return $result;
 }
 
 sub run_perl {
-	$_[0]->_capture_cmd_output($^X);
+	$_[0]->_capture_cmd_output( $^X, $_[1] );
 }
 
 sub run_niecza {
-	$_[0]->_capture_cmd_output('Niecza.exe');
+	$_[0]->_capture_cmd_output( 'Niecza.exe', $_[1] );
 }
 
 sub run_rakudo {
-	$_[0]->_capture_cmd_output('perl6');
+	$_[0]->_capture_cmd_output( 'perl6', $_[1] );
 }
 
 sub run_parrot {
-	$_[0]->_capture_cmd_output('parrot');
-}
-
-sub open_url {
-	warn "Not implemented yet!";
+	$_[0]->_capture_cmd_output( 'parrot', $_[1] );
 }
 
 # Taken from Padre::Plugin::PerlTidy
 # TODO document it in 'SEE ALSO' POD section
 sub perl_tidy {
 	my $self   = shift;
-	my $source = $self->param('source');
+	my $source = shift->{source};
 
 	# Check 'source' parameter
 	unless ( defined $source ) {
@@ -139,13 +130,13 @@ sub perl_tidy {
 
 	$result{source} = $destination;
 
-	return $self->render( json => \%result );
+	return \%result;
 }
 
 # i.e. Autocompletion
 sub help_search {
 	my $self = shift;
-	my $topic = $self->param('topic') // '';
+	my $topic = shift->{topic} // '';
 
 	# Determine perlfunc POD path
 	require File::Spec;
@@ -245,7 +236,7 @@ sub help_search {
 		close $fh;
 	}
 
-	$self->render( json => \@help_results );
+	return \@help_results;
 }
 
 sub _module_pod {
@@ -296,10 +287,10 @@ sub _find_installed_modules {
 # Convert Perl POD source to HTML
 sub pod2html {
 	my $self = shift;
-	my $source = $self->param('source') // '';
+	my $source = shift->{source} // '';
 
 	my $html = _pod2html($source);
-	return $self->render( json => $html );
+	return $html;
 }
 
 sub _pod2html {
@@ -318,7 +309,7 @@ sub _pod2html {
 # Code borrowed from Padre::Plugin::Experimento - written by me :)
 sub pod_check {
 	my $self = shift;
-	my $source = $self->param('source') // '';
+	my $source = shift->{source} // '';
 
 	require Pod::Checker;
 	require IO::String;
@@ -347,7 +338,7 @@ sub pod_check {
 		}
 	}
 
-	return $self->render( json => \@problems );
+	return \@problems;
 }
 
 # Find a list of matched actions
@@ -355,7 +346,7 @@ sub find_action {
 	my $self = shift;
 
 	# Quote every special regex character
-	my $query = quotemeta( $self->param('action') // '' );
+	my $query = quotemeta( shift->{action} // '' );
 
 	# The actions
 	my %actions = (
@@ -384,16 +375,12 @@ sub find_action {
 			help => 'A quick getting started help dialog',
 		},
 		'action-open-file' => {
-			name => 'Open File',
-			help => "Opens a file in a new editor tab",
-		},
-		'action-open-url' => {
-			name => 'Open URL',
-			help => 'Opens a file from a URL is new editor tab',
+			name => 'Open File(s)',
+			help => "Opens one or more files in an editor tab",
 		},
 		'action-new-file' => {
 			name => 'New File',
-			help => "Opens a new file in a new editor tab",
+			help => "Opens a new file in an editor tab",
 		},
 		'action-options' => {
 			name => 'Options',
@@ -451,8 +438,8 @@ sub find_action {
 	# Sort so that shorter matches appear first
 	@matches = sort { $a->{name} cmp $b->{name} } @matches;
 
-	# And return as JSON
-	return $self->render( json => \@matches );
+	# And return matches array reference
+	return \@matches;
 }
 
 # Find a list of matches files
@@ -460,7 +447,7 @@ sub find_file {
 	my $self = shift;
 
 	# Quote every special regex character
-	my $query = quotemeta( $self->param('filename') // '' );
+	my $query = quotemeta( shift->{filename} // '' );
 
 	# Determine directory
 	require Cwd;
@@ -498,15 +485,15 @@ sub find_file {
 		@matches = @matches[ 0 .. $MAX_RESULTS - 1 ];
 	}
 
-	# And return as JSON
-	return $self->render( json => \@matches );
+	# Return the matched file array reference
+	return \@matches;
 }
 
 # Return the file contents or a failure string
 sub open_file {
 	my $self = shift;
 
-	my $filename = $self->param('filename') // '';
+	my $filename = shift->{filename} // '';
 
 	my %result = ();
 	if ( open my $fh, '<', $filename ) {
@@ -523,6 +510,9 @@ sub open_file {
 		require File::Basename;
 		$result{filename} = File::Basename::basename($filename);
 
+		# Add or update record file record
+		$self->_add_or_update_recent_file_record($filename);
+
 		# We're ok :)
 		$result{ok} = 1;
 	}
@@ -533,7 +523,47 @@ sub open_file {
 	}
 
 	# Return the file contents or the error message
-	return $self->render( json => \%result );
+	return \%result;
+}
+
+# Add or update record file record
+sub _add_or_update_recent_file_record {
+	my $self     = shift;
+	my $filename = shift;
+
+	require DBIx::Simple;
+	my $db = DBIx::Simple->connect('dbi:SQLite:dbname=farabi.db');
+
+	my $sql = <<'SQL';
+SELECT id, name, datetime(last_used,'localtime')
+FROM recent_list
+WHERE name = ? and type = 'file'
+SQL
+
+	my ( $id, $name, $last_used ) = $db->query( $sql, $filename )->list;
+
+	if ( defined $id ) {
+
+		# Found recent file record, update last used timestamp;
+		$db->query(
+			q{UPDATE recent_list SET last_used = datetime('now') WHERE id = ?},
+			$id
+		);
+
+		$self->app->log->info("Update '$filename' in recent_list");
+	}
+	else {
+		# Not found... Add new recent file record
+		$sql = <<'SQL';
+INSERT INTO recent_list(name, type, last_used)
+VALUES(?, 'file', datetime('now'))
+SQL
+		$db->query( $sql, $filename );
+
+		$self->app->log->info("Add '$filename' to recent_list");
+	}
+
+	$db->disconnect;
 }
 
 # Finds the editor mode from the the filename
@@ -576,8 +606,8 @@ sub _find_editor_mode_from_filename {
 # Generic REPL (Read-Eval-Print-Loop)
 sub repl_eval {
 	my $self       = shift;
-	my $runtime_id = $self->param('runtime') // 'perl';
-	my $command    = $self->param('command') // '';
+	my $runtime_id = $_[0]->{runtime} // 'perl';
+	my $command    = $_[0]->{command} // '';
 
 	# The Result object
 	my %result = (
@@ -617,7 +647,7 @@ sub repl_eval {
 		my %result = ( err => "Failed to find runtime '$runtime_id'", );
 
 		# Return the REPL result
-		return $self->render( json => \%result );
+		return \%result;
 	}
 
 	# Prepare the REPL command....
@@ -643,7 +673,7 @@ sub repl_eval {
 	$result{err} = $err;
 
 	# Return the REPL result
-	return $self->render( json => \%result );
+	return \%result;
 }
 
 # Global shared object at the moment
@@ -670,7 +700,7 @@ sub _devel_repl_eval {
 			$result{err} = 'Unable to find Devel::REPL';
 
 			# Return the REPL result
-			return $self->render( json => \%result );
+			return \%result;
 		}
 
 		# Create the REPL object
@@ -699,14 +729,14 @@ sub _devel_repl_eval {
 	}
 
 	# Return the REPL result
-	return $self->render( json => \%result );
+	return \%result;
 }
 
 # Save(s) the specified filename
 sub save_file {
 	my $self     = shift;
-	my $filename = $self->param('filename');
-	my $source   = $self->param('source');
+	my $filename = $_[0]->{filename};
+	my $source   = $_[0]->{source};
 
 	# Define output and error strings
 	my %result = ( err => '', );
@@ -717,8 +747,8 @@ sub save_file {
 		# The error
 		$result{err} = "filename parameter is invalid";
 
-		# Return the REPL result
-		return $self->render( json => \%result );
+		# Return the result
+		return \%result;
 	}
 
 	# Check contents parameter
@@ -728,7 +758,7 @@ sub save_file {
 		$result{err} = "source parameter is invalid";
 
 		# Return the REPL result
-		return $self->render( json => \%result );
+		return \%result;
 	}
 
 	if ( open my $fh, ">", $filename ) {
@@ -742,14 +772,14 @@ sub save_file {
 		$result{err} = "Cannot save $filename";
 	}
 
-	return $self->render( json => \%result );
+	return \%result;
 }
 
 # Find duplicate Perl code in the current 'lib' folder
 sub find_duplicate_perl_code {
 
 	my $self = shift;
-	my $dirs = $self->param('dirs');
+	my $dirs = shift->{dirs};
 
 	my %result = (
 		count  => 0,
@@ -761,7 +791,7 @@ sub find_duplicate_perl_code {
 
 		# Return the error result
 		$result{error} = "Error:\ndirs parameter is invalid";
-		return $self->render( json => \%result );
+		return \%result;
 	}
 
 	my @dirs;
@@ -786,7 +816,7 @@ sub find_duplicate_perl_code {
 
 		# Return the error result
 		$result{error} = "Code::CutNPaste validation error:\n" . $@;
-		return $self->render( json => \%result );
+		return \%result;
 	}
 
 	# Finds the duplicates
@@ -810,14 +840,14 @@ END
 	# Returns the find duplicate perl code result
 	$result{count}  = scalar @$duplicates;
 	$result{output} = $output;
-	return $self->render( json => \%result );
+	return \%result;
 }
 
 # Dumps the PPI tree for the given source parameter
 sub dump_ppi_tree {
 
 	my $self   = shift;
-	my $source = $self->param('source');
+	my $source = shift->{source};
 
 	my %result = (
 		output => '',
@@ -829,7 +859,7 @@ sub dump_ppi_tree {
 
 		# Return the error JSON result
 		$result{error} = "Error:\nSource parameter is undefined";
-		return $self->render( json => \%result );
+		return \%result;
 	}
 
 	# Load PPI at runtime
@@ -849,7 +879,7 @@ sub dump_ppi_tree {
 	$result{output} = $dumper->string;
 
 	# Return the JSON result
-	return $self->render( json => \%result );
+	return \%result;
 }
 
 # Find all Farabi plugins
@@ -955,8 +985,8 @@ sub find_plugins {
 
 	}
 
-	# Return the JSON result
-	return $self->render( json => \@plugins );
+	# Return the plugins list
+	return \@plugins;
 }
 
 # The default root handler
@@ -968,6 +998,55 @@ sub default {
 
 	# Render template "editor/default.html.ep"
 	$self->render;
+}
+
+# The websocket message handler
+sub websocket {
+	my $self = shift;
+
+	# WebSocket Connected... Create JSON object...
+	require Mojo::JSON;
+	my $json = Mojo::JSON->new;
+
+	# Disable inactivity timeout 
+	Mojo::IOLoop->stream( $self->tx->connection )->timeout(0);
+
+	# Wait for a WebSocket message
+	$self->on(
+		message => sub {
+			my ( $ws, $message ) = @_;
+			my $result = $json->decode($message) or return;
+
+			my $actions = {
+				'dump-ppi-tree'            => 1,
+				'find-action'              => 1,
+				'find-file'                => 1,
+				'open-file'                => 1,
+				'run-perl'                 => 1,
+				'run-niecza'               => 1,
+				'run-rakudo'               => 1,
+				'run-parrot'               => 1,
+				'help_search'              => 1,
+				'perl-tidy'                => 1,
+				'perl-critic'              => 1,
+				'pod2html'                 => 1,
+				'pod-check'                => 1,
+				'save-file'                => 1,
+				'find-duplicate-perl-code' => 1,
+				'find-plugins'             => 1,
+				'repl-eval'                => 1,
+			};
+
+			my $action = $result->{action} or return;
+			$self->app->log->info("Processing '$action'");
+			if ( defined $actions->{$action} ) {
+				$action =~ s/-/_/g;
+				my $o = $self->$action( $result->{params} ) or return;
+				$ws->send( $json->encode($o) );
+			}
+
+		}
+	);
 }
 
 1;
