@@ -1,0 +1,1768 @@
+commit d5a00a859eeef092b84bb7eed6b335e838f31d1d
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Feb 9 08:34:37 2013 +0300
+
+    Less boilerplate...
+
+commit cd123b2d6020f05edbaae19483199d9d1a5f321a
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Feb 9 08:05:17 2013 +0300
+
+    Added t to MetaNoIndex
+
+commit 9b42ebd84965ceaa3235cdb4f281a31f2725d467
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Feb 9 08:01:06 2013 +0300
+
+    Setup next release in changes and require perl
+
+commit 921aa6f2af46998f3d596f5df3fe703ff5020e54
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Feb 9 07:46:41 2013 +0300
+
+    Moved to Dist::Zilla to save my time
+
+commit a3cbd45ab0387b6549f96058e5a53835954b1749
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Feb 9 06:59:36 2013 +0300
+
+    Bug fix: Exit code is now returned correctly when a script is run
+
+commit b35ddf6096d5755cd74b3c305013fe1409d87da0
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Feb 9 06:52:33 2013 +0300
+
+    Actions link is now a blue button
+
+commit dcdf006a8cc6b33656f7ea0d7ab32e0af4f1386f
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Feb 9 06:41:40 2013 +0300
+
+    Add "connection status" and the websocket connection is retried upon close
+
+commit fbd4c555a5e7201b56666af0abef11896834c68d
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Feb 8 19:14:34 2013 +0300
+
+    Better hover effect on close tab and add new tab icons
+
+commit b4d804192f27418ddf66c814e9bcc4c2bfdf6dcb
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Feb 8 18:56:42 2013 +0300
+
+    Upgrade Bootstrap to 2.3.0
+
+commit 82bed1eb1079698db2af1dc35a4d4dfa3005e68d
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Feb 8 11:39:22 2013 +0300
+
+    Opened the way for 0.33 development
+
+commit 0af57d76e1380249b79de439cf92eff5a4354ab9
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Feb 8 04:46:48 2013 +0300
+
+    The new Changes is here for 0.32
+
+commit fadda12fc98b945e8421cc9a91b1bf318e7658eb
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Feb 8 04:46:17 2013 +0300
+
+    Disable websocket inactivity stream timeout
+
+commit ce2ddce092b7425a10a466d22bcd2c7cfc6a26ff
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Feb 8 03:01:00 2013 +0300
+
+    REPL is websocket aware... the last i hope
+
+commit 2379591e54ec423b47e9782e7b7e64ca77ef17bc
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Feb 8 02:57:51 2013 +0300
+
+    Remainder fixes for websocket support
+
+commit 3a0f79630bec56bf11737709b926be530623615b
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Feb 8 02:34:44 2013 +0300
+
+    More generic message handling
+
+commit 1554656bbcefd2fb1d53d487a42f3efdf32aa5fe
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Feb 8 02:27:26 2013 +0300
+
+    Migrating the rest of the actions
+
+commit 608f0b26209265baa443c83ff54066dccd7f7cbc
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Feb 8 01:59:29 2013 +0300
+
+    Run action is websockets aware and onclose event is logged now
+
+commit adc1bc842c45ff0b235f41bdad1db1e878731fd4
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Feb 8 01:42:21 2013 +0300
+
+    Remove obsolete POST actions that were migrated to websockets
+
+commit 763ae68eb6b6b69ae8fc9c3e9e6907459bdd2ba9
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Feb 8 01:40:06 2013 +0300
+
+    find-file and open-file are websocket aware
+
+commit ba148940761c23c31d6dc7cd38781c5ccdc14a45
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Feb 8 01:36:30 2013 +0300
+
+    Code cleanup
+
+commit 91fe636191d09fec016323029fd4738496ed5e61
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Feb 8 01:23:59 2013 +0300
+
+    Increase inactivity timeout for websocket connection a bit
+
+commit 09fd7cfc696f1b4715599277c518a057cfc8ac28
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Feb 8 01:18:03 2013 +0300
+
+    Find file is now websocket aware
+
+commit e49f133a22617d34cde86bf44ce8851abb3b95e3
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Feb 8 01:01:23 2013 +0300
+
+    Bug workaround: Firefox escape key kills the websocket connection...
+
+commit 0a058e419a21fb1a20f7c67691771ab5c120de3a
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Feb 8 00:47:16 2013 +0300
+
+    dump-ppi-action and find-action are now websocket enabled!
+
+commit b16c1898eaa81d191f237b10a776d22d092d3db2
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Feb 8 00:00:46 2013 +0300
+
+    Initial draft of the websocket message loop.
+
+commit 665c71d52de1833dfa02d78b5507ecb2ed064b08
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Thu Feb 7 23:41:10 2013 +0300
+
+    Less variable size
+
+commit d45f38da64fad066a28b6cdf32779c357b345c47
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Thu Feb 7 23:21:06 2013 +0300
+
+    Added websocket client/side draft support. Farabi is going websockets :)
+
+commit dad2cc8f208234f4f1fc73fa576df18c295d1def
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Thu Feb 7 22:40:25 2013 +0300
+
+    No need for unsafe anymore... Besides how safe is unsafe... :)
+
+commit 8cea770e368572e221407ac41b5262102d2cf217
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Thu Feb 7 22:33:09 2013 +0300
+
+    use Mojo logger...
+
+commit 7d23c3716890fc8022ec6c8d9fa8d9810c4478d4
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Thu Feb 7 22:30:46 2013 +0300
+
+    Perl tidied source is replaced only when it is different than the original content
+
+commit a2a168cbcec14148cc1397559837d3d5b0072f39
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Thu Feb 7 22:30:17 2013 +0300
+
+    Perl tidy...
+
+commit 626a1433c62c6c976207cdce5e139d618acf632e
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Thu Feb 7 21:59:21 2013 +0300
+
+    Add or update file into recent file list
+
+commit d994b2ab5f2cd671c884cc2001651e297885473b
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Thu Feb 7 20:53:25 2013 +0300
+
+    Remove unimplemented Open URL
+
+commit dbf11ddb04c47faee4929d3f3f78ebefd1d66e5d
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Thu Feb 7 17:23:55 2013 +0300
+
+    Open currently selected file if enter is pressed on file input field
+
+commit aae8718df30be34ea35db4e908d527888cedb088
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Thu Feb 7 17:21:45 2013 +0300
+
+    Open File -> Open File(s) and other help fixes
+
+commit b6de6e4b15740bc72a6175511743c0e2dfabf9c8
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Thu Feb 7 17:06:46 2013 +0300
+
+    Open file now supports opening multiple files
+
+commit 944215aff32c80802cfc1562371f490a681ab9d6
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Feb 6 23:26:00 2013 +0300
+
+    setValuel -> setValue
+
+commit 5a8d38393173e02359e9f8108d5606f4a7a28e5c
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Feb 6 21:13:54 2013 +0300
+
+    Open the way for 0.32 development road
+
+commit 5c7b97af33fcd9c408ba4ccd4ee04c1c4e4b587c
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Feb 6 21:09:23 2013 +0300
+
+    Updated Changes for 0.31 pending CPAN release
+
+commit 499709c0669d733275152013efb032d55541f5c5
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Feb 6 20:55:34 2013 +0300
+
+    Space fix
+
+commit 8666ff54e23709b2ddca8d89d790a49c1643dff6
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Feb 6 20:50:17 2013 +0300
+
+    Less left and right margin space
+
+commit dfd24b08064b568923d7d16621489faad32d70c6
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Feb 6 20:45:11 2013 +0300
+
+    Focus on output tab when dump ppi and run perl is run
+
+commit 21f09081b20ee169c9541f3ff361dc64a38d5bc3
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Feb 6 20:31:19 2013 +0300
+
+    "POD Viewer?" on/off option is now "Right Side Shown?"
+
+commit 0ca3783775bf19379a280406fcff7a4d1e016ca2
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Feb 6 20:05:58 2013 +0300
+
+    Fix output editor UI bug
+
+commit 346751114916699e4931c9696315e919daf1549d
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Feb 6 13:52:51 2013 +0300
+
+    Output editor is now readonly again
+
+commit d2526ee4ba22bacfa1497435b23f660a6360a147
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Feb 6 13:49:25 2013 +0300
+
+    Output textarea is now a CodeMirror editor...
+
+commit d3a5caff4d0b14bd0222f74973dde0187f849510
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Feb 6 11:37:46 2013 +0300
+
+    Plugin manager now works but plugins fail to load because of a reload issue
+
+commit d00ea4b5994f5d7dbed38fdedec04c142cadb161
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Feb 6 11:20:38 2013 +0300
+
+    Remove file finder POC. File::Find::Rule stills wins
+
+commit b32159be4cd051c11570f46a5defdbeab58332df
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Feb 6 10:46:36 2013 +0300
+
+    Try to save and restore cursor position after a perl tidy
+
+commit 063daa48d095c1cf5a78fa31123d84e6d20f2a20
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Feb 6 10:30:48 2013 +0300
+
+    use Moo; :)
+
+commit 63b3906a97fecbbf8f5ec8eb6fbd0fdf7ab840e8
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Feb 6 10:13:46 2013 +0300
+
+    Less top/bottom/left space on the actions link. This provides us more vertical space
+
+commit ed9cf8723f801423fae96e8455a274caf60f42fe
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Feb 6 00:19:23 2013 +0300
+
+    Opened the way for 0.31 development
+
+commit 1ed6e9f5462d50fefafe9620ae90f0dd98076496
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Feb 6 00:07:12 2013 +0300
+
+    Updated Changes for the pending 0.30 CPAN release
+
+commit 96d345fbec6ce10788d57d9ee37e48b3bcaa2428
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Tue Feb 5 23:59:49 2013 +0300
+
+    Fix typo
+
+commit d002988ac65c9acf69fa6e72232c0da14099203b
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Tue Feb 5 23:55:12 2013 +0300
+
+    More vertical space to the editor. Output is now on the right since we're using wide-screen monitors (i.e. more width). Output and POD Preview are tabs now.
+
+commit b278bc38b1b7cd757ee22b73309d1a68bb1a1217
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Tue Feb 5 23:28:40 2013 +0300
+
+    dbix::simple POC removed
+
+commit 768b207115dc7fd6cc80814571ad5cfa4f67abad
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Tue Feb 5 23:25:45 2013 +0300
+
+    More robust DB handling
+
+commit 3e4f3e90868afa9766c207621dfb92e5a66a35b3
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Tue Feb 5 23:21:52 2013 +0300
+
+    Less dependencies and Farabi database is now created with the recent list table
+
+commit bd0afdcd6a34a432f5c6c1b46437c2e8323ff939
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Tue Feb 5 23:05:34 2013 +0300
+
+    Started to remove help documentation index autocompletion. The feature will be replaced by a simple and standard perldoc. Each project will have a Perl runtime version and therefore will use the runtime perldoc command
+
+commit f73ba9ccf2be30ac3765b00ac0e86466a9cb3087
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Tue Feb 5 23:01:22 2013 +0300
+
+    A farabi plugin now reports back required dependencies after creation. More code to support plugin manager. Added status field to report back problems or success
+
+commit 8139b914b535d06d6bf5c11f2e1c617811d475fa
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Tue Feb 5 22:35:52 2013 +0300
+
+    Less dependency fat
+
+commit 4a0c137be7684a60e558bff9a1fbaebc05f72c5f
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Tue Feb 5 07:04:30 2013 +0300
+
+    Upgrade to jQuery 1.9.1
+
+commit b3279874dc0b19716e447368d95b57e487842d3b
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Feb 4 23:03:04 2013 +0300
+
+    How to parse all perltidy options. Attempt #1
+
+commit 982449ff02481c95d1d4687f48c012b9dcb443e8
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Feb 3 05:02:16 2013 +0300
+
+    Added File::Next to the test
+
+commit 0ec7dbde8304426d4ca00cabedf6771eb7b70fec
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Feb 3 04:47:05 2013 +0300
+
+    Faster Path::Iterator::Rule but not quite the File::Find::Rule speed
+
+commit bc0a183dc04c691829000855f7f67d0f2b9c3732
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Feb 2 18:07:10 2013 +0300
+
+    Added File finder tester (POC)
+
+commit 0c935a884d1b280a20f7e87cdf952e8f0df982e7
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Feb 1 06:06:43 2013 +0300
+
+    Better syntax...
+
+commit d4dd9a72831f52eaaf0cd47d3902d9da7f2ba306
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Feb 1 06:02:52 2013 +0300
+
+    Perl tidy...
+
+commit 8ddb4cf82c694cb0fc98fbcc3016c8e63d25a974
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Feb 1 06:01:52 2013 +0300
+
+    Use .db instead of .dat database extension
+
+commit c4b689fc99ea4b08f26f5cad51f7a0bbcbe1e496
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Feb 1 05:59:38 2013 +0300
+
+    First proof of concept of using SQLite and DBIx::Simple to build Farabi DB
+
+commit a511c704f34d0b3e895792b79ce83b7c39357274
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Feb 1 05:30:54 2013 +0300
+
+    Added DBD::SQLite and DBIx::Simple
+
+commit cd372a43e6be862ca5ed76e819f603eb80ba563e
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Thu Jan 31 09:32:13 2013 +0300
+
+    Added a .perltidyrc and a tester for Path::Tiny
+
+commit 24226b679a0404bff549d9db00f9b540413b8a8b
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Jan 30 03:18:43 2013 +0300
+
+    Added a proof of concept for a split/join postfix if statement
+
+commit 4aa5c9642a89b5af550b7cc58156caedc07b6081
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Tue Jan 29 21:23:18 2013 +0300
+
+    In dump PPI, get the editor selection first and fallback to all editor contents
+
+commit f4e53de869bcce2e67c0040dc5fc3bc299299c1b
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Jan 28 08:20:26 2013 +0300
+
+    More documentation
+
+commit 90a3aed1ba92372e8cf0d2e509d77339cdfd779e
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Jan 28 07:50:57 2013 +0300
+
+    Opened the way for the great 0.30 development release
+
+commit 189b0bccf78643870a8fc8a6a382dbf6d6304ff6
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Jan 28 07:40:53 2013 +0300
+
+    0.29 is a quick bugfix release for 0.28... azawawi--
+
+commit 63a392adf952aad0d4003e0cec5b035cb2d55ab5
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Jan 28 07:35:22 2013 +0300
+
+    Updated Changes for pending 0.28 CPAN release
+
+commit 113f3db7bbda7723f88e197724af3220827479e7
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Jan 28 07:28:28 2013 +0300
+
+    Plugin Manager 0.01 is here :)
+
+commit e0d4bc5d8b24193ddabb9cbd11e99f1a5557ee61
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Jan 28 07:01:48 2013 +0300
+
+    When a tab is shown, let us update current editor id
+
+commit 91ba9faea9cbb71563a061548678efc283f78b03
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Jan 28 06:52:41 2013 +0300
+
+    Refactor perl style into javaScript style varaibles
+
+commit 1db684c37f2d563242749bb402d45d624aae154b
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Jan 28 06:50:53 2013 +0300
+
+    Plugin Manager dialog is now displayed
+
+commit 391aba60138873ac40291556560bebf0bb5529f7
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Jan 28 06:40:41 2013 +0300
+
+    Add Plugin manager action. Currently an empty dialog
+
+commit 1ccfe659ebb6bcabdb8ba67a3e0b386a71979d32
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Jan 28 06:29:41 2013 +0300
+
+    Some action sorting in the source code
+
+commit d6ac3e4fd84129ad325dff825bbb936ae975da7f
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Jan 28 06:25:19 2013 +0300
+
+    Added dummy plugins for Perl::Critic and Perl::Tidy support
+
+commit 763cda2aef8b4a9c51c1855c5ce2840b8f90c084
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Jan 28 06:23:19 2013 +0300
+
+    Added new to F:P:Debug
+
+commit adfa332a9cc9ad48f7a999d06054e10d66809bde
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Jan 28 05:54:29 2013 +0300
+
+    Moved Module::Pluggable to 4.5 (i.e v5.16.2)
+
+commit f2f997662eed97e2b5032278606eb46c86875da1
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Jan 27 10:39:46 2013 +0300
+
+    Nudged some changes in Changes :)
+
+commit 7e185aa971a4f741b9d70b571050c3d3a8bf125d
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Jan 27 10:38:06 2013 +0300
+
+    Opened the way for 0.28 development release
+
+commit bb042eb7cf8ded450727a809521c0651533d44f2
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Jan 27 10:36:31 2013 +0300
+
+    Added missing  0.27 changes
+
+commit 57f8747f9112e837e116bf133d90b5f519df6b08
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Jan 27 10:29:05 2013 +0300
+
+    Updated copyright for 2013 and added more documentation to all Perl modules
+
+commit 2e4f07e822211f3d27b99ba836fe006b1e87e0da
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Jan 27 09:57:19 2013 +0300
+
+    Handle '' more gracefully
+
+commit a47d33bd549ea6029a84ca027d123ecadc896820
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Jan 27 09:54:57 2013 +0300
+
+    No need to alert the error
+
+commit 67556abd86eca8cc87c92ef3b90b0a3efc488471
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Jan 27 09:45:05 2013 +0300
+
+    No whitespace tokens when dumping
+
+commit d0af1787f7cd8bfaa7bda31e870290983c8da61f
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Jan 27 09:36:46 2013 +0300
+
+    "Dump PPI Tree" action now works as expected
+
+commit 866862d15eaeba2cefb79f596dbb53072f2b6aa6
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Jan 27 08:51:14 2013 +0300
+
+    Added the initial PPI dump action
+
+commit d7c392c90dc9ca0e3fddd3e7b84ac882d645f04f
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 23:58:34 2013 +0300
+
+    Get the first wiki article
+
+commit 06b6d05cea8cedfd2cd803cab77bfc1fced07177
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 23:41:38 2013 +0300
+
+    Added MediaWiki::API proof of concept
+
+commit f4349f6d9468205e41e80106e69ff03fa48c4671
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 23:28:59 2013 +0300
+
+    Added MediaWiki::API to depedencies
+
+commit 2e9c1426de40694c7eb446c870c3abb09890ef5b
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 17:20:53 2013 +0300
+
+    Opened the way for 0.27 development and fixed a small typo in TODO
+
+commit 010abd547d375081ba3cd498f5e2ea3cbe9d1273
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 17:13:02 2013 +0300
+
+    Updated Changes and TODO for 0.26 pending CPAN release
+
+commit 4d13450f2162b30ee3a96c9787863ec1fb42e17f
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 17:08:25 2013 +0300
+
+    Better validation error message
+
+commit 31686197f89142dd529148ded66f92a894601df9
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 17:05:49 2013 +0300
+
+    More validation for find duplicate perl code dialog
+
+commit e642a373d68a67ebea138e610ef675243913b10f
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 16:32:52 2013 +0300
+
+    Output is monospaced and the find duplicates perl code result is returned correctly
+
+commit 4eee8b39b6b12763cfaa795634c2a5f3c558ced5
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 16:23:58 2013 +0300
+
+    Find duplicate code dialog now works
+
+commit 9d4997a35216ba2f3cc4e5f4befb761dc0002108
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 15:53:01 2013 +0300
+
+    Add the action for the "Find Duplicate Perl Code"
+
+commit 8a69eef50b3538ed2c0d2695c0ca80c0cba53013
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 15:30:35 2013 +0300
+
+    Added Code::CutNPaste to dependencies
+
+commit 54dee4676088071cc56f339f2b462bfe898c8c6c
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 15:30:16 2013 +0300
+
+    Expanded the runtime list to 10 instead of 5 elements
+
+commit 9f156d1cced9d9d10a18488d6e7379ac34a48a5a
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 15:06:16 2013 +0300
+
+    Opened the way for 0.26 development release
+
+commit 61b2df628066c8094afb57efcf4e6ed2aae83cef
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 15:00:39 2013 +0300
+
+    Updated Changes for pending 0.25 CPAN release
+
+commit 242e83a24863bb8d7bbc8808633536b4b43e6fdb
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 14:55:03 2013 +0300
+
+    Run CoffeeScript in your browser using Farabi. Enjoy
+
+commit a022219558ff1d22dbeb6c26e6ecc15d1eae00e6
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 14:09:01 2013 +0300
+
+    Added Coffee Script compiler
+
+commit 3a161fa9595b7ed0c700c2fc95bf02b5f4a25de4
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 14:03:55 2013 +0300
+
+    Default to 'Perl' instead of Perlito in the run dialog
+
+commit 3f72c56681f9bebb84caae81fecaf652585fc6fa
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 14:03:31 2013 +0300
+
+    When there is no extension, default to 'plain' text
+
+commit b0129c5fc0b22295b6bd8929442bf0c3574f936b
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 13:38:45 2013 +0300
+
+    Fixed no_index and added lib/Farabi/files to it
+
+commit 3079ad8630e2559654fa50ea72018e26c6356215
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 13:04:48 2013 +0300
+
+    "what sri ays - don't do it." Do not use internal mojo jquery :)
+
+commit 471b6c61e3ead04453ef66657f1e136a17664550
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 12:38:11 2013 +0300
+
+    Fix various focus after modal dialog fade in animations
+
+commit 5dcc6fe432a2cfba228da33b753f1fe7b8c54579
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 12:21:36 2013 +0300
+
+    Fix the focus bug when showing the actions dialog
+
+commit 131bb1a1a9459c8b144533cb70a64043148146b1
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 11:55:53 2013 +0300
+
+    Less extension weirdness
+
+commit 8651e33981c461f3315312c2f8595b474fb39402
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 11:54:27 2013 +0300
+
+    Fix the file extension regex
+
+commit 08b262e8b309ee2787daea74825280d61a0f9f3d
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 10:56:01 2013 +0300
+
+    Fix close file bug after closing an open file
+
+commit b32c09a55dd8682dc41579c795faa264eb940837
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 10:05:37 2013 +0300
+
+    Fix package name for Farabi::Plugin::Debug
+
+commit 308fe0cb38b6bae58787509e3e71af1233b1f250
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 09:41:42 2013 +0300
+
+    Opened the way for 0.25 release development. Enjoy.
+
+commit 631ebfd87b9971028b4e34b4aa54ac41555c78b3
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 09:33:46 2013 +0300
+
+    Updated Changes for 0.24 pending CPAN release
+
+commit 64db9359747e2b5ba060b50499c2000bd06b1fe2
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 09:27:25 2013 +0300
+
+    Fix CREDITS markdown
+
+commit 30d339dc155cdb1040958e3c0b0efe2904e8652f
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 09:24:25 2013 +0300
+
+    Move to CodeMirror 3.02 addon structure
+
+commit b31b90d84991be80d19899e487b06271b320df6d
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 09:18:55 2013 +0300
+
+    Fix Perl warning about variable redeclaration
+
+commit b47ac460d7e09368fb619f00ea2ccfdc921ad700
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 09:13:25 2013 +0300
+
+    Upgrade to CodeMirror 3.02
+
+commit 546ce2b2eaf1267f229fb5d916ee05af3b2f9d0f
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 09:03:37 2013 +0300
+
+    Remove the "Editor" line
+
+commit d8ce9d7f3785c8cf1bfed713ba5f0a11b70a2b83
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 01:16:21 2013 +0300
+
+    Added an empty Perl 5 Debugger plugin
+
+commit 7d05944317c245af3a975669235185d934bedff3
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 01:13:08 2013 +0300
+
+    Added Module::Pluggable to list of dependencies
+
+commit c5135bc05e4e01c8619937c2782de25f7a5cca4f
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 00:58:48 2013 +0300
+
+    Remove the '*' after the tab name after a successful save
+
+commit 08740a040219d451ac35ed579c204aa7b774eca1
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Jan 26 00:49:21 2013 +0300
+
+    First implementation of a working save file
+
+commit a1e8635fc3bc45c03c36d330c1735c0afbffd075
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Jan 2 20:00:49 2013 +0300
+
+    Add modal dialog fade effect for all dialogs
+
+commit 6e0cdc32b40a1d67ec6a6a4cf2a3f6f9f0e54139
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Jan 2 16:59:56 2013 +0300
+
+    Fix a bug with icon remove
+
+commit a6c067166fc0c5303ea25d44e6365cbfcca9b7ef
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Jan 2 16:55:46 2013 +0300
+
+    Added the "new file" button which is shown to the right of the editor tabs (like chrome)
+
+commit 1a27c24d4875213d7ca7f3b0516cb2e0bb759a6f
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Jan 2 16:42:52 2013 +0300
+
+    Smaller tabs
+
+commit bd2f86dcdb8678b04c4f6a855c0c94c2fde509e0
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Jan 2 16:41:54 2013 +0300
+
+    Open the way for 0.24 development release
+
+commit 08434fe14acde39919f3b4462498b205cca1e909
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Jan 2 14:29:32 2013 +0300
+
+    Updated Changes for the cool 0.23 new-year release. Happy New Year!
+
+commit efb262e83ee6f54597f027028301344ac994cabe
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Jan 2 14:23:50 2013 +0300
+
+    Close Files => Close All Files
+
+commit 5fd018a8d511a430c6a50cbe1b229b8db8e81b7d
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Jan 2 14:21:04 2013 +0300
+
+    Add save question dialog
+
+commit 999aba75f7965c14f726ff324f420262d0895753
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Jan 2 14:20:28 2013 +0300
+
+    When the a file is closed and it not clean we need to popup a save confirmation dialog
+
+commit 0037dd4c706fdfe6f4c1af012183e9b0f7afbcbc
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Jan 2 14:02:20 2013 +0300
+
+    Various stability and refactorings into a better close file/files action
+
+commit 51dcb4354a78fdaeac6d3be5e49370d9f6e29a1b
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Jan 2 12:27:52 2013 +0300
+
+    More fixes to the REPL dialog
+
+commit a648d694c87a2e48a853854221778b16940613d8
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Jan 2 12:13:44 2013 +0300
+
+    Contents are set now in AddEditorTab and showing the '*' after the filename name is now faster
+
+commit f9a4112ef9c4e176bc006f3603eddb67753d7acd
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Jan 2 11:58:46 2013 +0300
+
+    Move function into a lexical scope
+
+commit b978fbf92c676e2983d1cae68d90fda07b34cb59
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Jan 2 11:56:32 2013 +0300
+
+    Untitled editors are considered Perl by default
+
+commit f430d7bbb2125e484a931af8a7e3a5a234a5b60e
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Jan 2 11:51:46 2013 +0300
+
+    Close the last editor tab create a new untitled one
+
+commit ed79e6de762084210051e413977466e021a09a71
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Jan 2 11:45:43 2013 +0300
+
+    Added * after an editor tab name if is dirty (i.e. has been edited)
+
+commit 6e0d482bea499b723e35fe5bb474ebc2457a196a
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Jan 2 11:31:19 2013 +0300
+
+    Add the initial implementation of save file
+
+commit 239a0043307c3202093ba0e3862831746485704f
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Jan 2 11:02:47 2013 +0300
+
+    Devel::REPL is now supported as an internal in-process REPL
+
+commit b11c9b1b8b1e0c161d90e57c0d3af25cf3e6ddc9
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Dec 29 20:08:00 2012 +0300
+
+    REPL command output is not readonly in REPL dialog
+
+commit e00ae18e59f733f006ddc8dcfd951853744e4f5c
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Dec 29 20:06:09 2012 +0300
+
+    Added Close File and Close Files. Not 100% correct though
+
+commit d12f24e79f386af3a316ef89679636c02537fbe5
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Dec 29 18:03:30 2012 +0300
+
+    Fix mode selection bug when open a file that is not perl and added a feature to accept a directory parameter to find-file
+
+commit bc00b159c89ac9290d92302d525f9b05849eb384
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 19:19:07 2012 +0300
+
+    Updated Changes
+
+commit 6d1e2ea21f0f0b94db546e4dbbba353c72555acc
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 19:17:29 2012 +0300
+
+    Disable all form submission to prevent UI from refreshing by mistake on ENTER and cleanup old code for action dialog and open file dialog
+
+commit b3b964d57595d40c2b2298bdd2c8b8cc30d0043f
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 18:50:31 2012 +0300
+
+    Opened the way for 0.23 development release
+
+commit fe5b72d58fa5ffad156c10d6719a9b633fd75b8f
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 18:44:26 2012 +0300
+
+    Make sure things work like they used to
+
+commit 46d82725b7ad4d272f9053dfabe5aff0ee96a0fe
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 18:26:28 2012 +0300
+
+    Updated Changes and fix the editor to be empty at startup
+
+commit a5da06766d5c71ee135646af1ef0af55963e2f6d
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 18:01:22 2012 +0300
+
+    Tab support is done :)
+
+commit 97b35747cd3e3f09b47107e8357f237deb5b2f9a
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 17:54:11 2012 +0300
+
+    New opens a "Untitled %d" new tab and open file opens it in a new tab for now
+
+commit 6bd791b7426e868d7b257b3d674bfcccd41cafb0
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 17:25:39 2012 +0300
+
+    Add Tabs example... and it works :)
+
+commit 9e314b26c414e88c0512b7551666384e18cb8d6c
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 13:21:53 2012 +0300
+
+    New file works by clearing the current editor atm
+
+commit 872c217f4960a9433af8a703e289795c2fea69c9
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 13:18:47 2012 +0300
+
+    Handle double click event on the matched action/files list as an action trigger
+
+commit 26b1df72a5a92a0b7a03c57433c265ba83894373
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 12:47:29 2012 +0300
+
+    Updated TODO
+
+commit bf6e52b34c2ab5d7813ff5df00ee783262c2b19f
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 12:46:18 2012 +0300
+
+    Add CoffeeScript support
+
+commit 2160d7ae77ec152868ecceaff74012f2c27b0196
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 11:39:33 2012 +0300
+
+    Opened the way for the 0.22 development release
+
+commit 764bf066b5b07e856ca5af506cb62dd789555299
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 11:33:06 2012 +0300
+
+    Updated Changes for 0.21 pending CPAN release
+
+commit 30679a1504bd818ff952f4ef49026e4e376730d5
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 11:21:03 2012 +0300
+
+    Added test_repl.pl and fixed a typo in error handler
+
+commit 85cc38d3c09c87e34db9bbcb18c38b42b43c566e
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 10:24:16 2012 +0300
+
+    Moved Perlito run functions into run dialog file and moved more of options into options dialog
+
+commit 02b2d826962e4fde0f5cfc35a8da1d07849bcb6b
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 10:17:38 2012 +0300
+
+    Moved Options dialog into its own file
+
+commit 4bed79f415125db6fcc8f5cb7a3439a032ca7270
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 10:14:03 2012 +0300
+
+    Changed changeMode to ChangeMode (global window function for now) and moved Perl Critic into its own file
+
+commit 46378557e374e515eb48805260ff9a3fd29ec0eb
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 10:08:54 2012 +0300
+
+    Moved Run dialog to its own file
+
+commit 074b58875490f04bb95b84e88435ba097f25f564
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 07:44:48 2012 +0300
+
+    Scroll to bottom in REPL dialog
+
+commit df82cd0f1f82486e9f0f3563f5e0329aa6b82ac5
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 07:41:35 2012 +0300
+
+    Added missing files from previous commit :)
+
+commit 52aabfa363669474edfdc7ad375ff2cd3912c1ce
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 07:39:58 2012 +0300
+
+    Fix empty line in REPL and move REPL dialog into its own file
+
+commit c9bd70c154b17994ac0c8879f00f7777b244cb44
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 07:36:45 2012 +0300
+
+    Added a TODO comment
+
+commit f39706047f05bacdcf998cf77317c5e194161ec6
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 07:33:26 2012 +0300
+
+    Move open file dialog into its file
+
+commit dcc64537debfa867395dab41a37916f478ed8c1c
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 07:05:47 2012 +0300
+
+    Add more documentation
+
+commit f67a6f2c57eb3f1b4927ecd25aa991bd5cfeee52
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 07:04:26 2012 +0300
+
+    Proper fix actions dialog change... You should test more lol
+
+commit 77afb6770a0459c4280fa0dd12c0394ad959f43d
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 06:58:24 2012 +0300
+
+    Add missing actions dialog file from previous commit
+
+commit dc8e22a5e2d9f3c188fe4e9637beda35456bf334
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 06:57:51 2012 +0300
+
+    Add New file (dummy at the moment) and seperate actions dialog into its own javascript file
+
+commit e5287d68b04097fe4d54988a16bf8865d51bbb04
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 06:45:38 2012 +0300
+
+    Pressing ENTER on the open file dialog opens the file as in action dialog
+
+commit afdd8f626e7446148fdd1a83f6639f7ba1ea7a9f
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 24 06:40:10 2012 +0300
+
+    Prevent Action field from being autocompleted and fix weird event consumption bug with actions dialog
+
+commit e78d96c24e1fe1a03b9145970e988f5f11e9d09c
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 23 21:05:19 2012 +0300
+
+    Support Niecza, perl6 and re.pl (Devel::REPL)
+
+commit df5787a131ec5f096e8261f0d074c65ed4c52e4c
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 23 11:02:19 2012 +0300
+
+    Updated Changes for the pending 0.20 release
+
+commit 28791f53ffa76cd693addef86a46446ee000c932
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 23 10:57:00 2012 +0300
+
+    Fix keypress consumption bug
+
+commit bd29d5508b61a816c5f5f6b8f88e05cb7dca5de5
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 23 10:45:02 2012 +0300
+
+    Refactor each dialog HTML into its own dialog HTML template
+
+commit 11d93c80bb13d0c31f62a315819d23d97f33612e
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 23 10:38:55 2012 +0300
+
+    Enter on actions dialog runs the action now
+
+commit 5986ff9efa8b712e40b42c4e11b0dea140dadd0d
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 23 10:36:31 2012 +0300
+
+    Added action help to actions dialog
+
+commit 29fd43be83baf4f120b4c270b9544d296537cdf4
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Dec 22 10:25:06 2012 +0300
+
+    REPL includes now error and output stream from REPLed-process
+
+commit fb31d78321c98209d94873505e71b5109ab65990
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Dec 22 10:14:23 2012 +0300
+
+    REPL is here!
+
+commit dd7f722349fab8980d435d032f75639ee0ff3102
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Dec 22 09:52:35 2012 +0300
+
+    Added IPC::Run to dependencies for REPL feature
+
+commit 2b5adc3de340f588af01a4524c6b01eb7a9da9d1
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Dec 22 08:59:52 2012 +0300
+
+    Refactor run_something into run-something. REPL display dummy output for now
+
+commit 9fc118498c482497b11096e2d92b7d574707e6b0
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Dec 22 08:46:30 2012 +0300
+
+    Read-Eval-Print-Loop (REPL) dialog is here
+
+commit 67fb4210f958db6d65c31cbcf4c4d64fc5d25c9d
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Dec 21 15:35:22 2012 +0300
+
+    Updated TODO
+
+commit 4d505a9c8b194b1778299905879f0b70f8727808
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Dec 21 15:33:03 2012 +0300
+
+    Opened the way for 0.20
+
+commit 4064fcb1f56e91a62513a893bc3e2e181bed5fa0
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Dec 21 15:17:57 2012 +0300
+
+    Update Changes for pending 0.19 release
+
+commit 4a508b07a2a2efe3f63ebdc97709dab798cc55af
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Dec 21 15:09:26 2012 +0300
+
+    Fix find file sorting order and fix a weird bug in Open actions
+
+commit 6bd94eab6a2b5340bda8c0df80712b2a8a68043b
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Dec 21 14:53:08 2012 +0300
+
+    Update README.md about different port usage
+
+commit 8f50704d9998864656dd543310a5ea3edab60e75
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Dec 21 14:50:06 2012 +0300
+
+    More button CSS fixes
+
+commit a233d088e737e18b83e50dcb0e15d2dadbcd53de
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Dec 21 14:31:49 2012 +0300
+
+    Enable unsafe features by default
+
+commit 1912ce764112503b70a406b6f2cf4a347c0873d2
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Dec 21 14:27:53 2012 +0300
+
+    actions should use hyphen instead of _
+
+commit 25732ae0efb151059952326f63d01c3406c8adc8
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Dec 21 14:26:11 2012 +0300
+
+    Perl Critic is not run by default and it now says something after execution. Actions dialog is now like Open file dialog.
+
+commit addb50f427e5e4a406c2f2061e71f64afc6e0185
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Dec 21 13:33:47 2012 +0300
+
+    Add YAML support
+
+commit ab7efb3d66124adbc5f1058038c12bdd787c992c
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Dec 21 13:32:02 2012 +0300
+
+    More extensions
+
+commit 7c14564d227192b77c02e4d69c0fd0d1cbe0113e
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Dec 21 13:14:54 2012 +0300
+
+    More syntax highlighting support
+
+commit 52ec82620b4d24e350e1dd49b2bcd77d38a4e1cd
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Dec 21 13:01:48 2012 +0300
+
+    Set proper editor syntax highlighting based on extension
+
+commit 84faf23c4c25f4735c789c4bab304e6d136f78e6
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Dec 21 12:38:35 2012 +0300
+
+    Refactor open file code a bit
+
+commit d059fb620682a159a6a599ccf389ab6183cccc01
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Dec 21 12:36:20 2012 +0300
+
+    Open file works now
+
+commit aede57f16cd8aaee4329f33136229dbdfc0fb70d
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Fri Dec 21 12:04:54 2012 +0300
+
+    Open file is gonna work again :)
+
+commit 82c9cbfba8401b5b892f1573833024f45dc7b29c
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Thu Dec 20 12:45:09 2012 +0300
+
+    Bumped version to 0.19 after releasing 0.18 to CPAN
+
+commit 4a3d6ce9d6e8d1076939d84366209973a672fc2c
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Thu Dec 20 12:43:23 2012 +0300
+
+    Updated Changes for 0.18
+
+commit b6db94a714a256076b6e181dac95a6866bbee05f
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Thu Dec 20 12:36:02 2012 +0300
+
+    Match by action name not id
+
+commit caab07e74d9a0458ab2d030774fc29609b3a1c1a
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Thu Dec 20 12:26:39 2012 +0300
+
+    Actions is working again :)
+
+commit b50de00d7e4559dfdc44f0cbec01c977812cdcc6
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Thu Dec 20 11:45:14 2012 +0300
+
+    Reverting back F1... :)
+
+commit 56d4a12d23ef8ddb57d01291706cc05865847511
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Thu Dec 20 11:42:14 2012 +0300
+
+    F1 is not bound anymore
+
+commit 49e046316d2727f68f5a6a92cd49d0b730dbd2db
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Thu Dec 20 11:41:27 2012 +0300
+
+    Alt-A triggers actions button
+
+commit f8302669472e53bdbf9688523db1a6261beba854
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Thu Dec 20 11:37:13 2012 +0300
+
+    Refactor Actions into a more simple dialog. No need to use typeahead since it complicates things.
+
+commit 89e22814652e1e91ac1c47fc0558e9606405aac1
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Thu Dec 20 10:46:18 2012 +0300
+
+    Remove help tab and move its actions under Actions dialog
+
+commit 5bc5b8800ed227c70bd8bf0f33cec352e1a27e11
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Dec 19 10:25:49 2012 +0300
+
+    More fixes to typeahead and action dialog
+
+commit 5d932d7e9a4ecc62d1ff2b5aacae3b91c0c7ed37
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Wed Dec 19 10:02:04 2012 +0300
+
+    Opened the way for 0.18 development and updated Changes
+
+commit 08b9f3704ccfc41f3b600b7d09a55b61bee4b717
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Tue Dec 18 14:22:02 2012 +0300
+
+    Added farabi.conf to files/
+
+commit d2a951ccb226128060af6fec8bec6161e3f7aee6
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 16 14:00:06 2012 +0300
+
+    Fix RELEASE_TESTING=1 xt/eol.t bug
+
+commit 54dfc0fed7b416dc59db4ff54aa72bf1244d6da2
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Thu Dec 13 15:54:40 2012 +0300
+
+    Experimental Actions dialog that has autocomplete (type-ahead)
+
+commit 46ff9c5c8b2e7404d6171928b362c5f15460682c
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Thu Dec 13 13:02:19 2012 +0300
+
+    Opened the way for 0.17 development and removed unneeded CodeMirror html+css mode tests
+
+commit 7e6ffc03f7cd6271c5cab6f8009a12562d29db97
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Thu Dec 13 13:00:38 2012 +0300
+
+    Remove more unneeded stuff
+
+commit 1dd3aa754347eb992b0da8f09a4ce8678ad9af4e
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Thu Dec 13 12:58:14 2012 +0300
+
+    Remove mode html files that not actually needed
+
+commit 32a4736501e3465bf9a6c1132941061ef3050ef9
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Thu Dec 13 10:06:41 2012 +0300
+
+    Fixed failure in `RELEASE_TESTING=1 make test`
+
+commit 3884d7e4ce046d9249ff00a3949d0e8199a221d3
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Tue Dec 11 11:41:46 2012 +0300
+
+    Updated TODO about Code::CutNPaste
+
+commit 385e6d53fc42f165be3cb3cdee1c3f82e45f345d
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Tue Dec 11 17:04:25 2012 +0300
+
+    Added PitHub directory lister proof of concept script
+
+commit 8273ea5f30fe5cc5197baebd6e72b6b36ab9a66d
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Tue Dec 11 16:53:15 2012 +0300
+
+    Added TODO information about Pithub
+
+commit f2c7b4999aaff9e766d7decd8526970c4592b90f
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Tue Dec 11 16:43:19 2012 +0300
+
+    Opened development for 0.16 release
+
+commit ec75859653a9b78ea9a9bbfb668243ea9684f8e4
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Tue Dec 11 16:38:32 2012 +0300
+
+    Perl 6 mode...
+
+commit f29f2adb62d2ca8a849224aadf1ed439dbafcdf7
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Tue Dec 11 16:37:04 2012 +0300
+
+    Updated CodeMirror to 3.0 and fixed default theme exception
+
+commit 510674aa5093fa38abe6bd978adad3dedb7b4e91
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 10 13:48:19 2012 +0300
+
+    Run PIR scripts on Parrot virtual machine.
+
+commit b4e0844d3cba6d72db9840d502761bc83df391f4
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 10 13:21:48 2012 +0300
+
+    Added Debug::Client to dependencies
+
+commit 5c274a80b9b4cd4952b8206cf32d992b181bdcd0
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 10 12:11:13 2012 +0300
+
+    Added File::Which to dependencies
+
+commit 8245aff6010d23d0135b52ac21b41eaf7c66292d
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 10 10:33:52 2012 +0300
+
+    Updated TODO about perlbrew exec option
+
+commit 2f9d521f941a10520938fe440cba686348b2bac1
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 10 10:31:12 2012 +0300
+
+    Update CREDITS.md
+
+commit 020623ec5392d28b4cb0fa3823398d0ffca885a4
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 10 10:19:40 2012 +0300
+
+    Updated Changes
+
+commit b9a510d60ca03c1bfc34773b06e31c72ec107172
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Mon Dec 10 10:18:18 2012 +0300
+
+    Updated CREDITS.md
+
+commit 4ccaf8f2dbf712028fa3c9893f44c87fed3e7b6e
+Merge: aaa2a95 34f7949
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 23:03:41 2012 -0800
+
+    Merge pull request #2 from tobyink/master
+    
+    This small patch allows scripts to be POSTed to Farabi
+
+commit 34f79490525402619f5d86aedee04fed7d9ace99
+Merge: 3cdee78 4334e02
+Author: Toby Inkster <mail@tobyinkster.co.uk>
+Date:   Sun Dec 9 20:08:40 2012 +0000
+
+    merge
+
+commit 3cdee7818f7c65fd55205c8b84875ebab6099722
+Merge: 467af14 14563fd
+Author: Toby Inkster <mail@tobyinkster.co.uk>
+Date:   Sun Dec 9 20:07:07 2012 +0000
+
+    merge
+
+commit aaa2a9514749bdf3b562636eb4456b27c4a8076a
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 22:18:07 2012 +0300
+
+    Opened the way for 0.15 development release
+
+commit 14563fd5d5051a3d0e315de3a6e6e0a35e669678
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 22:15:46 2012 +0300
+
+    Fixed typo in documentation (Still 0.14)
+
+commit fe29fe6e30169e964e3ff3aa6f5c9ae47638eda2
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 22:13:54 2012 +0300
+
+    Updated Changes for 0.14 CPAN release
+
+commit b8e19c0324b55c47e81e50bacb3916826261b10e
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 22:06:08 2012 +0300
+
+    Remove F5 from help dialog
+
+commit f2ab14615fc72d5c49d8474748dc93f9ccedb2df
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 21:59:34 2012 +0300
+
+    Open File dialog now works in UI but not action
+
+commit 467af14f5e102d94c3a8f9d9c7b6d14489a8a67c
+Author: Toby Inkster <mail@tobyinkster.co.uk>
+Date:   Sun Dec 9 18:48:47 2012 +0000
+
+    HTTP POST
+
+commit 4334e02741fb17d48b328ce72e609d79dcdfc14a
+Author: Toby Inkster <mail@tobyinkster.co.uk>
+Date:   Sun Dec 9 18:44:23 2012 +0000
+
+    allow scripts to be POSTed to Farabi
+
+commit fd72fa15e3f9eb8670ccbf68b3cb955bc8832c0c
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 21:42:46 2012 +0300
+
+    Options is now a dialog and the modal backdrop is lighter
+
+commit 8f1d90f0e47f6f6396a8d64264b82cad05b49097
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 17:45:08 2012 +0300
+
+    Open URL and Open file...
+
+commit 5c9bf3eaef6054b332fcef42657b5f697ece75bb
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 17:32:35 2012 +0300
+
+    Run... with different runtimes. Currently support Niecza, Rakudo, Perlito 5, Perlito 6 and Perl.
+
+commit 36b2e5d07ea8cb5953ee333ad67916563710c17e
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 15:15:28 2012 +0300
+
+    More farabi6 functionality backported... Work in progress
+
+commit 2b913d46259a01983d1351c0009882e80aa65fda
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 15:15:06 2012 +0300
+
+    Updated Bootstrap version
+
+commit 8b73783c0bbcd3d523fca96bd09cd46c4fd4fafc
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 15:14:03 2012 +0300
+
+    Updated Bootstrap to 2.2.2
+
+commit 45be3f1f0514e05416bb344321d243069fc966a5
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 14:55:58 2012 +0300
+
+    Opened 0.14 for development!
+
+commit 5be14016a00c55a8cab580e9a2223d8515c78737
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 14:52:47 2012 +0300
+
+    Fixed typo in perl_execute (Before 0.13 release)
+
+commit b834e3ac3b254e673589ca4337ffacd9c73b2a10
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 14:47:37 2012 +0300
+
+    Updated Changes for 0.13 CPAN release
+
+commit 2c16476e7e9dd379a41fb519715f3f0fa0901285
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 14:34:48 2012 +0300
+
+    Updated CREDITS.md
+
+commit bccea7108748274a58fab8db8c1376e74d1b6219
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 14:31:27 2012 +0300
+
+    Perlito 5 and 6 runtime versions
+
+commit e8189f49a6f1e53142617ec54abf1b078e19923a
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 14:30:55 2012 +0300
+
+    Fixed default selection issue
+
+commit 33976603eedaa013408bfe5e3c4dd3afa72d4c74
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 14:30:19 2012 +0300
+
+    Add Perl 6 mode to option
+
+commit 6db5cb4526c5bbd30abd45970d2ce739a0263256
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 14:28:30 2012 +0300
+
+    Added Perl 6 mode
+
+commit b632bd83e23e77f4b5188fde15d128f6069c0cfa
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 14:15:55 2012 +0300
+
+    Trigger default theme selection on startup and "Solarized" is here
+
+commit 87a04f70394d8b8951e173ba8de1e8dbce85add1
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 14:09:01 2012 +0300
+
+    setLineClass have been replaced by addLineClass and removeLineClass
+
+commit 2ca7f8d26f07404c47caec3a1c9eef095df26bd8
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 14:02:21 2012 +0300
+
+    Updated to CodeMirror 3.0rc2
+
+commit 75f65611f587272a007a6ae3911b8b904a7877d9
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 13:56:11 2012 +0300
+
+    Updated Changes
+
+commit 0850549cff2d9ea9f16b599066d0e02ede01056f
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 13:55:25 2012 +0300
+
+    Removed Humane.js. Let us keep it simple
+
+commit 68170b7a602d413f0846d537213b934900d161cf
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 13:40:26 2012 +0300
+
+    Updated Changes
+
+commit 1bd45db5747b107a30d69adb43e5ae0f5dfa607e
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 13:37:44 2012 +0300
+
+    Added Perlito 6 javascript runtime and update Perlito 5 javascript runtime to 5.014001 (2012-12-09)
+
+commit 80c115183c8b9f4a3de68b9382f9db376632c40c
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 13:13:09 2012 +0300
+
+    Opened the way for 0.13 development release
+
+commit 97e20d7e6f0dce8f473b2bf8bd47c41e29c65da2
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 13:10:51 2012 +0300
+
+    Updated Changes for 0.12
+
+commit 932ec9a768b24b77a7bfa65c383289c36252d8f0
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 13:06:45 2012 +0300
+
+    Added "Run on Server" option that is enabled by FARABI_UNSAFE environment variable (Thanks to tobyinkster)
+
+commit 84dc6379fd7d9eef11d31e1703b2af24ed8dd8f7
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 13:04:44 2012 +0300
+
+    More Changes
+
+commit 2bc2faa884e91efb5dca3caad52dc46016f3d50e
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 12:31:30 2012 +0300
+
+    Updated Changes
+
+commit f2b41ffa39d0114a4c93ddf0ab0d2ca9b2314d6c
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 11:38:58 2012 +0300
+
+    Applied "POD Viewer on/off option" by Joel Berger. Issue #3. Thanks and sorry for the long delay.
+
+commit 90b5b681cb879e434d821fe11cf6677f790904ab
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 11:31:51 2012 +0300
+
+    More fixes TODOs
+
+commit 42b20b4d31b34afd98b280b949c221cee67ac905
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 11:30:03 2012 +0300
+
+    Added LICENSE
+
+commit bea775975b7efdcb2714c7f04abb1e19a49c6b2c
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 11:29:31 2012 +0300
+
+    Added CREDITS
+
+commit 14a7413b67e937cea757ae4ce77f532b24dd9b4b
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 11:27:02 2012 +0300
+
+    More files to ignore
+
+commit 936347c6759d9d46b65f3622cdb72147481266c6
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 11:25:47 2012 +0300
+
+    Removed .git* files from manifest
+
+commit b996cf8b5af447813f4fc796343cc1b0e7e23672
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 11:21:47 2012 +0300
+
+    Opened way for 0.12 development
+
+commit 214ec0168a1c30f20041046a31e8e86279fa74a1
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 11:20:57 2012 +0300
+
+    Update TODO
+
+commit 4543eab0b01bd0f26f31be9bf370935978323b80
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 11:18:23 2012 +0300
+
+    Finished "TODO: Move to Github"
+
+commit 42534bb2a3755fc174717e4ce269000cb2c1cc9f
+Author: Ahmad M. Zawawi <azawawi@azawawi-vm.(none)>
+Date:   Sun Dec 9 11:15:23 2012 +0300
+
+    Updated Changes for 0.11
+
+commit 98edd63bc77457953f9abdb6320f16167b799f32
+Author: Ahmad M. Zawawi <azawawi@azawawi-vm.(none)>
+Date:   Sun Dec 9 11:11:08 2012 +0300
+
+    chmod +x bin/farabi
+
+commit c1b186b7d0e02c4ab667f59a4678b12c7432497e
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sun Dec 9 11:07:02 2012 +0300
+
+    Update README.md
+
+commit fef365ffac02a7d587646b39b3bd4a7efaa6a8ef
+Author: Ahmad M. Zawawi <azawawi@azawawi-vm.(none)>
+Date:   Sun Dec 9 11:04:30 2012 +0300
+
+    Updated README.md and removed README
+
+commit b29659e22ca7f63d87bc6d6cc9d14dd19603a407
+Author: Ahmad M. Zawawi <azawawi@azawawi-vm.(none)>
+Date:   Sun Dec 9 11:01:00 2012 +0300
+
+    Updated git ignore. Makefile.PL contains the new github location
+
+commit fa1481d1b3971b4e023e22bbb9ea7243833adb80
+Author: Ahmad M. Zawawi <azawawi@azawawi-vm.(none)>
+Date:   Sun Dec 9 10:15:51 2012 +0300
+
+    Added Farabi Perl Repository
+
+commit b3122ca16f8f072871f99cefce0c24cd47022f9c
+Author: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+Date:   Sat Dec 8 23:13:41 2012 -0800
+
+    Initial commit

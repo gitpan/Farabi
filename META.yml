@@ -1,14 +1,15 @@
 ---
-abstract: 'Modern Perl editor'
+abstract: 'Modern Perl Editor'
 author:
   - 'Ahmad M. Zawawi <ahmad.zawawi@gmail.com>'
 build_requires:
-  ExtUtils::MakeMaker: 0
+  Test::EOL: 1.5
+  Test::More: 0.98
 configure_requires:
-  ExtUtils::MakeMaker: 0
-dynamic_config: 1
-generated_by: 'ExtUtils::MakeMaker version 6.64, CPAN::Meta::Converter version 2.120921'
-license: unknown
+  ExtUtils::MakeMaker: 6.30
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.300030, CPAN::Meta::Converter version 2.120921'
+license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
@@ -16,7 +17,6 @@ name: Farabi
 no_index:
   directory:
     - t
-    - inc
     - xt
     - lib/Farabi/files
 requires:
@@ -33,12 +33,9 @@ requires:
   Moo: 1.000008
   Perl::Critic: 1.118
   Perl::Tidy: 20120714
-  Test::EOL: 1.5
-  Test::More: 0.98
   perl: 5.010001
 resources:
   bugtracker: https://github.com/azawawi/farabi/issues
   homepage: https://github.com/azawawi/farabi
-  license: http://dev.perl.org/licenses
   repository: git://github.com/azawawi/farabi.git
-version: 0.32
+version: 0.33

@@ -1,5 +1,8 @@
 #!/usr/bin/env perl
 
+# PODNAME:  farabi
+# ABSTRACT: Modern Perl Editor
+
 use strict;
 use warnings;
 
@@ -7,10 +10,35 @@ use File::Basename 'dirname';
 use File::Spec::Functions qw(catdir splitdir);
 
 # Source directory has precedence
-my @base = (splitdir(dirname(__FILE__)), '..');
-my $lib = join('/', @base, 'lib');
--e catdir(@base, 't') ? unshift(@INC, $lib) : push(@INC, $lib);
+my @base = ( splitdir( dirname(__FILE__) ), '..' );
+my $lib = join( '/', @base, 'lib' );
+-e catdir( @base, 't' ) ? unshift( @INC, $lib ) : push( @INC, $lib );
 
 # Start commands for application
 require Mojolicious::Commands;
 Mojolicious::Commands->start_app('Farabi');
+
+__END__
+
+=pod
+
+=head1 NAME
+
+farabi - Modern Perl Editor
+
+=head1 VERSION
+
+version 0.33
+
+=head1 AUTHOR
+
+Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2013 by Ahmad M. Zawawi.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut

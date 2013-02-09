@@ -1,10 +1,10 @@
 package Farabi::Editor;
 
+# ABSTRACT: Controller
+
 use Mojo::Base 'Mojolicious::Controller';
 use Capture::Tiny qw(capture);
 use IPC::Run qw( start pump finish timeout );
-
-our $VERSION = '0.32';
 
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {
@@ -66,7 +66,7 @@ sub _capture_cmd_output {
 	my $result = {
 		stdout => $stdout,
 		stderr => $stderr,
-		'exit' => $exit & 128,
+		'exit' => $exit >> 8,
 	};
 
 	return $result;
@@ -1057,11 +1057,19 @@ __END__
 
 =head1 NAME
 
-Farabi::Editor - Action Controller
+Farabi::Editor - Controller
+
+=head1 VERSION
+
+version 0.33
+
+=head1 AUTHOR
+
+Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012-2013 by Ahmad M. Zawawi
+This software is copyright (c) 2013 by Ahmad M. Zawawi.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

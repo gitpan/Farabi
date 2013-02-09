@@ -1,9 +1,19 @@
-.perltidyrc
-bin/farabi
-Changes
 CREDITS.md
+Changes
+Changes.txt
+LICENSE
+MANIFEST
+META.yml
+Makefile.PL
+README
+README.md
+bin/farabi
+dist.ini
 lib/Farabi.pm
 lib/Farabi/Editor.pm
+lib/Farabi/Plugin/Debug.pm
+lib/Farabi/Plugin/PerlCritic.pm
+lib/Farabi/Plugin/PerlTidy.pm
 lib/Farabi/files/farabi.conf
 lib/Farabi/files/public/assets/bootstrap/css/bootstrap.min.css
 lib/Farabi/files/public/assets/bootstrap/img/glyphicons-halflings-white.png
@@ -42,8 +52,8 @@ lib/Farabi/files/public/assets/codemirror/mode/asterisk/asterisk.js
 lib/Farabi/files/public/assets/codemirror/mode/asterisk/index.html
 lib/Farabi/files/public/assets/codemirror/mode/clike/clike.js
 lib/Farabi/files/public/assets/codemirror/mode/clojure/clojure.js
-lib/Farabi/files/public/assets/codemirror/mode/coffeescript/coffeescript.js
 lib/Farabi/files/public/assets/codemirror/mode/coffeescript/LICENSE
+lib/Farabi/files/public/assets/codemirror/mode/coffeescript/coffeescript.js
 lib/Farabi/files/public/assets/codemirror/mode/commonlisp/commonlisp.js
 lib/Farabi/files/public/assets/codemirror/mode/css/css.js
 lib/Farabi/files/public/assets/codemirror/mode/css/test.js
@@ -165,21 +175,10 @@ lib/Farabi/files/templates/editor/run_dialog.html.ep
 lib/Farabi/files/templates/editor/sample_script.html.ep
 lib/Farabi/files/templates/editor/save_question_dialog.html.ep
 lib/Farabi/files/templates/editor/theme_selector.html.ep
-lib/Farabi/Plugin/Debug.pm
-lib/Farabi/Plugin/PerlCritic.pm
-lib/Farabi/Plugin/PerlTidy.pm
-LICENSE
-Makefile.PL
-MANIFEST			This list of files
 mediawiki_test.pl
-MYMETA.json
-MYMETA.yml
 pithub_test.pl
-README.md
 t/00-basic.t
 test_path_tiny.pl
 test_perltidy_options.pl
 test_splitjoin.pl
 xt/eol.t
-META.yml                                 Module YAML meta-data (added by MakeMaker)
-META.json                                Module JSON meta-data (added by MakeMaker)

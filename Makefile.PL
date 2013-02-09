@@ -1,54 +1,68 @@
+
 use strict;
 use warnings;
 
-use ExtUtils::MakeMaker;
+use 5.010001;
 
-WriteMakefile(
+use ExtUtils::MakeMaker 6.30;
 
-	# Package information
-	NAME          => 'Farabi',
-	VERSION_FROM  => 'lib/Farabi.pm',
-	ABSTRACT_FROM => 'lib/Farabi.pm',
-	AUTHOR        => 'Ahmad M. Zawawi <ahmad.zawawi@gmail.com>',
 
-	# Dependencies
-	PREREQ_PM => {
-		'Capture::Tiny'     => '0.21',
-		'Code::CutNPaste'   => '0.04',
-		'DBD::SQLite'       => '1.37',
-		'DBIx::Simple'      => '1.35',
-		'File::Find::Rule'  => '0.33',
-		'File::Which'       => '1.09',
-		'IO::String'        => '1.08',
-		'IPC::Run'          => '0.92',
-		'Module::Pluggable' => '4.5',
-		'Mojolicious'       => '3.36',
-		'Moo'               => '1.000008',
-		'Perl::Critic'      => '1.118',
-		'Perl::Tidy'        => '20120714',
 
-		# For testing
-		'Test::More' => '0.98',
-		'Test::EOL'  => '1.5',
-	},
-
-	# Farabi executable
-	EXE_FILES => ['bin/farabi'],
-
-	# Tests
-	test => { TESTS => 't/*.t xt/*.t' },
-
-	# META.yml metadata
-	META_MERGE => {
-		requires => { perl => '5.010001' },
-		no_index => {
-			directory => [ 'xt', 'lib/Farabi/files' ],
-		},
-		resources => {
-			license    => 'http://dev.perl.org/licenses',
-			homepage   => 'https://github.com/azawawi/farabi',
-			bugtracker => 'https://github.com/azawawi/farabi/issues',
-			repository => 'git://github.com/azawawi/farabi.git',
-		},
-	},
+my %WriteMakefileArgs = (
+  "ABSTRACT" => "Modern Perl Editor",
+  "AUTHOR" => "Ahmad M. Zawawi <ahmad.zawawi\@gmail.com>",
+  "BUILD_REQUIRES" => {
+    "Test::EOL" => "1.5",
+    "Test::More" => "0.98"
+  },
+  "CONFIGURE_REQUIRES" => {
+    "ExtUtils::MakeMaker" => "6.30"
+  },
+  "DISTNAME" => "Farabi",
+  "EXE_FILES" => [
+    "bin/farabi"
+  ],
+  "LICENSE" => "perl",
+  "NAME" => "Farabi",
+  "PREREQ_PM" => {
+    "Capture::Tiny" => "0.21",
+    "Code::CutNPaste" => "0.04",
+    "DBD::SQLite" => "1.37",
+    "DBIx::Simple" => "1.35",
+    "File::Find::Rule" => "0.33",
+    "File::Which" => "1.09",
+    "IO::String" => "1.08",
+    "IPC::Run" => "0.92",
+    "Module::Pluggable" => "4.5",
+    "Mojolicious" => "3.36",
+    "Moo" => "1.000008",
+    "Perl::Critic" => "1.118",
+    "Perl::Tidy" => 20120714
+  },
+  "VERSION" => "0.33",
+  "test" => {
+    "TESTS" => "t/*.t"
+  }
 );
+
+
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
+  my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
+  my $pp = $WriteMakefileArgs{PREREQ_PM};
+  for my $mod ( keys %$br ) {
+    if ( exists $pp->{$mod} ) {
+      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod};
+    }
+    else {
+      $pp->{$mod} = $br->{$mod};
+    }
+  }
+}
+
+delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
+  unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
+
+WriteMakefile(%WriteMakefileArgs);
+
+
+
