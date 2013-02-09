@@ -36,10 +36,11 @@ my %WriteMakefileArgs = (
     "Module::Pluggable" => "4.5",
     "Mojolicious" => "3.36",
     "Moo" => "1.000008",
+    "Parse::ErrorString::Perl" => "0.15",
     "Perl::Critic" => "1.118",
     "Perl::Tidy" => 20120714
   },
-  "VERSION" => "0.34",
+  "VERSION" => "0.35",
   "test" => {
     "TESTS" => "t/*.t"
   }

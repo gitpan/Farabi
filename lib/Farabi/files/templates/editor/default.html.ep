@@ -13,15 +13,16 @@
 <!-- Farabi -->
 <link rel="stylesheet" href="farabi.css" type="text/css" />
 <script src="farabi.js"></script>
-<script src="farabi_actions_dialog.js"></script>
-<script src="farabi_open_file_dialog.js"></script>
-<script src="farabi_repl_dialog.js"></script>
-<script src="farabi_run_dialog.js"></script>
-<script src="farabi_perl_critic_dialog.js"></script>
-<script src="farabi_options_dialog.js"></script>
-<script src="farabi_save_question_dialog.js"></script>
-<script src="farabi_duplicate_perl_code_dialog.js"></script>
-<script src="farabi_plugin_manager_dialog.js"></script>
+<script src="about_dialog.js"></script>
+<script src="actions_dialog.js"></script>
+<script src="find_duplicate_perl_code_dialog.js"></script>
+<script src="open_file_dialog.js"></script>
+<script src="perl_critic_dialog.js"></script>
+<script src="options_dialog.js"></script>
+<script src="repl_dialog.js"></script>
+<script src="plugin_manager_dialog.js"></script>
+<script src="run_dialog.js"></script>
+<script src="save_question_dialog.js"></script>
 
 <!-- CodeMirror editor -->
 <link rel="stylesheet" href="assets/codemirror/lib/codemirror.css"
@@ -54,18 +55,25 @@
 				<div class="span6 right-side">
 					<ul id="rightTab" class="nav nav-tabs">
 						<li class="active"><a href="#output-tab" data-toggle="tab">Output</a></li>
-						<li><a href="#pod-preview-tab" data-toggle="tab">POD Preview</a></li>
+						<li><a href="#pod-tab" data-toggle="tab">POD</a></li>
+						<li><a href="#problems-tab" data-toggle="tab">Problems</a></li>
 					</ul>
 					<div id="rightTabContent" class="tab-content">
 						<div class="tab-pane active" id="output-tab">
 							<div class="farabi-bordered">
 								<textarea id="output"></textarea>
-								<br>
 							</div>
 						</div>
-						<div class="tab-pane" id="pod-preview-tab">
+						<div class="tab-pane" id="pod-tab">
+							<div class="farabi-borsdered">
+								<div id="pod"></div>
+							</div>
+						</div>
+						<div class="tab-pane" id="problems-tab">
 							<div class="farabi-bordered">
-								<div  id="pod-tab"></div>
+								<div id="problems">
+									<table class="table table-bordered table-hover"></table>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -74,6 +82,7 @@
 		</div>
 	</div>
 
+<%= include "editor/about_dialog"%>
 <%= include "editor/actions_dialog"%>
 <%= include "editor/perl_critic_dialog"%>
 <%= include "editor/about_dialog"%>
@@ -84,7 +93,7 @@
 <%= include "editor/perl_doc_dialog"%>
 <%= include "editor/repl_dialog"%>
 <%= include "editor/save_question_dialog"%>
-<%= include "editor/duplicate_perl_code_dialog"%>
+<%= include "editor/find_duplicate_perl_code_dialog"%>
 <%= include "editor/plugin_manager_dialog"%>
 
 </body>

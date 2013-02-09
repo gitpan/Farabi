@@ -1,6 +1,6 @@
 package Farabi;
 {
-  $Farabi::VERSION = '0.34';
+  $Farabi::VERSION = '0.35';
 }
 use Mojo::Base 'Mojolicious';
 
@@ -71,7 +71,7 @@ Farabi - Modern Perl editor
 
 =head1 VERSION
 
-version 0.34
+version 0.35
 
 =head1 SYNOPSIS
 
