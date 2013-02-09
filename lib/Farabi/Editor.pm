@@ -1,4 +1,7 @@
 package Farabi::Editor;
+{
+  $Farabi::Editor::VERSION = '0.34';
+}
 
 # ABSTRACT: Controller
 
@@ -1061,7 +1064,7 @@ Farabi::Editor - Controller
 
 =head1 VERSION
 
-version 0.33
+version 0.34
 
 =head1 AUTHOR
 

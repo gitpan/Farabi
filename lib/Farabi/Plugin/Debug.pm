@@ -1,4 +1,7 @@
 package Farabi::Plugin::Debug;
+{
+  $Farabi::Plugin::Debug::VERSION = '0.34';
+}
 
 # ABSTRACT: Debugger support for Farabi
 use Moo;
@@ -31,7 +34,7 @@ Farabi::Plugin::Debug - Debugger support for Farabi
 
 =head1 VERSION
 
-version 0.33
+version 0.34
 
 =head1 AUTHOR
 

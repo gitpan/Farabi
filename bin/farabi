@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 
 # PODNAME:  farabi
-# ABSTRACT: Modern Perl Editor
+# ABSTRACT: Run Farabi webserver
 
 use strict;
 use warnings;
@@ -24,11 +24,11 @@ __END__
 
 =head1 NAME
 
-farabi - Modern Perl Editor
+farabi - Run Farabi webserver
 
 =head1 VERSION
 
-version 0.33
+version 0.34
 
 =head1 AUTHOR
 

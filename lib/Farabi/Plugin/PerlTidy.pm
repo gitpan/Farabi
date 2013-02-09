@@ -1,4 +1,7 @@
 package Farabi::Plugin::PerlTidy;
+{
+  $Farabi::Plugin::PerlTidy::VERSION = '0.34';
+}
 
 # ABSTRACT: Perl::Tidy support for Farabi
 
@@ -32,7 +35,7 @@ Farabi::Plugin::PerlTidy - Perl::Tidy support for Farabi
 
 =head1 VERSION
 
-version 0.33
+version 0.34
 
 =head1 AUTHOR
 
