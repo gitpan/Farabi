@@ -1,6 +1,6 @@
 package Farabi::Editor;
 {
-  $Farabi::Editor::VERSION = '0.35';
+  $Farabi::Editor::VERSION = '0.36';
 }
 
 # ABSTRACT: Controller
@@ -93,6 +93,13 @@ sub run_parrot {
 	my $source = shift->{source};
 	$self->_capture_cmd_output( 'parrot', [], $source );
 }
+
+sub run_perlbrew_exec {
+	my $self = shift;
+	my $source = shift->{source};
+	$self->_capture_cmd_output( 'perlbrew', ['exec', 'perl'], $source );
+}
+
 
 # Taken from Padre::Plugin::PerlTidy
 # TODO document it in 'SEE ALSO' POD section
@@ -599,13 +606,16 @@ sub _find_editor_mode_from_filename {
 		markdown   => 'markdown',
 		conf       => 'properties',
 		properties => 'properties',
+		ini        => 'properties',
+		txt        => 'plain',
+		'log'      => 'plain',
 		yml        => 'yaml',
 		yaml       => 'yaml',
 		coffee     => 'coffeescript'
 	);
 
 	# No extension, let us use default text mode
-	return 'plain' if !defined $extension;
+	return 'plain' unless defined $extension;
 	return $extension_to_mode{$extension};
 }
 
@@ -1016,6 +1026,9 @@ sub syntax_check {
 		  };
 	}
 
+	# Sort problems by line numerically
+	@problems = sort {$a->{line} <=> $b->{line}} @problems;
+
 	return \@problems;
 }
 
@@ -1055,6 +1068,7 @@ sub websocket {
 				'run-perl'                 => 1,
 				'run-rakudo'               => 1,
 				'run-parrot'               => 1,
+				'run-perlbrew-exec'        => 1,
 				'help_search'              => 1,
 				'perl-tidy'                => 1,
 				'perl-critic'              => 1,
@@ -1094,7 +1108,7 @@ Farabi::Editor - Controller
 
 =head1 VERSION
 
-version 0.35
+version 0.36
 
 =head1 AUTHOR
 

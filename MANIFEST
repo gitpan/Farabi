@@ -13,7 +13,6 @@ lib/Farabi/Editor.pm
 lib/Farabi/Plugin/Debug.pm
 lib/Farabi/Plugin/PerlCritic.pm
 lib/Farabi/Plugin/PerlTidy.pm
-lib/Farabi/files/farabi.conf
 lib/Farabi/files/public/about_dialog.js
 lib/Farabi/files/public/actions_dialog.js
 lib/Farabi/files/public/assets/bootstrap/css/bootstrap.min.css
@@ -134,7 +133,7 @@ lib/Farabi/files/public/assets/codemirror/theme/solarized.css
 lib/Farabi/files/public/assets/codemirror/theme/twilight.css
 lib/Farabi/files/public/assets/codemirror/theme/vibrant-ink.css
 lib/Farabi/files/public/assets/codemirror/theme/xq-dark.css
-lib/Farabi/files/public/assets/jquery/jquery-1.9.1.min.js
+lib/Farabi/files/public/assets/jquery/jquery-1.8.3.min.js
 lib/Farabi/files/public/assets/perlito/perlito5.min.js
 lib/Farabi/files/public/farabi.css
 lib/Farabi/files/public/farabi.js
@@ -165,6 +164,7 @@ lib/Farabi/files/templates/editor/theme_selector.html.ep
 mediawiki_test.pl
 pithub_test.pl
 t/00-basic.t
+test_errors.pl
 test_path_tiny.pl
 test_perltidy_options.pl
 test_splitjoin.pl
