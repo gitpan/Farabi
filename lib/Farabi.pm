@@ -1,10 +1,10 @@
 package Farabi;
 {
-  $Farabi::VERSION = '0.36';
+  $Farabi::VERSION = '0.37';
 }
 use Mojo::Base 'Mojolicious';
 
-# ABSTRACT: Modern Perl editor
+# ABSTRACT: Modern Perl IDE
 
 sub startup {
 	my $app = shift;
@@ -67,11 +67,11 @@ __END__
 
 =head1 NAME
 
-Farabi - Modern Perl editor
+Farabi - Modern Perl IDE
 
 =head1 VERSION
 
-version 0.36
+version 0.37
 
 =head1 SYNOPSIS
 
@@ -83,16 +83,13 @@ version 0.36
 
 =head1 DESCRIPTION
 
-This is a modern web-based Perl editor that runs inside your favorite browser.
+This is a modern web-based Perl IDE that runs inside your favorite browser.
 
 Please run the following command and then open http://127.0.0.1:3000 in your browser:
 
   farabi daemon
 
-Please note that Farabi is purely expermintal at the moment. Things are moving fast
-as I try some new ideas. Feedback is welcome.
-
-=head1 SEE ALSO
+=head1 TECHNOLOGIES USED
 
 =over
 
@@ -103,6 +100,10 @@ L<Mojolicious|http://mojolicio.us> - A next generation web framework for the Per
 =item *
 
 L<jQuery|http://jquery.com/> - A new kind of JavaScript Library
+
+=item *
+
+L<JSHint|http://jshint.com/> - A JavaScript Code Quality Tool
 
 =item *
 
@@ -117,6 +118,10 @@ L<CodeMirror|http://codemirror.net> - In-browser code editing made bearable
 L<Perlito|http://perlito.org/> - Runtime for "Perlito" Perl5-in-Javascript
 
 =back
+
+=head1 SEE ALSO
+
+L<EPIC|http://www.epic-ide.org/>, L<Kephra>, L<Padre>, L<TryPerl|http://tryperl.com/>
 
 =head1 HISTORY
 

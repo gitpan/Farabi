@@ -1,6 +1,6 @@
 package Farabi::Plugin::Debug;
 {
-  $Farabi::Plugin::Debug::VERSION = '0.36';
+  $Farabi::Plugin::Debug::VERSION = '0.37';
 }
 
 # ABSTRACT: Debugger support for Farabi
@@ -34,7 +34,7 @@ Farabi::Plugin::Debug - Debugger support for Farabi
 
 =head1 VERSION
 
-version 0.36
+version 0.37
 
 =head1 AUTHOR
 

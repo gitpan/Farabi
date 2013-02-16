@@ -1,6 +1,6 @@
 package Farabi::Editor;
 {
-  $Farabi::Editor::VERSION = '0.36';
+  $Farabi::Editor::VERSION = '0.37';
 }
 
 # ABSTRACT: Controller
@@ -387,6 +387,10 @@ sub find_action {
 			name => 'Help - Getting Started',
 			help => 'A quick getting started help dialog',
 		},
+		'action-jshint' => {
+			name => 'JSHint',
+			help => 'Run JSHint on the current editor tab',
+		},
 		'action-open-file' => {
 			name => 'Open File(s)',
 			help => "Opens one or more files in an editor tab",
@@ -611,7 +615,9 @@ sub _find_editor_mode_from_filename {
 		'log'      => 'plain',
 		yml        => 'yaml',
 		yaml       => 'yaml',
-		coffee     => 'coffeescript'
+		coffee     => 'coffeescript',
+		diff       => 'diff',
+		patch      => 'diff',
 	);
 
 	# No extension, let us use default text mode
@@ -1108,7 +1114,7 @@ Farabi::Editor - Controller
 
 =head1 VERSION
 
-version 0.36
+version 0.37
 
 =head1 AUTHOR
 

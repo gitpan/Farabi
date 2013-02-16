@@ -39,4 +39,4 @@ resources:
   bugtracker: https://github.com/azawawi/farabi/issues
   homepage: https://github.com/azawawi/farabi
   repository: git://github.com/azawawi/farabi.git
-version: 0.36
+version: 0.37

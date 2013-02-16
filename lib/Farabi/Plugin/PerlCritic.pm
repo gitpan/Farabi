@@ -1,6 +1,6 @@
 package Farabi::Plugin::PerlCritic;
 {
-  $Farabi::Plugin::PerlCritic::VERSION = '0.36';
+  $Farabi::Plugin::PerlCritic::VERSION = '0.37';
 }
 
 # ABSTRACT: Perl::Critc support for Farabi
@@ -35,7 +35,7 @@ Farabi::Plugin::PerlCritic - Perl::Critc support for Farabi
 
 =head1 VERSION
 
-version 0.36
+version 0.37
 
 =head1 AUTHOR
 
