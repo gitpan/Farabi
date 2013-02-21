@@ -9,7 +9,7 @@ use ExtUtils::MakeMaker 6.30;
 
 
 my %WriteMakefileArgs = (
-  "ABSTRACT" => "Modern Perl Editor",
+  "ABSTRACT" => "Modern Perl IDE",
   "AUTHOR" => "Ahmad M. Zawawi <ahmad.zawawi\@gmail.com>",
   "BUILD_REQUIRES" => {
     "Test::EOL" => "1.5",
@@ -34,13 +34,14 @@ my %WriteMakefileArgs = (
     "IO::String" => "1.08",
     "IPC::Run" => "0.92",
     "Module::Pluggable" => "4.5",
+    "Module::Starter" => "1.6",
     "Mojolicious" => "3.36",
     "Moo" => "1.000008",
     "Parse::ErrorString::Perl" => "0.15",
     "Perl::Critic" => "1.118",
     "Perl::Tidy" => 20120714
   },
-  "VERSION" => "0.37",
+  "VERSION" => "0.38",
   "test" => {
     "TESTS" => "t/*.t"
   }

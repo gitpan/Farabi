@@ -1,10 +1,8 @@
 package Farabi;
-{
-  $Farabi::VERSION = '0.37';
-}
 use Mojo::Base 'Mojolicious';
 
 # ABSTRACT: Modern Perl IDE
+our $VERSION = '0.38'; # VERSION
 
 sub startup {
 	my $app = shift;
@@ -71,23 +69,23 @@ Farabi - Modern Perl IDE
 
 =head1 VERSION
 
-version 0.37
+version 0.38
 
 =head1 SYNOPSIS
 
-  # Run on the default port 3000
-  $ farabi daemon
+  # Run on the default port 4040
+  $ farabi
   
-  # Run it on port 3030
-  $ farabi daemon --listen "http://*:3030"
+  # Run it on port 5050
+  $ farabi --port 5050
 
 =head1 DESCRIPTION
 
 This is a modern web-based Perl IDE that runs inside your favorite browser.
 
-Please run the following command and then open http://127.0.0.1:3000 in your browser:
+Please run the following command and then open http://127.0.0.1:4040 in your browser:
 
-  farabi daemon
+  farabi
 
 =head1 TECHNOLOGIES USED
 

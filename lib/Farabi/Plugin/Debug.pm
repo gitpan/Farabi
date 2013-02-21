@@ -1,10 +1,9 @@
 package Farabi::Plugin::Debug;
-{
-  $Farabi::Plugin::Debug::VERSION = '0.37';
-}
 
-# ABSTRACT: Debugger support for Farabi
 use Moo;
+
+# ABSTRACT: Perl debugger support for Farabi
+our $VERSION = '0.38'; # VERSION
 
 # Plugin module dependencies
 has 'deps' => (
@@ -18,7 +17,7 @@ has 'deps' => (
 has 'name' => (
 	is      => 'ro',
 	default => sub {
-		'Perl 5 Debugger';
+		'Perl debugger support';
 	}
 );
 
@@ -30,11 +29,11 @@ __END__
 
 =head1 NAME
 
-Farabi::Plugin::Debug - Debugger support for Farabi
+Farabi::Plugin::Debug - Perl debugger support for Farabi
 
 =head1 VERSION
 
-version 0.37
+version 0.38
 
 =head1 AUTHOR
 

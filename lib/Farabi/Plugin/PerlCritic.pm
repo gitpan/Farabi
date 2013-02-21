@@ -1,11 +1,9 @@
 package Farabi::Plugin::PerlCritic;
-{
-  $Farabi::Plugin::PerlCritic::VERSION = '0.37';
-}
-
-# ABSTRACT: Perl::Critc support for Farabi
 
 use Moo;
+
+# ABSTRACT: Perl::Critc support for Farabi
+our $VERSION = '0.38'; # VERSION
 
 # Plugin module dependencies
 has 'deps' => (
@@ -35,7 +33,7 @@ Farabi::Plugin::PerlCritic - Perl::Critc support for Farabi
 
 =head1 VERSION
 
-version 0.37
+version 0.38
 
 =head1 AUTHOR
 

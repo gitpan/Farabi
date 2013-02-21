@@ -1,9 +1,7 @@
 package Farabi::Editor;
-{
-  $Farabi::Editor::VERSION = '0.37';
-}
 
 # ABSTRACT: Controller
+our $VERSION = '0.38'; # VERSION
 
 use Mojo::Base 'Mojolicious::Controller';
 use Capture::Tiny qw(capture);
@@ -382,6 +380,10 @@ sub find_action {
 		'action-find-duplicate-perl-code' => {
 			name => 'Find Duplicate Perl Code',
 			help => 'Finds any duplicate perl code in the current lib folder',
+		},
+		'action-goto-line' => {
+			name => 'Goto Line',
+			help => 'A dialog to jump to the needed line',
 		},
 		'action-help' => {
 			name => 'Help - Getting Started',
@@ -1114,7 +1116,7 @@ Farabi::Editor - Controller
 
 =head1 VERSION
 
-version 0.37
+version 0.38
 
 =head1 AUTHOR
 

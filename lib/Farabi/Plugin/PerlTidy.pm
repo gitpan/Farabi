@@ -1,11 +1,9 @@
 package Farabi::Plugin::PerlTidy;
-{
-  $Farabi::Plugin::PerlTidy::VERSION = '0.37';
-}
-
-# ABSTRACT: Perl::Tidy support for Farabi
 
 use Moo;
+
+# ABSTRACT: Perl::Tidy support for Farabi
+our $VERSION = '0.38'; # VERSION
 
 # Plugin module dependencies
 has 'deps' => (
@@ -35,7 +33,7 @@ Farabi::Plugin::PerlTidy - Perl::Tidy support for Farabi
 
 =head1 VERSION
 
-version 0.37
+version 0.38
 
 =head1 AUTHOR
 
