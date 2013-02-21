@@ -164,11 +164,5 @@ lib/Farabi/files/templates/editor/repl_dialog.html.ep
 lib/Farabi/files/templates/editor/run_dialog.html.ep
 lib/Farabi/files/templates/editor/save_question_dialog.html.ep
 lib/Farabi/files/templates/editor/theme_selector.html.ep
-mediawiki_test.pl
-pithub_test.pl
 t/00-basic.t
-test_errors.pl
-test_path_tiny.pl
-test_perltidy_options.pl
-test_splitjoin.pl
 xt/eol.t

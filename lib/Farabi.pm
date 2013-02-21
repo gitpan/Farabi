@@ -2,7 +2,7 @@ package Farabi;
 use Mojo::Base 'Mojolicious';
 
 # ABSTRACT: Modern Perl IDE
-our $VERSION = '0.38'; # VERSION
+our $VERSION = '0.39'; # VERSION
 
 sub startup {
 	my $app = shift;
@@ -24,7 +24,6 @@ sub startup {
 	# Define routes
 	my $route = $app->routes;
 	$route->get('/')->to('editor#default');
-	$route->post('/')->to('editor#default');
 
 	# Setup the Farabi database
 	eval { $app->_setup_database; };
@@ -69,7 +68,7 @@ Farabi - Modern Perl IDE
 
 =head1 VERSION
 
-version 0.38
+version 0.39
 
 =head1 SYNOPSIS
 
@@ -86,6 +85,16 @@ This is a modern web-based Perl IDE that runs inside your favorite browser.
 Please run the following command and then open http://127.0.0.1:4040 in your browser:
 
   farabi
+
+=head1 FEATURES
+
+=item Open File(s)
+
+The dialog provides partial filename search inside the directory where Farabi was started.
+Matched single or multiple file selections can then be opened in one batch.
+
+B<WARNING:> Please do not start farabi in a folder with too many files like your home directory
+because this feature's performance will eventually suffer.
 
 =head1 TECHNOLOGIES USED
 
