@@ -1,7 +1,7 @@
 package Farabi::Editor;
 
 # ABSTRACT: Controller
-our $VERSION = '0.40'; # VERSION
+our $VERSION = '0.41'; # VERSION
 
 use Mojo::Base 'Mojolicious::Controller';
 use Capture::Tiny qw(capture);
@@ -1217,7 +1217,7 @@ Farabi::Editor - Controller
 
 =head1 VERSION
 
-version 0.40
+version 0.41
 
 =head1 AUTHOR
 

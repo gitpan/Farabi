@@ -13,7 +13,7 @@ my %WriteMakefileArgs = (
   "AUTHOR" => "Ahmad M. Zawawi <ahmad.zawawi\@gmail.com>",
   "BUILD_REQUIRES" => {
     "Test::EOL" => "1.5",
-    "Test::MimimumVersion" => "0.101080",
+    "Test::MinimumVersion" => "0.101080",
     "Test::More" => "0.98"
   },
   "CONFIGURE_REQUIRES" => {
@@ -44,7 +44,7 @@ my %WriteMakefileArgs = (
     "Perl::Critic" => "1.118",
     "Perl::Tidy" => 20121207
   },
-  "VERSION" => "0.40",
+  "VERSION" => "0.41",
   "test" => {
     "TESTS" => "t/*.t"
   }
