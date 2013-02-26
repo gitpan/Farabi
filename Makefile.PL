@@ -13,6 +13,7 @@ my %WriteMakefileArgs = (
   "AUTHOR" => "Ahmad M. Zawawi <ahmad.zawawi\@gmail.com>",
   "BUILD_REQUIRES" => {
     "Test::EOL" => "1.5",
+    "Test::MimimumVersion" => "0.101080",
     "Test::More" => "0.98"
   },
   "CONFIGURE_REQUIRES" => {
@@ -30,18 +31,20 @@ my %WriteMakefileArgs = (
     "DBD::SQLite" => "1.37",
     "DBIx::Simple" => "1.35",
     "File::Find::Rule" => "0.33",
+    "File::HomeDir" => "1.00",
     "File::Which" => "1.09",
     "IO::String" => "1.08",
     "IPC::Run" => "0.92",
     "Module::Pluggable" => "4.5",
-    "Module::Starter" => "1.6",
-    "Mojolicious" => "3.36",
+    "Module::Starter" => "1.60",
+    "Mojolicious" => "3.87",
     "Moo" => "1.000008",
     "Parse::ErrorString::Perl" => "0.15",
+    "Path::Tiny" => "0.013",
     "Perl::Critic" => "1.118",
-    "Perl::Tidy" => 20120714
+    "Perl::Tidy" => 20121207
   },
-  "VERSION" => "0.39",
+  "VERSION" => "0.40",
   "test" => {
     "TESTS" => "t/*.t"
   }

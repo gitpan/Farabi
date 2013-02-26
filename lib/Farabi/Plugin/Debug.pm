@@ -3,7 +3,7 @@ package Farabi::Plugin::Debug;
 use Moo;
 
 # ABSTRACT: Perl debugger support for Farabi
-our $VERSION = '0.39'; # VERSION
+our $VERSION = '0.40'; # VERSION
 
 # Plugin module dependencies
 has 'deps' => (
@@ -33,7 +33,7 @@ Farabi::Plugin::Debug - Perl debugger support for Farabi
 
 =head1 VERSION
 
-version 0.39
+version 0.40
 
 =head1 AUTHOR
 

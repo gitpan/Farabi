@@ -1,11 +1,12 @@
 package Farabi::Editor;
 
 # ABSTRACT: Controller
-our $VERSION = '0.39'; # VERSION
+our $VERSION = '0.40'; # VERSION
 
 use Mojo::Base 'Mojolicious::Controller';
 use Capture::Tiny qw(capture);
 use IPC::Run qw( start pump finish timeout );
+use Path::Tiny;
 
 # The actions
 
@@ -22,29 +23,36 @@ my %actions = (
 		menu  => $file_menu,
 		order => 1,
 	},
+	#TODO enable new project action once it is finished
+	#'action-new-project' => {
+	#	name  => 'New Project',
+	#	help  => "Creates a new project using Module::Starter",
+	#	menu  => $file_menu,
+	#	order => 2,
+	#},
 	'action-open-file' => {
 		name  => 'Open File(s)',
 		help  => "Opens one or more files in an editor tab",
 		menu  => $file_menu,
-		order => 2,
+		order => 3,
 	},
 	'action-save-file' => {
 		name  => 'Save File',
 		help  => "Saves the current file ",
 		menu  => $file_menu,
-		order => 3,
+		order => 4,
 	},
 	'action-close-file' => {
 		name  => 'Close File',
 		help  => "Closes the current open file",
 		menu  => $file_menu,
-		order => 4,
+		order => 5,
 	},
 	'action-close-all-files' => {
 		name  => 'Close All Files',
 		help  => "Closes all of the open files",
 		menu  => $file_menu,
-		order => 5,
+		order => 6,
 	},
 	'action-goto-line' => {
 		name  => 'Goto Line',
@@ -559,13 +567,12 @@ sub find_file {
 	$rule->file->name(qr/$query/i);
 	my @files = $rule->in($dir);
 
-	require File::Basename;
 	my @matches;
 	for my $file (@files) {
 		push @matches,
 		  {
 			id   => $file,
-			name => File::Basename::basename($file),
+			name => path($file)->basename,
 		  };
 	}
 
@@ -599,8 +606,7 @@ sub open_file {
 		$result{mode} = _find_editor_mode_from_filename($filename);
 
 		# Simplify filename
-		require File::Basename;
-		$result{filename} = File::Basename::basename($filename);
+		$result{filename} = path($filename)->basename;
 
 		# Add or update record file record
 		$self->_add_or_update_recent_file_record($filename);
@@ -624,7 +630,8 @@ sub _add_or_update_recent_file_record {
 	my $filename = shift;
 
 	require DBIx::Simple;
-	my $db = DBIx::Simple->connect('dbi:SQLite:dbname=farabi.db');
+	my $db_name = $self->app->db_name;
+	my $db = DBIx::Simple->connect("dbi:SQLite:dbname=$db_name");
 
 	my $sql = <<'SQL';
 SELECT id, name, datetime(last_used,'localtime')
@@ -1113,6 +1120,26 @@ sub syntax_check {
 	return \@problems;
 }
 
+# Create a project using Module::Starter
+sub create_project {
+	my $self = shift;
+	my $opt  = shift;
+
+	my %args = (
+		distro       => $opt->{distro},
+		modules      => $opt->{modules},
+		dir          => $opt->{dir},
+		builder      => $opt->{builder},
+		license      => $opt->{license},
+		author       => $opt->{author},
+		email        => $opt->{email},
+		ignores_type => $opt->{ignores_type},
+		force        => $opt->{force},
+	);
+
+	Module::Starter->create_distro(%args);
+}
+
 # The default root handler
 sub default {
 	my $self = shift;
@@ -1160,6 +1187,7 @@ sub websocket {
 				'find-duplicate-perl-code' => 1,
 				'find-plugins'             => 1,
 				'repl-eval'                => 1,
+				'new-project'              => 1,
 			};
 
 			my $action = $result->{action} or return;
@@ -1189,7 +1217,7 @@ Farabi::Editor - Controller
 
 =head1 VERSION
 
-version 0.39
+version 0.40
 
 =head1 AUTHOR
 

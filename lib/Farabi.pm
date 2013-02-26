@@ -1,8 +1,19 @@
 package Farabi;
+
 use Mojo::Base 'Mojolicious';
+use Path::Tiny;
 
 # ABSTRACT: Modern Perl IDE
-our $VERSION = '0.39'; # VERSION
+our $VERSION = '0.40'; # VERSION
+
+# Application SQLite database and projects are stored in this directory
+has 'home_dir';
+
+# Projects are stored in this directory
+has 'projects_dir';
+
+# The database name and location
+has 'db_name';
 
 sub startup {
 	my $app = shift;
@@ -11,13 +22,7 @@ sub startup {
 	$app->secret('Hulk, Smash!');
 
 	# Use content from directories under lib/Farabi/files
-	require File::Basename;
-	require File::Spec::Functions;
-	$app->home->parse(
-		File::Spec::Functions::catdir(
-			File::Basename::dirname(__FILE__), 'Farabi'
-		)
-	);
+	$app->home->parse( path( path(__FILE__)->dirname, 'Farabi' ) );
 	$app->static->paths->[0]   = $app->home->rel_dir('files/public');
 	$app->renderer->paths->[0] = $app->home->rel_dir('files/templates');
 
@@ -25,8 +30,16 @@ sub startup {
 	my $route = $app->routes;
 	$route->get('/')->to('editor#default');
 
+	eval { $app->_setup_dirs };
+	if ($@) {
+		die "Failure to create \$HOME/.farabi directory structure, reason: $@";
+	}
+
+	# The database name
+	$app->db_name(path($app->home_dir, 'farabi.db'));
+
 	# Setup the Farabi database
-	eval { $app->_setup_database; };
+	eval { $app->_setup_database };
 	if ($@) {
 		warn "Database not setup, reason: $@";
 	}
@@ -35,12 +48,29 @@ sub startup {
 	$route->websocket('/websocket')->to('editor#websocket');
 }
 
+#
+# Create the following directory structure:
+# .farabi
+# .farabi/projects
+#
+sub _setup_dirs {
+	my $app = shift;
+
+	require File::HomeDir;
+
+	$app->home_dir( path( File::HomeDir->home, ".farabi" ) );
+	$app->projects_dir( path( $app->home_dir, "projects" ) );
+	$app->projects_dir->mkpath;
+}
+
 # Setup the Farabi database
 sub _setup_database {
+	my $app = shift;
 
 	# Connect and create the Farabi SQLite database if not found
 	require DBIx::Simple;
-	my $db = DBIx::Simple->connect('dbi:SQLite:dbname=farabi.db');
+	my $db_name = $app->db_name;
+	my $db = DBIx::Simple->connect("dbi:SQLite:dbname=$db_name");
 
 	# Create tables if they do not exist
 	$db->query(<<SQL);
@@ -68,7 +98,7 @@ Farabi - Modern Perl IDE
 
 =head1 VERSION
 
-version 0.39
+version 0.40
 
 =head1 SYNOPSIS
 
