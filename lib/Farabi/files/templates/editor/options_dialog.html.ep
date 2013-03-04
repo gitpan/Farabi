@@ -28,6 +28,18 @@
 						</tr>
 						<tr>
 							<td><label class="checkbox"> <input
+									id="show_tabs_checkbox" type="checkbox" checked>
+									<strong>Show Tabs?</strong>
+							</label></td>
+						</tr>
+						<tr>
+							<td><label class="checkbox"> <input
+									id="show_spaces_checkbox" type="checkbox" checked>
+									<strong>Show Spaces?</strong>
+							</label></td>
+						</tr>
+						<tr>
+							<td><label class="checkbox"> <input
 									id="right_side_shown_checkbox" type="checkbox" value="" checked>
 									<strong>Right Side Shown?</strong>
 							</label></td>

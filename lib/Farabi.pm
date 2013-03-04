@@ -4,7 +4,7 @@ use Mojo::Base 'Mojolicious';
 use Path::Tiny;
 
 # ABSTRACT: Modern Perl IDE
-our $VERSION = '0.41'; # VERSION
+our $VERSION = '0.42'; # VERSION
 
 # Application SQLite database and projects are stored in this directory
 has 'home_dir';
@@ -98,7 +98,7 @@ Farabi - Modern Perl IDE
 
 =head1 VERSION
 
-version 0.41
+version 0.42
 
 =head1 SYNOPSIS
 

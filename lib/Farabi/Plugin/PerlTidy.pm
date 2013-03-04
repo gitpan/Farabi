@@ -3,7 +3,7 @@ package Farabi::Plugin::PerlTidy;
 use Moo;
 
 # ABSTRACT: Perl::Tidy support for Farabi
-our $VERSION = '0.41'; # VERSION
+our $VERSION = '0.42'; # VERSION
 
 # Plugin module dependencies
 has 'deps' => (
@@ -33,7 +33,7 @@ Farabi::Plugin::PerlTidy - Perl::Tidy support for Farabi
 
 =head1 VERSION
 
-version 0.41
+version 0.42
 
 =head1 AUTHOR
 

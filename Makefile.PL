@@ -44,7 +44,7 @@ my %WriteMakefileArgs = (
     "Perl::Critic" => "1.118",
     "Perl::Tidy" => 20121207
   },
-  "VERSION" => "0.41",
+  "VERSION" => "0.42",
   "test" => {
     "TESTS" => "t/*.t"
   }
