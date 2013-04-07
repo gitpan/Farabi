@@ -11,11 +11,7 @@ use ExtUtils::MakeMaker 6.30;
 my %WriteMakefileArgs = (
   "ABSTRACT" => "Modern Perl IDE",
   "AUTHOR" => "Ahmad M. Zawawi <ahmad.zawawi\@gmail.com>",
-  "BUILD_REQUIRES" => {
-    "Test::EOL" => "1.5",
-    "Test::MinimumVersion" => "0.101080",
-    "Test::More" => "0.98"
-  },
+  "BUILD_REQUIRES" => {},
   "CONFIGURE_REQUIRES" => {
     "ExtUtils::MakeMaker" => "6.30"
   },
@@ -37,19 +33,38 @@ my %WriteMakefileArgs = (
     "IPC::Run" => "0.92",
     "Module::Pluggable" => "4.5",
     "Module::Starter" => "1.60",
-    "Mojolicious" => "3.87",
+    "Mojolicious" => "3.89",
     "Moo" => "1.000008",
     "Parse::ErrorString::Perl" => "0.15",
     "Path::Tiny" => "0.013",
     "Perl::Critic" => "1.118",
+    "Perl::Strip" => "1.1",
     "Perl::Tidy" => 20121207
   },
-  "VERSION" => "0.42",
+  "TEST_REQUIRES" => {
+    "Test::EOL" => "1.5",
+    "Test::MinimumVersion" => "0.101080",
+    "Test::More" => "0.98"
+  },
+  "VERSION" => "0.43",
   "test" => {
     "TESTS" => "t/*.t"
   }
 );
 
+
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
+  my $tr = delete $WriteMakefileArgs{TEST_REQUIRES};
+  my $br = $WriteMakefileArgs{BUILD_REQUIRES};
+  for my $mod ( keys %$tr ) {
+    if ( exists $br->{$mod} ) {
+      $br->{$mod} = $tr->{$mod} if $tr->{$mod} > $br->{$mod};
+    }
+    else {
+      $br->{$mod} = $tr->{$mod};
+    }
+  }
+}
 
 unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
   my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};

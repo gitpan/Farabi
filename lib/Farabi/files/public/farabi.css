@@ -189,3 +189,13 @@ body {
 	background-position: right;
 	background-repeat: no-repeat;
 }
+
+#debug {
+	height: 550px;
+	overflow: auto;
+}
+
+#diff {
+	height: 550px;
+	overflow: auto;
+}

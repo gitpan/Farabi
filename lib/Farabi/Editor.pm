@@ -1,7 +1,7 @@
 package Farabi::Editor;
 
 # ABSTRACT: Controller
-our $VERSION = '0.42'; # VERSION
+our $VERSION = '0.43'; # VERSION
 
 use Mojo::Base 'Mojolicious::Controller';
 use Capture::Tiny qw(capture);
@@ -24,13 +24,12 @@ my %actions = (
 		order => 1,
 	},
 
-	#TODO enable new project action once it is finished
-	#'action-new-project' => {
-	#	name  => 'New Project',
-	#	help  => "Creates a new project using Module::Starter",
-	#	menu  => $file_menu,
-	#	order => 2,
-	#},
+	'action-new-project' => {
+		name  => 'New Project',
+		help  => "Creates a new project using Module::Starter",
+		menu  => $file_menu,
+		order => 2,
+	},
 	'action-open-file' => {
 		name  => 'Open File(s)',
 		help  => "Opens one or more files in an editor tab",
@@ -85,41 +84,77 @@ my %actions = (
 		menu  => $tools_menu,
 		order => 4,
 	},
+	'action-perl-strip' => {
+		name  => 'Perl Strip',
+		help  => 'Run Perl::Strip on the current editor tab',
+		menu  => $tools_menu,
+		order => 5,
+	},
 	'action-jshint' => {
 		name  => 'JSHint',
 		help  => 'Run JSHint on the current editor tab',
 		menu  => $tools_menu,
-		order => 5,
+		order => 6,
 	},
 	'action-find-duplicate-perl-code' => {
 		name  => 'Find Duplicate Perl Code',
 		help  => 'Finds any duplicate perl code in the current lib folder',
 		menu  => $tools_menu,
-		order => 6,
+		order => 7,
+	},
+	'action-git-diff' => {
+		name  => 'Git Diff',
+		help  => 'Show Git changes between commits',
+		menu  => $tools_menu,
+		order => 8,
 	},
 	'action-repl' => {
 		name  => 'REPL - Read-Print-Eval-Loop',
 		help  => 'Opens the Read-Print-Eval-Loop dialog',
 		menu  => $tools_menu,
-		order => 7,
+		order => 8,
 	},
 	'action-dump-ppi-tree' => {
 		name  => 'Dump the PPI tree',
 		help  => "Dumps the PPI tree into the output pane",
 		menu  => $tools_menu,
-		order => 8,
+		order => 9,
+	},
+	'action-debug-step-in' => {
+		name  => 'Step In',
+		help  => '',
+		menu  => $run_menu,
+		order => 1,
+	},
+	'action-debug-step-over' => {
+		name  => 'Step Over',
+		help  => '',
+		menu  => $run_menu,
+		order => 2,
+	},
+	'action-debug-step-out' => {
+		name  => 'Step Out',
+		help  => '',
+		menu  => $run_menu,
+		order => 3,
+	},
+	'action-debug-stop' => {
+		name  => 'Stop Debugging',
+		help  => '',
+		menu  => $run_menu,
+		order => 4,
 	},
 	'action-run' => {
 		name  => 'Run',
 		help  => 'Run the current editor source file using the run dialog',
 		menu  => $run_menu,
-		order => 1,
+		order => 5,
 	},
 	'action-syntax-check' => {
 		name  => 'Syntax Check',
 		help  => 'Run the syntax check tool on the current editor tab',
 		menu  => $run_menu,
-		order => 2,
+		order => 6,
 	},
 	'action-help' => {
 		name  => 'Help - Getting Started',
@@ -215,35 +250,42 @@ sub _capture_cmd_output {
 	my $source = shift;
 	my $input  = shift;
 
-	# Check source parameter
-	unless ( defined $source ) {
-		$self->app->log->warn('Undefined "source" parameter');
-		return;
-	}
+	require File::Temp;
 
 	# Source is stored in a temporary file
-	require File::Temp;
-	my $source_fh = File::Temp->new;
-	print $source_fh $source;
-	close $source_fh;
+	my $source_fh;
+	if ( defined $source ) {
+		$source_fh = File::Temp->new;
+		print $source_fh $source;
+		close $source_fh;
+	}
 
 	# Input is stored in a temporary file
 	my $input_fh;
-	if(defined $input) {
+	if ( defined $input ) {
 		$input_fh = File::Temp->new;
 		print $input_fh $input;
 		close $input_fh;
 	}
 
-
 	my ( $stdout, $stderr, $exit ) = capture {
 		if ( defined $input_fh ) {
 
-			system( $cmd, @$opts, $source_fh->filename,
-				"<" . $input_fh->filename );
+			if ( defined $source_fh ) {
+				system( $cmd, @$opts, $source_fh->filename,
+					"<" . $input_fh->filename );
+			}
+			else {
+				system( $cmd, @$opts, "<" . $input_fh->filename );
+			}
 		}
 		else {
-			system( $cmd, @$opts, $source_fh->filename );
+			if ( defined $source_fh ) {
+				system( $cmd, @$opts, $source_fh->filename );
+			}
+			else {
+				system( $cmd, @$opts );
+			}
 		}
 	};
 	my $result = {
@@ -1168,6 +1210,57 @@ sub create_project {
 	Module::Starter->create_distro(%args);
 }
 
+# Step in code in debug mode
+sub debug_step_in {
+	my $self = shift;
+}
+
+# Step over code in debug mode
+sub debug_step_over {
+	my $self = shift;
+}
+
+# Step out code in debug mode
+sub debug_step_out {
+	my $self = shift;
+}
+
+# Stop debugging
+sub debug_stop {
+	my $self = shift;
+}
+
+# Show Git changes between commits
+sub git_diff {
+	my $self = shift;
+
+	$self->_capture_cmd_output( 'git', ['diff'] );
+}
+
+sub perl_strip {
+	my $self   = shift;
+	my $source = shift->{source};
+
+	my %result = (
+		error  => 1,
+		source => '',
+	);
+
+	# Check 'source' parameter
+	unless ( defined $source ) {
+		$self->app->log->warn('Undefined "source" parameter');
+		return \%result;
+	}
+
+	eval {
+		require Perl::Strip;
+		my $ps  = Perl::Strip->new;
+		$result{source} = $ps->strip($source);
+	};
+
+	return \%result;
+}
+
 # The default root handler
 sub default {
 	my $self = shift;
@@ -1208,6 +1301,7 @@ sub websocket {
 				'help_search'              => 1,
 				'perl-tidy'                => 1,
 				'perl-critic'              => 1,
+				'perl-strip'               => 1,
 				'pod2html'                 => 1,
 				'pod-check'                => 1,
 				'save-file'                => 1,
@@ -1216,6 +1310,11 @@ sub websocket {
 				'find-plugins'             => 1,
 				'repl-eval'                => 1,
 				'new-project'              => 1,
+				'debug-step-in'            => 1,
+				'debug-step-over'          => 1,
+				'debug-step-out'           => 1,
+				'debug-stop'               => 1,
+				'git-diff'                 => 1,
 			};
 
 			my $action = $result->{action} or return;
@@ -1245,7 +1344,7 @@ Farabi::Editor - Controller
 
 =head1 VERSION
 
-version 0.42
+version 0.43
 
 =head1 AUTHOR
 
