@@ -44,4 +44,4 @@ resources:
   bugtracker: https://github.com/azawawi/farabi/issues
   homepage: https://github.com/azawawi/farabi
   repository: git://github.com/azawawi/farabi.git
-version: 0.43
+version: 0.44
