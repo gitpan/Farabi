@@ -2,8 +2,8 @@ package Farabi::Plugin::PerlCritic;
 
 use Moo;
 
-# ABSTRACT: Perl::Critc support for Farabi
-our $VERSION = '0.44'; # VERSION
+# ABSTRACT: Perl::Critic support for Farabi
+our $VERSION = '0.45'; # VERSION
 
 # Plugin module dependencies
 has 'deps' => (
@@ -27,13 +27,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
-Farabi::Plugin::PerlCritic - Perl::Critc support for Farabi
+Farabi::Plugin::PerlCritic - Perl::Critic support for Farabi
 
 =head1 VERSION
 
-version 0.44
+version 0.45
 
 =head1 AUTHOR
 
@@ -41,7 +43,7 @@ Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Ahmad M. Zawawi.
+This software is copyright (c) 2014 by Ahmad M. Zawawi.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

@@ -1,7 +1,7 @@
 package Farabi::Editor;
 
 # ABSTRACT: Controller
-our $VERSION = '0.44'; # VERSION
+our $VERSION = '0.45'; # VERSION
 
 use Mojo::Base 'Mojolicious::Controller';
 use Capture::Tiny qw(capture);
@@ -112,13 +112,19 @@ my %actions = (
 		name  => 'REPL - Read-Print-Eval-Loop',
 		help  => 'Opens the Read-Print-Eval-Loop dialog',
 		menu  => $tools_menu,
-		order => 8,
+		order => 9,
+	},
+	'action-spell-check' => {
+		name  => 'Check Spelling',
+		help  => "Checks current tab spelling using Spellunker",
+		menu  => $tools_menu,
+		order => 10,
 	},
 	'action-dump-ppi-tree' => {
 		name  => 'Dump the PPI tree',
 		help  => "Dumps the PPI tree into the output pane",
 		menu  => $tools_menu,
-		order => 9,
+		order => 11,
 	},
 	'action-debug-step-in' => {
 		name  => 'Step In',
@@ -735,7 +741,7 @@ SQL
 	$db->disconnect;
 }
 
-# Finds the editor mode from the the filename
+# Finds the editor mode from the filename
 sub _find_editor_mode_from_filename {
 	my $filename = shift;
 
@@ -1261,6 +1267,18 @@ sub perl_strip {
 	return \%result;
 }
 
+sub spell_check {
+	my $self = shift;
+	my $source = shift->{source};
+	
+	my %results = (
+		error => 1,
+		source => '',
+	);
+	
+	
+}
+
 # The default root handler
 sub default {
 	my $self = shift;
@@ -1306,6 +1324,7 @@ sub websocket {
 				'pod-check'                => 1,
 				'save-file'                => 1,
 				'syntax-check'             => 1,
+				'spell-check'              => 1,
 				'find-duplicate-perl-code' => 1,
 				'find-plugins'             => 1,
 				'repl-eval'                => 1,
@@ -1338,13 +1357,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Farabi::Editor - Controller
 
 =head1 VERSION
 
-version 0.44
+version 0.45
 
 =head1 AUTHOR
 
@@ -1352,7 +1373,7 @@ Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Ahmad M. Zawawi.
+This software is copyright (c) 2014 by Ahmad M. Zawawi.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

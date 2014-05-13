@@ -4,7 +4,7 @@ use Mojo::Base 'Mojolicious';
 use Path::Tiny;
 
 # ABSTRACT: Modern Perl IDE
-our $VERSION = '0.44'; # VERSION
+our $VERSION = '0.45'; # VERSION
 
 # Application SQLite database and projects are stored in this directory
 has 'home_dir';
@@ -19,7 +19,7 @@ sub startup {
 	my $app = shift;
 
 	# Change secret passphrase that is used for signed cookies
-	$app->secret('Hulk, Smash!');
+	$app->secrets(['Hulk, Smash!']);
 
 	# Use content from directories under lib/Farabi/files
 	$app->home->parse( path( path(__FILE__)->dirname, 'Farabi' ) );
@@ -92,13 +92,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Farabi - Modern Perl IDE
 
 =head1 VERSION
 
-version 0.44
+version 0.45
 
 =head1 SYNOPSIS
 
@@ -118,6 +120,8 @@ Please run the following command and then open http://127.0.0.1:4040 in your bro
 
 =head1 FEATURES
 
+=over
+
 =item Open File(s)
 
 The dialog provides partial filename search inside the directory where Farabi was started.
@@ -125,6 +129,8 @@ Matched single or multiple file selections can then be opened in one batch.
 
 B<WARNING:> Please do not start farabi in a folder with too many files like your home directory
 because this feature's performance will eventually suffer.
+
+=back
 
 =head1 TECHNOLOGIES USED
 
@@ -196,7 +202,7 @@ Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Ahmad M. Zawawi.
+This software is copyright (c) 2014 by Ahmad M. Zawawi.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

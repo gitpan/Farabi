@@ -1,13 +1,15 @@
 Farabi
 ======
 
+[![Build Status](https://api.travis-ci.org/azawawi/farabi.png?branch=master)](https://travis-ci.org/azawawi/farabi)
+
 This is a modern web-based Perl IDE that runs inside your favorite browser.
 
 To start Farabi, please type the following command:
 
     farabi
 
-And then Open http://127.0.0.1:4040/ in your favourite modern browser.
+And then open http://127.0.0.1:4040/ in your favourite modern browser.
 
 To run it on a different port, please use:
 
@@ -17,7 +19,7 @@ Supported Browsers
 ==================
 Farabi needs a modern browser that supports HTML 5 and websockets.
 
-My current test setup is Firefox 19 and Chrome 24.
+My current test setup is Firefox 20, Chrome 26 and IE 10.
 
 The following browsers could be theoritically supported:
 
