@@ -1,7 +1,7 @@
 package Farabi::Editor;
 
 # ABSTRACT: Controller
-our $VERSION = '0.45'; # VERSION
+our $VERSION = '0.46'; # VERSION
 
 use Mojo::Base 'Mojolicious::Controller';
 use Capture::Tiny qw(capture);
@@ -12,38 +12,38 @@ use Path::Tiny;
 
 my $file_menu  = '01.File';
 my $edit_menu  = '02.Edit';
-my $run_menu   = '03.Run';
+my $build_menu   = '03.Build';
 my $tools_menu = '04.Tools';
 my $help_menu  = '05.Help';
 
 my %actions = (
 	'action-new-file' => {
-		name  => 'New File',
+		name  => 'New File - Alt+N',
 		help  => "Opens a new file in an editor tab",
 		menu  => $file_menu,
 		order => 1,
 	},
 
-	'action-new-project' => {
-		name  => 'New Project',
-		help  => "Creates a new project using Module::Starter",
-		menu  => $file_menu,
-		order => 2,
-	},
+#	'action-new-project' => {
+#		name  => 'New Project',
+#		help  => "Creates a new project using Module::Starter",
+#		menu  => $file_menu,
+#		order => 2,
+#	},
 	'action-open-file' => {
-		name  => 'Open File(s)',
+		name  => 'Open File(s) - Alt+O',
 		help  => "Opens one or more files in an editor tab",
 		menu  => $file_menu,
 		order => 3,
 	},
 	'action-save-file' => {
-		name  => 'Save File',
+		name  => 'Save File - Alt+S',
 		help  => "Saves the current file ",
 		menu  => $file_menu,
 		order => 4,
 	},
 	'action-close-file' => {
-		name  => 'Close File',
+		name  => 'Close File - Alt+W',
 		help  => "Closes the current open file",
 		menu  => $file_menu,
 		order => 5,
@@ -55,7 +55,7 @@ my %actions = (
 		order => 6,
 	},
 	'action-goto-line' => {
-		name  => 'Goto Line',
+		name  => 'Goto Line - Alt+L',
 		help  => 'A dialog to jump to the needed line',
 		menu  => $edit_menu,
 		order => 1,
@@ -66,114 +66,30 @@ my %actions = (
 		menu  => $tools_menu,
 		order => 1,
 	},
-	'action-plugin-manager' => {
-		name  => 'Plugin Manager',
-		help  => 'Opens the plugin manager',
-		menu  => $tools_menu,
-		order => 2,
-	},
-	'action-perl-tidy' => {
-		name  => 'Perl Tidy',
-		help  => 'Run the Perl::Tidy tool on the current editor tab',
-		menu  => $tools_menu,
-		order => 3,
-	},
-	'action-perl-critic' => {
-		name  => 'Perl Critic',
-		help  => 'Run the Perl::Critic tool on the current editor tab',
-		menu  => $tools_menu,
-		order => 4,
-	},
-	'action-perl-strip' => {
-		name  => 'Perl Strip',
-		help  => 'Run Perl::Strip on the current editor tab',
-		menu  => $tools_menu,
-		order => 5,
-	},
-	'action-jshint' => {
-		name  => 'JSHint',
-		help  => 'Run JSHint on the current editor tab',
-		menu  => $tools_menu,
-		order => 6,
-	},
-	'action-find-duplicate-perl-code' => {
-		name  => 'Find Duplicate Perl Code',
-		help  => 'Finds any duplicate perl code in the current lib folder',
-		menu  => $tools_menu,
-		order => 7,
-	},
-	'action-git-diff' => {
-		name  => 'Git Diff',
-		help  => 'Show Git changes between commits',
-		menu  => $tools_menu,
-		order => 8,
-	},
 	'action-repl' => {
 		name  => 'REPL - Read-Print-Eval-Loop',
 		help  => 'Opens the Read-Print-Eval-Loop dialog',
 		menu  => $tools_menu,
 		order => 9,
 	},
-	'action-spell-check' => {
-		name  => 'Check Spelling',
-		help  => "Checks current tab spelling using Spellunker",
-		menu  => $tools_menu,
-		order => 10,
-	},
-	'action-dump-ppi-tree' => {
-		name  => 'Dump the PPI tree',
-		help  => "Dumps the PPI tree into the output pane",
-		menu  => $tools_menu,
-		order => 11,
-	},
-	'action-debug-step-in' => {
-		name  => 'Step In',
-		help  => '',
-		menu  => $run_menu,
-		order => 1,
-	},
-	'action-debug-step-over' => {
-		name  => 'Step Over',
-		help  => '',
-		menu  => $run_menu,
-		order => 2,
-	},
-	'action-debug-step-out' => {
-		name  => 'Step Out',
-		help  => '',
-		menu  => $run_menu,
-		order => 3,
-	},
-	'action-debug-stop' => {
-		name  => 'Stop Debugging',
-		help  => '',
-		menu  => $run_menu,
-		order => 4,
-	},
 	'action-run' => {
-		name  => 'Run',
+		name  => 'Run - Alt+Enter',
 		help  => 'Run the current editor source file using the run dialog',
-		menu  => $run_menu,
+		menu  => $build_menu,
 		order => 5,
 	},
-	'action-syntax-check' => {
-		name  => 'Syntax Check',
-		help  => 'Run the syntax check tool on the current editor tab',
-		menu  => $run_menu,
-		order => 6,
-	},
 	'action-help' => {
-		name  => 'Help - Getting Started',
+		name  => 'Getting Started',
 		help  => 'A quick getting started help dialog',
 		menu  => $help_menu,
 		order => 1,
 	},
-	'action-perl-doc' => {
-		name  => 'Help - Perl Documentation',
-		help  => 'Opens the Perl help documentation dialog',
-		menu  => $help_menu,
-		order => 2,
-	},
+#	'action-perl-doc' => {
+#		name  => 'Perl Documentation',
+#		help  => 'Opens the Perl help documentation dialog',
+#		menu  => $help_menu,
+#		order => 2,
+#	},
 	'action-about' => {
 		name  => 'About Farabi',
 		help  => 'Opens an dialog about the current application',
@@ -183,7 +99,114 @@ my %actions = (
 );
 
 sub menus {
+	my $self = shift;
 	my $menus = ();
+
+	if($self->app->support_can_be_enabled('Perl::Critic')) {
+		$actions{'action-perl-critic'} = {
+			name  => 'Perl Critic',
+			help  => 'Run the Perl::Critic tool on the current editor tab',
+			menu  => $tools_menu,
+			order => 4,
+		};
+		$actions{'action-dump-ppi-tree'} = {
+			name  => 'Dump the PPI tree',
+			help  => "Dumps the PPI tree into the output pane",
+			menu  => $tools_menu,
+			order => 11,
+		};
+	};
+
+	if($self->app->support_can_be_enabled('Perl::Tidy')) {
+		$actions{'action-perl-tidy'} = {
+			name  => 'Perl Tidy',
+			help  => 'Run the Perl::Tidy tool on the current editor tab',
+			menu  => $tools_menu,
+			order => 3,
+		};
+	};
+
+	if($self->app->support_can_be_enabled('Perl::Strip')) {
+		$actions{'action-perl-strip'} = {
+			name  => 'Perl Strip',
+			help  => 'Run Perl::Strip on the current editor tab',
+			menu  => $tools_menu,
+			order => 5,
+		};
+	};
+
+	if($self->app->support_can_be_enabled('Spellunker')) {
+		$actions{'action-spellunker'} = {
+			name  => 'Spellunker',
+			help  => "Checks current tab spelling using Spellunker",
+			menu  => $tools_menu,
+			order => 10,
+		};
+	};
+
+	if($self->app->support_can_be_enabled('Code::CutNPaste')) {
+		$actions{'action-code-cutnpaste'} = {
+			name  => 'Find Cut and Paste code...',
+			help  => 'Finds any duplicate Perl code in the current lib folder',
+			menu  => $tools_menu,
+			order => 7,
+		};
+	};
+
+	if($self->app->support_can_be_enabled('App::Midgen')) {
+		$actions{'action-midgen'} = {
+			name  => 'Find package dependencies (midgen)',
+			help  => 'Find package dependencies in the current lib folder and outputs a sample Makefile DSL',
+			menu  => $tools_menu,
+			order => 7,
+		};
+	};
+
+	if($self->app->support_can_be_enabled('Minilla')) {
+		$actions{'action-minil-test'} = {
+			name  => 'minil test',
+			help  => "Runs 'minil test' on the current project",
+			menu  => $build_menu,
+			order => 2,
+		};
+	};
+
+	if($self->app->support_can_be_enabled('Dist::Zilla')) {
+		$actions{'action-dzil-test'} = {
+			name  => 'dzil test',
+			help  => "Runs 'dzil test' on the current project",
+			menu  => $build_menu,
+			order => 2,
+		};
+	};
+
+	require File::Which;
+	if(defined File::Which::which('jshint')) {
+		$actions{'action-jshint'} = {
+			name  => 'JSHint',
+			help  => 'Run JSHint on the current editor tab',
+			menu  => $tools_menu,
+			order => 6,
+		};
+	}
+	
+	if(defined File::Which::which('git')) {
+		$actions{'action-git-diff'} = {
+			name  => 'Git Diff',
+			help  => 'Show Git changes between commits',
+			menu  => $tools_menu,
+			order => 8,
+		};
+	}
+
+	if(defined File::Which::which('ack')) {
+		$actions{'action-ack'} = {
+			name  => 'Find in files (ack)',
+			help  => 'Find the current selected text using Ack and displays results in the search tab',
+			menu  => $tools_menu,
+			order => 2,
+		};
+	}
 
 	for my $name ( keys %actions ) {
 		my $action = $actions{$name};
@@ -214,8 +237,8 @@ sub menus {
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {
 	my $self     = shift;
-	my $source   = $_[0]->{source};
-	my $severity = $_[0]->{severity};
+	my $source   = $self->param('source');
+	my $severity = $self->param('severity');
 
 	# Check source parameter
 	if ( !defined $source ) {
@@ -246,7 +269,7 @@ sub perl_critic {
 		  };
 	}
 
-	return \@results;
+	$self->render(json => \@results);
 }
 
 sub _capture_cmd_output {
@@ -273,7 +296,7 @@ sub _capture_cmd_output {
 		print $input_fh $input;
 		close $input_fh;
 	}
-
+	
 	my ( $stdout, $stderr, $exit ) = capture {
 		if ( defined $input_fh ) {
 
@@ -305,42 +328,31 @@ sub _capture_cmd_output {
 
 sub run_perl {
 	my $self   = shift;
-	my $params = shift;
-	my $source = $params->{source};
-	my $input  = $params->{input};
-	$self->_capture_cmd_output( $^X, [], $source, $input );
+	my $source = $self->param('source');
+	my $input  = $self->param('input');
+
+	my $o = $self->_capture_cmd_output( $^X, [], $source, $input );
+
+	$self->render(json => $o);
 }
 
-sub run_rakudo {
-	my $self   = shift;
-	my $params = shift;
-	my $source = $params->{source};
-	my $input  = $params->{input};
-	$self->_capture_cmd_output( 'perl6', [], $source, $input );
-}
-
-sub run_parrot {
-	my $self   = shift;
-	my $params = shift;
-	my $source = $params->{source};
-	my $input  = $params->{input};
-	$self->_capture_cmd_output( 'parrot', [], $source, $input );
-}
 
 sub run_perlbrew_exec {
 	my $self   = shift;
-	my $params = shift;
-	my $source = $params->{source};
-	my $input  = $params->{input};
-	$self->_capture_cmd_output( 'perlbrew', [ 'exec', 'perl' ],
+	my $source = $self->param('source');
+	my $input  = $self->param('input');
+
+	my $o = $self->_capture_cmd_output( 'perlbrew', [ 'exec', 'perl' ],
 		$source, $input );
+
+	$self->render(json => $o);
 }
 
 # Taken from Padre::Plugin::PerlTidy
 # TODO document it in 'SEE ALSO' POD section
 sub perl_tidy {
 	my $self   = shift;
-	my $source = shift->{source};
+	my $source = $self->param('source');
 
 	# Check 'source' parameter
 	unless ( defined $source ) {
@@ -378,13 +390,13 @@ sub perl_tidy {
 
 	$result{source} = $destination;
 
-	return \%result;
+	$self->render(json => \%result);
 }
 
 # i.e. Autocompletion
 sub help_search {
 	my $self = shift;
-	my $topic = shift->{topic} // '';
+	my $topic = $self->param('topic') // '';
 
 	# Determine perlfunc POD path
 	require File::Spec;
@@ -484,7 +496,7 @@ sub help_search {
 		close $fh;
 	}
 
-	return \@help_results;
+	$self->render(json => \@help_results);
 }
 
 sub _module_pod {
@@ -535,29 +547,64 @@ sub _find_installed_modules {
 # Convert Perl POD source to HTML
 sub pod2html {
 	my $self = shift;
-	my $source = shift->{source} // '';
+	my $source =$self->param('source') // '';
+	my $style = $self->param('style') // 'metacpan';
+
+	my %stylesheets = (
+    'cpan'=> [
+        'assets/podstyle/orig/cpan.css',
+        'assets/podstyle/cpan.css'
+    ],
+    'metacpan'=> [
+        'assets/podstyle/orig/metacpan.css',
+        'assets/podstyle/metacpan/shCore.css',
+        'assets/podstyle/metacpan/shThemeDefault.css',
+        'assets/podstyle/metacpan.css'
+    ],
+    'github'=> [
+        'assets/podstyle/orig/github.css',
+        'assets/podstyle/github.css'
+    ],
+    'none'=> []
+	);
 
 	my $html = _pod2html($source);
-	return $html;
+	my $t = '';
+	for my $style (@{$stylesheets{$style}}) {
+		$t .= qq{<link class="pod-stylesheet" rel="stylesheet" type="text/css" href="$style">\n};
+	}
+	$html =~ s{(</head>)}{</head>$t$1};
+	$self->render(text => $html, format => 'html');
 }
 
 sub _pod2html {
 	my $pod = shift;
 
-	require Pod::Simple::XHTML;
-	my $psx = Pod::Simple::XHTML->new;
-	$psx->no_errata_section(1);
-	$psx->no_whining(1);
+	require Pod::Simple::HTML;
+	my $psx = Pod::Simple::HTML->new;
+	#$psx->no_errata_section(1);
+	#$psx->no_whining(1);
 	$psx->output_string( \my $html );
 	$psx->parse_string_document($pod);
 
 	return $html;
 }
 
+sub md2html {
+	my $self = shift;
+	my $text = $self->param('text') // '';
+
+	require Text::Markdown;
+	my $m = Text::Markdown->new;
+	my $html = $m->markdown($text);
+
+	$self->render(text => $html);
+}
+
 # Code borrowed from Padre::Plugin::Experimento - written by me :)
 sub pod_check {
 	my $self = shift;
-	my $source = shift->{source} // '';
+	my $source = $self->param('source') // '';
 
 	require Pod::Checker;
 	require IO::String;
@@ -586,7 +633,7 @@ sub pod_check {
 		}
 	}
 
-	return \@problems;
+	$self->render(json => \@problems);
 }
 
 # Find a list of matched actions
@@ -594,7 +641,7 @@ sub find_action {
 	my $self = shift;
 
 	# Quote every special regex character
-	my $query = quotemeta( shift->{action} // '' );
+	my $query = quotemeta( $self->param('action') // '' );
 
 	# Find matched actions
 	my @matches;
@@ -615,7 +662,7 @@ sub find_action {
 	@matches = sort { $a->{name} cmp $b->{name} } @matches;
 
 	# And return matches array reference
-	return \@matches;
+	$self->render(json => \@matches);
 }
 
 # Find a list of matches files
@@ -623,7 +670,7 @@ sub find_file {
 	my $self = shift;
 
 	# Quote every special regex character
-	my $query = quotemeta( shift->{filename} // '' );
+	my $query = quotemeta( $self->param('filename') // '' );
 
 	# Determine directory
 	require Cwd;
@@ -661,14 +708,14 @@ sub find_file {
 	}
 
 	# Return the matched file array reference
-	return \@matches;
+	$self->render(json => \@matches);
 }
 
 # Return the file contents or a failure string
 sub open_file {
 	my $self = shift;
 
-	my $filename = shift->{filename} // '';
+	my $filename = $self->param('filename') // '';
 
 	my %result = ();
 	if ( open my $fh, '<', $filename ) {
@@ -697,7 +744,7 @@ sub open_file {
 	}
 
 	# Return the file contents or the error message
-	return \%result;
+	$self->render(json => \%result);
 }
 
 # Add or update record file record
@@ -756,9 +803,6 @@ sub _find_editor_mode_from_filename {
 		pl         => 'perl',
 		pm         => 'perl',
 		t          => 'perl',
-		p6         => 'perl6',
-		pm6        => 'perl6',
-		pir        => 'pir',
 		css        => 'css',
 		js         => 'javascript',
 		json       => 'javascript',
@@ -769,8 +813,8 @@ sub _find_editor_mode_from_filename {
 		conf       => 'properties',
 		properties => 'properties',
 		ini        => 'properties',
-		txt        => 'plain',
-		'log'      => 'plain',
+		txt        => 'null',
+		'log'      => 'null',
 		yml        => 'yaml',
 		yaml       => 'yaml',
 		coffee     => 'coffeescript',
@@ -779,7 +823,7 @@ sub _find_editor_mode_from_filename {
 	);
 
 	# No extension, let us use default text mode
-	return 'plain' unless defined $extension;
+	return 'null' unless defined $extension;
 	return $extension_to_mode{$extension};
 }
 
@@ -801,14 +845,6 @@ sub repl_eval {
 
 			# Special case that uses an internal inprocess Devel::REPL object
 		},
-		'rakudo' => {
-			cmd    => 'perl6',
-			prompt => '> \Z',
-		},
-		'niecza' => {
-			cmd    => 'Niecza.exe',
-			prompt => 'niecza> \Z',
-		},
 	);
 
 	# The process that we're gonna REPL
@@ -827,7 +863,8 @@ sub repl_eval {
 		my %result = ( err => "Failed to find runtime '$runtime_id'", );
 
 		# Return the REPL result
-		return \%result;
+		$self->render(json => \%result);
+		return;
 	}
 
 	# Prepare the REPL command....
@@ -853,7 +890,7 @@ sub repl_eval {
 	$result{err} = $err;
 
 	# Return the REPL result
-	return \%result;
+	$self->render(json => \%result);
 }
 
 # Global shared object at the moment
@@ -880,7 +917,8 @@ sub _devel_repl_eval {
 			$result{err} = 'Unable to find Devel::REPL';
 
 			# Return the REPL result
-			return \%result;
+			$self->render(json => \%result);
+			return;
 		}
 
 		# Create the REPL object
@@ -909,14 +947,14 @@ sub _devel_repl_eval {
 	}
 
 	# Return the REPL result
-	return \%result;
+	$self->render(json => \%result);
 }
 
 # Save(s) the specified filename
 sub save_file {
 	my $self     = shift;
-	my $filename = $_[0]->{filename};
-	my $source   = $_[0]->{source};
+	my $filename = $self->param('filename');
+	my $source   = $self->param('source');
 
 	# Define output and error strings
 	my %result = ( err => '', );
@@ -928,7 +966,8 @@ sub save_file {
 		$result{err} = "filename parameter is invalid";
 
 		# Return the result
-		return \%result;
+		$self->render(json => \%result);
+		return;
 	}
 
 	# Check contents parameter
@@ -938,7 +977,8 @@ sub save_file {
 		$result{err} = "source parameter is invalid";
 
 		# Return the REPL result
-		return \%result;
+		$self->render(json => \%result);
+		return;
 	}
 
 	if ( open my $fh, ">", $filename ) {
@@ -952,14 +992,14 @@ sub save_file {
 		$result{err} = "Cannot save $filename";
 	}
 
-	return \%result;
+	$self->render(json => \%result);
 }
 
 # Find duplicate Perl code in the current 'lib' folder
-sub find_duplicate_perl_code {
+sub code_cutnpaste {
 
 	my $self = shift;
-	my $dirs = shift->{dirs};
+	my $dirs = $self->param('dirs');
 
 	my %result = (
 		count  => 0,
@@ -971,7 +1011,8 @@ sub find_duplicate_perl_code {
 
 		# Return the error result
 		$result{error} = "Error:\ndirs parameter is invalid";
-		return \%result;
+		$self->render(json => \%result);
+		return;
 	}
 
 	my @dirs;
@@ -996,7 +1037,8 @@ sub find_duplicate_perl_code {
 
 		# Return the error result
 		$result{error} = "Code::CutNPaste validation error:\n" . $@;
-		return \%result;
+		$self->render(json => \%result);
+		return;
 	}
 
 	# Finds the duplicates
@@ -1020,14 +1062,15 @@ END
 	# Returns the find duplicate perl code result
 	$result{count}  = scalar @$duplicates;
 	$result{output} = $output;
-	return \%result;
+
+	$self->render(json => \%result);
 }
 
 # Dumps the PPI tree for the given source parameter
 sub dump_ppi_tree {
 
 	my $self   = shift;
-	my $source = shift->{source};
+	my $source = $self->param('source');
 
 	my %result = (
 		output => '',
@@ -1039,7 +1082,8 @@ sub dump_ppi_tree {
 
 		# Return the error JSON result
 		$result{error} = "Error:\nSource parameter is undefined";
-		return \%result;
+		$self->render(json => \%result);
+		return;
 	}
 
 	# Load PPI at runtime
@@ -1059,120 +1103,13 @@ sub dump_ppi_tree {
 	$result{output} = $dumper->string;
 
 	# Return the JSON result
-	return \%result;
-}
-
-# Find all Farabi plugins
-sub find_plugins {
-	my $self = shift;
-
-	# Create a non-instantiating plugin finder object
-	require Module::Pluggable::Object;
-	my $finder = Module::Pluggable::Object->new(
-		search_path => 'Farabi::Plugin',
-		require     => 1,
-		inner       => 0,
-	);
-
-	# Find all plugins
-	my @plugins;
-	for my $plugin ( $finder->plugins ) {
-		my $o;
-		eval { require $plugin; $o = $plugin->new; };
-		if ($@) {
-			push @plugins,
-			  {
-				id     => $plugin,
-				name   => $plugin,
-				status => 'Plugin creation failure',
-			  };
-
-			# No need to process anymore
-			next;
-		}
-
-		unless ( defined $o ) {
-			push @plugins,
-			  {
-				id     => $plugin,
-				name   => $plugin,
-				status => 'Plugin creation failure',
-			  };
-
-			# No need to process anymore
-			next;
-		}
-
-		if ( $o->can('name') ) {
-
-			# 'name' is supported
-			push @plugins,
-			  {
-				id     => $plugin,
-				name   => $o->name,
-				status => '',
-			  };
-
-		}
-		else {
-			# No 'name' support
-			push @plugins,
-			  {
-				id     => $plugin,
-				name   => '',
-				status => q{Does not support 'name'!},
-			  };
-
-			# No need to process anymore
-			next;
-		}
-
-		if ( $o->can('deps') ) {
-
-			my $status = '';
-
-			my $deps = $o->deps;
-			for my $name ( keys %$deps ) {
-				my $version = $deps->{$name};
-
-				# Validate module dependency rule
-				eval "require $name $version";
-				if ($@) {
-
-					# Dependency rule not met
-					$status .= "'$name' $version or later not found\n";
-				}
-
-			}
-
-			# deps is supported
-			push @plugins,
-			  {
-				id     => $plugin,
-				name   => $deps,
-				status => $status,
-			  };
-		}
-		else {
-			# No deps support
-			push @plugins,
-			  {
-				id     => $plugin,
-				name   => '',
-				status => q{Does not support 'deps'!},
-			  };
-		}
-
-	}
-
-	# Return the plugins list
-	return \@plugins;
+	$self->render(json => \%result);
 }
 
 # Syntax check the provided source string
 sub syntax_check {
 	my $self   = shift;
-	my $source = shift->{source};
+	my $source = $self->param('source');
 
 	my $result = $self->_capture_cmd_output( "$^X", ["-c"], $source );
 
@@ -1193,7 +1130,7 @@ sub syntax_check {
 	# Sort problems by line numerically
 	@problems = sort { $a->{line} <=> $b->{line} } @problems;
 
-	return \@problems;
+	$self->render(json => \@problems);
 }
 
 # Create a project using Module::Starter
@@ -1216,36 +1153,63 @@ sub create_project {
 	Module::Starter->create_distro(%args);
 }
 
-# Step in code in debug mode
-sub debug_step_in {
-	my $self = shift;
-}
-
-# Step over code in debug mode
-sub debug_step_over {
-	my $self = shift;
-}
-
-# Step out code in debug mode
-sub debug_step_out {
-	my $self = shift;
-}
-
-# Stop debugging
-sub debug_stop {
-	my $self = shift;
-}
-
 # Show Git changes between commits
 sub git_diff {
 	my $self = shift;
 
-	$self->_capture_cmd_output( 'git', ['diff'] );
+	my $o = $self->_capture_cmd_output( 'git', ['diff'] );
+
+	$self->render(json => $o);
 }
+
+# Search files in your current project folder for a textual pattern
+sub ack {
+	my $self = shift;
+	my $text = $self->param('text');
+
+	#TODO needs more thought on how to secure it again --xyz-command or escaping...
+	# WARNING at the moment this is not secure
+	my $o = $self->_capture_cmd_output( 'ack', [q{--literal}, q{--sort-files}, q{--match}, qq{$text}] );
+
+	$self->render(json => $o);
+}
+
+# Check requires & test_requires of your package for CPAN inclusion.
+sub midgen {
+	my $self = shift;
+
+	my $o = $self->_capture_cmd_output( 'midgen', [] );
+
+	# Remove ansi color sequences
+	$o->{stdout} =~ s/\e\[[\d;]*[a-zA-Z]//g;
+	$o->{stderr} =~ s/\e\[[\d;]*[a-zA-Z]//g;
+
+	$self->render(json => $o);
+}
+
+
+# Runs 'minil test' in the current project folder
+sub minil_test {
+	my $self = shift;
+
+	my $o = $self->_capture_cmd_output( 'minil', ['test'] );
+
+	$self->render(json => $o);
+}
+
+# Runs 'dzil test' in the current project folder
+sub dzil_test {
+	my $self = shift;
+
+	my $o = $self->_capture_cmd_output( 'dzil', ['test'] );
+
+	$self->render(json => $o);
+}
+
 
 sub perl_strip {
 	my $self   = shift;
-	my $source = shift->{source};
+	my $source = $self->param('source');
 
 	my %result = (
 		error  => 1,
@@ -1255,7 +1219,8 @@ sub perl_strip {
 	# Check 'source' parameter
 	unless ( defined $source ) {
 		$self->app->log->warn('Undefined "source" parameter');
-		return \%result;
+		$self->render(json => \%result);
+		return;
 	}
 
 	eval {
@@ -1264,19 +1229,31 @@ sub perl_strip {
 		$result{source} = $ps->strip($source);
 	};
 
-	return \%result;
+	$self->render(json => \%result);
 }
 
-sub spell_check {
+sub spellunker {
 	my $self = shift;
-	my $source = shift->{source};
-	
-	my %results = (
-		error => 1,
-		source => '',
-	);
-	
-	
+	my $text = $self->param('text');
+
+	require Spellunker::Pod;
+	my $spellunker = Spellunker::Pod->new();
+	my @errors = $spellunker->check_text($text);
+
+	my @problems;
+	foreach my $error (@errors) {
+		push @problems,
+		  {
+		  message => join(" ", @{$error->[2]}),,
+			file    => '-',
+			line    => $error->[0],
+		  };
+	}
+
+	# Sort problems by line numerically
+	@problems = sort { $a->{line} <=> $b->{line} } @problems;
+
+	$self->render(json => \@problems);
 }
 
 # The default root handler
@@ -1290,65 +1267,8 @@ sub default {
 	$self->render;
 }
 
-# The websocket message handler
-sub websocket {
-	my $self = shift;
-
-	# WebSocket Connected... Create JSON object...
-	require Mojo::JSON;
-	my $json = Mojo::JSON->new;
-
-	# Disable inactivity timeout
-	Mojo::IOLoop->stream( $self->tx->connection )->timeout(0);
-
-	# Wait for a WebSocket message
-	$self->on(
-		message => sub {
-			my ( $ws, $message ) = @_;
-			my $result = $json->decode($message) or return;
-
-			my $actions = {
-				'dump-ppi-tree'            => 1,
-				'find-action'              => 1,
-				'find-file'                => 1,
-				'open-file'                => 1,
-				'run-perl'                 => 1,
-				'run-rakudo'               => 1,
-				'run-parrot'               => 1,
-				'run-perlbrew-exec'        => 1,
-				'help_search'              => 1,
-				'perl-tidy'                => 1,
-				'perl-critic'              => 1,
-				'perl-strip'               => 1,
-				'pod2html'                 => 1,
-				'pod-check'                => 1,
-				'save-file'                => 1,
-				'syntax-check'             => 1,
-				'spell-check'              => 1,
-				'find-duplicate-perl-code' => 1,
-				'find-plugins'             => 1,
-				'repl-eval'                => 1,
-				'new-project'              => 1,
-				'debug-step-in'            => 1,
-				'debug-step-over'          => 1,
-				'debug-step-out'           => 1,
-				'debug-stop'               => 1,
-				'git-diff'                 => 1,
-			};
-
-			my $action = $result->{action} or return;
-			$self->app->log->info("Processing '$action'");
-			if ( defined $actions->{$action} ) {
-				$action =~ s/-/_/g;
-				my $o = $self->$action( $result->{params} ) or return;
-				$ws->send( $json->encode($o) );
-			}
-			else {
-				$self->app->log->warn("'$action' not found!");
-			}
-
-		}
-	);
+sub ping {
+	$_[0]->render(text => "pong");
 }
 
 1;
@@ -1365,7 +1285,7 @@ Farabi::Editor - Controller
 
 =head1 VERSION
 
-version 0.45
+version 0.46
 
 =head1 AUTHOR
 

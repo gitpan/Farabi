@@ -23,29 +23,18 @@ my %WriteMakefileArgs = (
   "LICENSE" => "perl",
   "NAME" => "Farabi",
   "PREREQ_PM" => {
-    "Browser::Open" => "0.04",
     "Capture::Tiny" => "0.21",
-    "Code::CutNPaste" => "0.04",
     "DBD::SQLite" => "1.37",
     "DBIx::Simple" => "1.35",
-    "Debug::Client" => "0.25",
     "File::Find::Rule" => "0.33",
     "File::HomeDir" => "1.00",
     "File::Which" => "1.09",
     "IO::String" => "1.08",
     "IPC::Run" => "0.92",
-    "Minilla" => "v0.4.6",
-    "Module::Pluggable" => "4.5",
-    "Module::Starter" => "1.60",
     "Mojolicious" => "4.63",
-    "Moo" => "1.000008",
     "Parse::ErrorString::Perl" => "0.18",
     "Path::Tiny" => "0.013",
-    "Perl::Critic" => "1.118",
-    "Perl::Strip" => "1.1",
-    "Perl::Tidy" => 20121207,
-    "Reply" => "0.07",
-    "Spellunker" => "v0.0.17"
+    "Text::Markdown" => "1.000031"
   },
   "TEST_REQUIRES" => {
     "File::Spec" => 0,
@@ -55,7 +44,7 @@ my %WriteMakefileArgs = (
     "Test::MinimumVersion" => "0.101080",
     "Test::More" => "0.98"
   },
-  "VERSION" => "0.45",
+  "VERSION" => "0.46",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -63,12 +52,9 @@ my %WriteMakefileArgs = (
 
 
 my %FallbackPrereqs = (
-  "Browser::Open" => "0.04",
   "Capture::Tiny" => "0.21",
-  "Code::CutNPaste" => "0.04",
   "DBD::SQLite" => "1.37",
   "DBIx::Simple" => "1.35",
-  "Debug::Client" => "0.25",
   "File::Find::Rule" => "0.33",
   "File::HomeDir" => "1.00",
   "File::Spec" => 0,
@@ -77,21 +63,13 @@ my %FallbackPrereqs = (
   "IO::String" => "1.08",
   "IPC::Open3" => 0,
   "IPC::Run" => "0.92",
-  "Minilla" => "v0.4.6",
-  "Module::Pluggable" => "4.5",
-  "Module::Starter" => "1.60",
   "Mojolicious" => "4.63",
-  "Moo" => "1.000008",
   "Parse::ErrorString::Perl" => "0.18",
   "Path::Tiny" => "0.013",
-  "Perl::Critic" => "1.118",
-  "Perl::Strip" => "1.1",
-  "Perl::Tidy" => 20121207,
-  "Reply" => "0.07",
-  "Spellunker" => "v0.0.17",
   "Test::EOL" => "1.5",
   "Test::MinimumVersion" => "0.101080",
-  "Test::More" => "0.98"
+  "Test::More" => "0.98",
+  "Text::Markdown" => "1.000031"
 );
 
 

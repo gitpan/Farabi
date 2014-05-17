@@ -1,5 +1,62 @@
 Changes for Farabi: The Modern Perl IDE
 
+0.46      2014-05-17 15:09:03+03:00 Asia/Baghdad
+
+    * Please try Farabi and let me know what you like and what loathe :)
+    * SECURITY WARNING: Please do not think of deploying this release on the internet. 
+      You have been warned!
+
+[ADDED]
+    - Added 'minil test' and 'dzil test' to build menu for an initial seed for the Minilla and Dist::Zilla runtime project support.
+    - Alt-N: close file, Alt-O: open file, Alt-S: save file, Alt-W: close file, Alt-L: goto line
+    - Added 'ack' runtime support. Please press Ctrl-Alt-F to find selected text in current project folder
+    - Toggle full screen editor editing by F11 or F10. Some browser/OS combinations block some keyboard shortcuts.
+    - Added Markdown auto preview support. Pod tab is now called "Preview"
+    - Farabi can now auto preview POD (if the preview tab is visible) in 
+      cpan, metacpan, github CSS themes (Courtesy of "POD Web view" by Michał Wojciechowski).
+      Please use the "POD style" option in Tools/Options to change it.
+
+[CHANGED]
+    - Upgrade CodeMirror to 4.1
+    - Less installation dependencies; more runtime dependencies
+    - Added Spellunker runtime support now displays errors in problems. 
+    - Added App::midgen runtime support to generate Makefile.PL et all requires/recommends
+      and display results in search tab.
+    - Documentation updates
+    - Problems tab is the first tab now
+    - Fix codemirror mode error on plain text files
+    - "Changes/Git Diff" tab is now updated on an open/save file or mouse click when it is visible.
+    - Farabi is now using simple AJAX request instead of buggy websocket support
+    - Ping HTTP message is now sent every 5 seconds
+    - Run menu is now called Build
+    - Use runtime Code::CutNPaste support to find duplicate code
+    - Disable incomplete features like new project, help documentation/search
+    - git diff, and jshint are now enabled if you have their commands in your $PATH. 
+      Please note that JSHint is still executed in the client-side.
+    - Options dialog is more beautiful or at least to my eyes :)
+    - Spellunker::Pod runtime support is here for checking your POD spelling.
+    - Perl::Strip (to minify your Perl script) runtime support
+    - Added Perl::Tidy and Perl::Critic runtime support.
+    - TODO is now TODO.md
+    - Syntax/preview actions are triggered on editor focus and change
+    - Remove buggy auto bracket codemirror support.
+    - Remove Perl 6 (rakudo) and parrot support. Farabi will focus on Perl script and web-based development.
+    - Update theme list to contain CodeMirror's full list
+    - Debug is now "Documentation" tab. Currently it does not do anything useful.
+    - Diff tab is now called "Changes"
+    - POD tab is now called "Preview".
+    - If preview tab is visible, POD rendering on editor focus/change is active
+    - Remove plugin manager skeleton implementation. It sucked. Farabi is not Padre :)
+    - Show keyboard shortcuts in the menu and help dialog
+    - Remove selected text workaround patch. CodeMirror 4.x already include it in its themes
+    - Remove repetitive and slow dialog fade animation effect
+    - Auto Git differences when Git tab is open
+    - Remove incomplete Debig::Client; Debug::Client test suite stalled on some Travis CI build runs
+      Please note that is not truly fullscreen editing. It is an experiment in progress.
+
+    [FIXED]
+    - Utilize the theme specific active line and gutter from CodeMirror mode CSS
+
 0.45      2014-05-13 14:01:12+03:00 Asia/Jerusalem
 
     [ADDED]

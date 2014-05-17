@@ -21,7 +21,6 @@
 <script src="perl_critic_dialog.js"></script>
 <script src="options_dialog.js"></script>
 <script src="repl_dialog.js"></script>
-<script src="plugin_manager_dialog.js"></script>
 <script src="run_dialog.js"></script>
 <script src="save_question_dialog.js"></script>
 <script src="goto_line_dialog.js"></script>
@@ -38,11 +37,13 @@
 <script src="assets/codemirror/addon/search/match-highlighter.js"></script>
 <script src="assets/codemirror/addon/selection/mark-selection.js"></script>
 <script src="assets/codemirror/addon/selection/active-line.js"></script>
-<script src="assets/codemirror/addon/edit/closebrackets.js"></script>
 <script src="assets/codemirror/addon/search/search.js"></script>
 <script src="assets/codemirror/addon/dialog/dialog.js"></script>
 <script src="assets/codemirror/addon/edit/matchbrackets.js"></script>
 
+
+<link rel="stylesheet" href="assets/codemirror/addon/display/fullscreen.css">
+<script src="assets/codemirror/addon/display/fullscreen.js"></script>
 
 </head>
 <body>
@@ -62,7 +63,7 @@
                     <ul class="nav">
 						<li><button class="actions-button btn btn-primary" type="button"><b>A</b>ctions</button><li>
 							<li><%
-								my $menus = Farabi::Editor->menus;
+								my $menus = $self->menus;
 								for my $menu_key (sort keys %$menus) {
 									my $menu_name = $menu_key;
 									$menu_name =~ s/^\d{2}\.//;
@@ -102,14 +103,22 @@
 				</div>
 				<div class="span6 right-side">
 					<ul id="rightTab" class="nav nav-tabs">
+						<li><a href="#problems-tab" data-toggle="tab">Problems</a></li>
 						<li class="active"><a href="#input-tab" data-toggle="tab">Input</a></li>
 						<li><a href="#output-tab" data-toggle="tab">Output</a></li>
-						<li><a href="#pod-tab" data-toggle="tab">POD</a></li>
-						<li><a href="#problems-tab" data-toggle="tab">Problems</a></li>
-						<li><a href="#debug-tab" data-toggle="tab">Debug</a></li>
-						<li><a href="#diff-tab" data-toggle="tab">Diff</a></li>
+						<li><a href="#diff-tab" data-toggle="tab">Changes</a></li>
+						<li><a href="#doc-tab" data-toggle="tab">Documentation</a></li>
+						<li><a href="#preview-tab" data-toggle="tab">Preview</a></li>
+						<li><a href="#search-tab" data-toggle="tab">Search</a></li>
 					</ul>
 					<div id="rightTabContent" class="tab-content">
+						<div class="tab-pane" id="problems-tab">
+							<div class="farabi-bordered">
+								<div id="problems">
+									<table class="table table-bordered table-hover"></table>
+								</div>
+							</div>
+						</div>
 						<div class="tab-pane active" id="input-tab">
 							<div class="farabi-bordered">
 								<textarea id="input"></textarea>
@@ -120,26 +129,24 @@
 								<textarea id="output"></textarea>
 							</div>
 						</div>
-						<div class="tab-pane" id="pod-tab">
+						<div class="tab-pane" id="preview-tab">
 							<div class="farabi-bordered">
-								<div id="pod"></div>
+								<iframe id="pod" src="about:blank"></iframe>
 							</div>
 						</div>
-						<div class="tab-pane" id="problems-tab">
+						<div class="tab-pane" id="doc-tab">
 							<div class="farabi-bordered">
-								<div id="problems">
-									<table class="table table-bordered table-hover"></table>
-								</div>
-							</div>
-						</div>
-						<div class="tab-pane" id="debug-tab">
-							<div class="farabi-bordered">
-								<div id="debug"></div>
+								<div id="doc"></div>
 							</div>
 						</div>
 						<div class="tab-pane" id="diff-tab">
 							<div class="farabi-bordered">
 								<textarea id="diff"></textarea>
+							</div>
+						</div>
+						<div class="tab-pane" id="search-tab">
+							<div class="farabi-bordered">
+								<textarea id="search"></textarea>
 							</div>
 						</div>
 					</div>
@@ -161,7 +168,6 @@
 <%= include "editor/repl_dialog"%>
 <%= include "editor/save_question_dialog"%>
 <%= include "editor/find_duplicate_perl_code_dialog"%>
-<%= include "editor/plugin_manager_dialog"%>
 <%= include "editor/goto_line_dialog"%>
 
 </body>

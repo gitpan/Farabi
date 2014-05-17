@@ -4,16 +4,13 @@ use warnings;
 
 # this test was generated with Dist::Zilla::Plugin::Test::Compile 2.040
 
-use Test::More  tests => 6 + ($ENV{AUTHOR_TESTING} ? 1 : 0);
+use Test::More  tests => 3 + ($ENV{AUTHOR_TESTING} ? 1 : 0);
 
 
 
 my @module_files = (
     'Farabi.pm',
-    'Farabi/Editor.pm',
-    'Farabi/Plugin/Debug.pm',
-    'Farabi/Plugin/PerlCritic.pm',
-    'Farabi/Plugin/PerlTidy.pm'
+    'Farabi/Editor.pm'
 );
 
 my @scripts = (

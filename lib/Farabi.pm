@@ -4,7 +4,8 @@ use Mojo::Base 'Mojolicious';
 use Path::Tiny;
 
 # ABSTRACT: Modern Perl IDE
-our $VERSION = '0.45'; # VERSION
+our $VERSION = '0.46'; # VERSION
+
 
 # Application SQLite database and projects are stored in this directory
 has 'home_dir';
@@ -29,6 +30,28 @@ sub startup {
 	# Define routes
 	my $route = $app->routes;
 	$route->get('/')->to('editor#default');
+	$route->post("/syntax_check")->to('editor#syntax_check');
+	$route->post('/pod2html')->to('editor#pod2html');
+	$route->post("/md2html")->to('editor#md2html');
+	$route->post("/perl_critic")->to('editor#perl_critic');
+	$route->post("/perl_tidy")->to('editor#perl_tidy');
+	$route->post("/perl_strip")->to('editor#perl_strip');
+	$route->post("/spellunker")->to('editor#spellunker');
+	$route->post("/code_cutnpaste")->to('editor#code_cutnpaste');
+	$route->post("/git_diff")->to('editor#git_diff');
+	$route->post("/open_file")->to('editor#open_file');
+	$route->post("/save_file")->to('editor#save_file');
+	$route->post("/find_file")->to('editor#find_file');
+	$route->post("/find_action")->to('editor#find_action');
+	$route->post("/run_perl")->to('editor#run_perl');
+	$route->post("/run_perlbrew_exec")->to('editor#run_perlbrew_exec');
+	$route->post("/dump_ppi_tree")->to('editor#dump_ppi_tree');
+	$route->post("/repl_eval")->to('editor#repl_eval');
+	$route->post("/ping")->to('editor#ping');
+	$route->post("/ack")->to('editor#ack');
+	$route->post("/midgen")->to('editor#midgen');
+	$route->post("/minil_test")->to('editor#minil_test');
+	$route->post("/dzil_test")->to('editor#dzil_test');
 
 	eval { $app->_setup_dirs };
 	if ($@) {
@@ -43,9 +66,34 @@ sub startup {
 	if ($@) {
 		warn "Database not setup, reason: $@";
 	}
+}
 
-	# Setup websocket message handler
-	$route->websocket('/websocket')->to('editor#websocket');
+sub support_can_be_enabled {
+	my $app = shift;
+	my $module = shift;
+
+	my %REQUIRED_VERSION = (
+		'Perl::Critic' => '1.118',
+		'Perl::Tidy' => '20121207',
+		'Perl::Strip' => '1.1',
+		'Spellunker'  => '0.0.17',
+		'Code::CutNPaste' => '0.04',
+		'App::Midgen' => '0.32',
+		'Minilla' => '0.4.6',
+		'Dist::Zilla' => '5.016',
+	);
+
+	my $version = $REQUIRED_VERSION{$module};
+	return 0 unless defined $version;
+
+	eval qq{use $module $version;};
+	if($@) {
+		$app->log->warn("$module support is disabled. Please install $module $version or later.");
+		return 0;
+	} else {
+		$app->log->info("$module support is enabled");
+		return 1;
+	}
 }
 
 #
@@ -100,7 +148,7 @@ Farabi - Modern Perl IDE
 
 =head1 VERSION
 
-version 0.45
+version 0.46
 
 =head1 SYNOPSIS
 
@@ -118,6 +166,14 @@ Please run the following command and then open http://127.0.0.1:4040 in your bro
 
   farabi
 
+=head1 SECURITY WARNING
+
+B<Farabi is an experiment in progress>. It is a web-based user interface with a backend Perl web server.
+Please B<DO NOT> serve it on the Internet unless you jail it in an isolated uber-secure 
+environment that has proper CPU and I/O limits and non-root access.
+
+You have been warned, young padawan :)
+
 =head1 FEATURES
 
 =over
@@ -131,6 +187,14 @@ B<WARNING:> Please do not start farabi in a folder with too many files like your
 because this feature's performance will eventually suffer.
 
 =back
+
+=head1 METHODS
+
+=head1 support_can_be_enabled
+
+Returns 1 when a required C<module> with a specific version is found otherwise returns 0.
+
+It can be used in the future to toggle feature XYZ runtime support
 
 =head1 TECHNOLOGIES USED
 
