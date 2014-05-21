@@ -1,20 +1,22 @@
 package Farabi::Editor;
 
 # ABSTRACT: Controller
-our $VERSION = '0.46'; # VERSION
+our $VERSION = '0.47'; # VERSION
 
 use Mojo::Base 'Mojolicious::Controller';
 use Capture::Tiny qw(capture);
 use IPC::Run qw( start pump finish timeout );
 use Path::Tiny;
+use Pod::Functions qw(%Type);
 
 # The actions
 
 my $file_menu  = '01.File';
 my $edit_menu  = '02.Edit';
-my $build_menu   = '03.Build';
-my $tools_menu = '04.Tools';
-my $help_menu  = '05.Help';
+my $build_menu = '03.Build';
+my $vcs_menu = '04.VCS';
+my $tools_menu = '05.Tools';
+my $help_menu  = '06.Help';
 
 my %actions = (
 	'action-new-file' => {
@@ -24,12 +26,12 @@ my %actions = (
 		order => 1,
 	},
 
-#	'action-new-project' => {
-#		name  => 'New Project',
-#		help  => "Creates a new project using Module::Starter",
-#		menu  => $file_menu,
-#		order => 2,
-#	},
+	#	'action-new-project' => {
+	#		name  => 'New Project',
+	#		help  => "Creates a new project using Module::Starter",
+	#		menu  => $file_menu,
+	#		order => 2,
+	#	},
 	'action-open-file' => {
 		name  => 'Open File(s) - Alt+O',
 		help  => "Opens one or more files in an editor tab",
@@ -84,12 +86,13 @@ my %actions = (
 		menu  => $help_menu,
 		order => 1,
 	},
-#	'action-perl-doc' => {
-#		name  => 'Perl Documentation',
-#		help  => 'Opens the Perl help documentation dialog',
-#		menu  => $help_menu,
-#		order => 2,
-#	},
+
+	#	'action-perl-doc' => {
+	#		name  => 'Perl Documentation',
+	#		help  => 'Opens the Perl help documentation dialog',
+	#		menu  => $help_menu,
+	#		order => 2,
+	#	},
 	'action-about' => {
 		name  => 'About Farabi',
 		help  => 'Opens an dialog about the current application',
@@ -99,10 +102,10 @@ my %actions = (
 );
 
 sub menus {
-	my $self = shift;
+	my $self  = shift;
 	my $menus = ();
 
-	if($self->app->support_can_be_enabled('Perl::Critic')) {
+	if ( $self->app->support_can_be_enabled('Perl::Critic') ) {
 		$actions{'action-perl-critic'} = {
 			name  => 'Perl Critic',
 			help  => 'Run the Perl::Critic tool on the current editor tab',
@@ -115,73 +118,79 @@ sub menus {
 			menu  => $tools_menu,
 			order => 11,
 		};
-	};
+	}
 
-	if($self->app->support_can_be_enabled('Perl::Tidy')) {
+	if ( $self->app->support_can_be_enabled('Perl::Tidy') ) {
 		$actions{'action-perl-tidy'} = {
 			name  => 'Perl Tidy',
 			help  => 'Run the Perl::Tidy tool on the current editor tab',
 			menu  => $tools_menu,
 			order => 3,
 		};
-	};
+	}
 
-	if($self->app->support_can_be_enabled('Perl::Strip')) {
+	if ( $self->app->support_can_be_enabled('Perl::Strip') ) {
 		$actions{'action-perl-strip'} = {
 			name  => 'Perl Strip',
 			help  => 'Run Perl::Strip on the current editor tab',
 			menu  => $tools_menu,
 			order => 5,
 		};
-	};
+	}
 
-	if($self->app->support_can_be_enabled('Spellunker')) {
+	if ( $self->app->support_can_be_enabled('Spellunker') ) {
 		$actions{'action-spellunker'} = {
 			name  => 'Spellunker',
 			help  => "Checks current tab spelling using Spellunker",
 			menu  => $tools_menu,
 			order => 10,
 		};
-	};
+	}
 
-	if($self->app->support_can_be_enabled('Code::CutNPaste')) {
+	if ( $self->app->support_can_be_enabled('Code::CutNPaste') ) {
 		$actions{'action-code-cutnpaste'} = {
 			name  => 'Find Cut and Paste code...',
 			help  => 'Finds any duplicate Perl code in the current lib folder',
 			menu  => $tools_menu,
 			order => 7,
 		};
-	};
+	}
 
-	if($self->app->support_can_be_enabled('App::Midgen')) {
+	if ( $self->app->support_can_be_enabled('App::Midgen') ) {
 		$actions{'action-midgen'} = {
-			name  => 'Find package dependencies (midgen)',
-			help  => 'Find package dependencies in the current lib folder and outputs a sample Makefile DSL',
+			name => 'Find package dependencies (midgen)',
+			help =>
+'Find package dependencies in the current lib folder and outputs a sample Makefile DSL',
 			menu  => $tools_menu,
 			order => 7,
 		};
-	};
+	}
 
-	if($self->app->support_can_be_enabled('Minilla')) {
-		$actions{'action-minil-test'} = {
-			name  => 'minil test',
-			help  => "Runs 'minil test' on the current project",
+	if ( $self->app->support_can_be_enabled('Dist::Zilla') 
+		or defined File::Which::which('make')) 
+	{
+		$actions{'action-project-build'} = {
+			name  => 'Build',
+			help  => "Runs 'dzil build' 'perl Makefile.PL && make' on the current project",
 			menu  => $build_menu,
 			order => 2,
 		};
-	};
-
-	if($self->app->support_can_be_enabled('Dist::Zilla')) {
-		$actions{'action-dzil-test'} = {
-			name  => 'dzil test',
-			help  => "Runs 'dzil test' on the current project",
+		$actions{'action-project-clean'} = {
+			name  => 'Clean',
+			help  => "Runs 'dzil clean' or 'make clean' on the current project",
 			menu  => $build_menu,
 			order => 2,
 		};
-	};
+		$actions{'action-project-test'} = {
+			name  => 'Test',
+			help  => "Runs 'dzil test' or 'make test' on the current project",
+			menu  => $build_menu,
+			order => 2,
+		};
+	}
 
 	require File::Which;
-	if(defined File::Which::which('jshint')) {
+	if ( defined File::Which::which('jshint') ) {
 		$actions{'action-jshint'} = {
 			name  => 'JSHint',
 			help  => 'Run JSHint on the current editor tab',
@@ -189,22 +198,45 @@ sub menus {
 			order => 6,
 		};
 	}
-	
-	if(defined File::Which::which('git')) {
+
+	if ( defined File::Which::which('git') ) {
 		$actions{'action-git-diff'} = {
-			name  => 'Git Diff',
+			name  => 'git diff',
 			help  => 'Show Git changes between commits',
-			menu  => $tools_menu,
+			menu  => $vcs_menu,
+			order => 8,
+		};
+		$actions{'action-git-log'} = {
+			name  => 'git log',
+			help  => 'Show Git commits',
+			menu  => $vcs_menu,
+			order => 8,
+		};
+		$actions{'action-git-status'} = {
+			name  => 'git status',
+			help  => 'Show Git status',
+			menu  => $vcs_menu,
 			order => 8,
 		};
 	}
 
-	if(defined File::Which::which('ack')) {
+	if ( defined File::Which::which('ack') ) {
 		$actions{'action-ack'} = {
-			name  => 'Find in files (ack)',
-			help  => 'Find the current selected text using Ack and displays results in the search tab',
+			name => 'Find in files (ack)',
+			help =>
+'Find the current selected text using Ack and displays results in the search tab',
 			menu  => $tools_menu,
 			order => 2,
+		};
+	}
+
+	if ( defined File::Which::which('cpanm') ) {
+		$actions{'action-cpanm'} = {
+			name => 'Install CPAN module (cpanminus)',
+			help =>
+			  'Install the selected module via App::cpanminus (aka cpanm)',
+			menu  => $tools_menu,
+			order => 3,
 		};
 	}
 
@@ -269,7 +301,7 @@ sub perl_critic {
 		  };
 	}
 
-	$self->render(json => \@results);
+	$self->render( json => \@results );
 }
 
 sub _capture_cmd_output {
@@ -296,7 +328,7 @@ sub _capture_cmd_output {
 		print $input_fh $input;
 		close $input_fh;
 	}
-	
+
 	my ( $stdout, $stderr, $exit ) = capture {
 		if ( defined $input_fh ) {
 
@@ -333,9 +365,8 @@ sub run_perl {
 
 	my $o = $self->_capture_cmd_output( $^X, [], $source, $input );
 
-	$self->render(json => $o);
+	$self->render( json => $o );
 }
-
 
 sub run_perlbrew_exec {
 	my $self   = shift;
@@ -345,7 +376,7 @@ sub run_perlbrew_exec {
 	my $o = $self->_capture_cmd_output( 'perlbrew', [ 'exec', 'perl' ],
 		$source, $input );
 
-	$self->render(json => $o);
+	$self->render( json => $o );
 }
 
 # Taken from Padre::Plugin::PerlTidy
@@ -390,113 +421,7 @@ sub perl_tidy {
 
 	$result{source} = $destination;
 
-	$self->render(json => \%result);
-}
-
-# i.e. Autocompletion
-sub help_search {
-	my $self = shift;
-	my $topic = $self->param('topic') // '';
-
-	# Determine perlfunc POD path
-	require File::Spec;
-	my $pod_path;
-	for my $path (@INC) {
-		for (qw(pod pods)) {
-			if ( -e File::Spec->catfile( $path, $_, 'perlfunc.pod' ) ) {
-				$pod_path = File::Spec->catfile( $path, $_ );
-				last;
-			}
-		}
-	}
-
-	# TODO improve this check...
-	return unless defined $pod_path;
-
-	my $pod_index_filename = 'index.txt';
-	unless ( -f $pod_index_filename ) {
-
-		# Find all the .pm and .pod files in @INC
-		$self->app->log->info(
-			"Finding all of *.pm and *.pod files in Perl search path");
-		require File::Find::Rule;
-		my @files = File::Find::Rule->file()->name( '*.pm', '*.pod' )->in(@INC);
-
-		# Create an index
-		$self->app->log->info("Creating POD index");
-		require Pod::Index::Builder;
-		my $p  = Pod::Index::Builder->new;
-		my $t0 = time;
-		for my $file (@files) {
-			$self->app->log->info("Parsing $file");
-			$p->parse_from_file($file);
-		}
-		$self->app->log->info( "Job took " . ( time - $t0 ) . " seconds" );
-		$p->print_index($pod_index_filename);
-	}
-
-	my $module_index_filename = 'index-modules.txt';
-	unless ( -f $module_index_filename ) {
-		$self->app->log->info("Creating Module index");
-		my %modules = $self->_find_installed_modules;
-		if ( open my $fh, ">", $module_index_filename ) {
-			for my $module ( sort keys %modules ) {
-				say $fh "$module\t" . $modules{$module};
-			}
-			close $fh;
-		}
-	}
-
-	# Search for a keyword in the file-based index
-	require Pod::Index::Search;
-	my $q = Pod::Index::Search->new(
-		filename => $pod_index_filename,
-		filemap  => sub {
-			my $podname = shift;
-			if ( $podname =~ /^.+::(.+?)$/ ) {
-				$podname = File::Spec->catfile( $pod_path, "$1.pod" );
-				unless ( -e $podname ) {
-					$podname = s/::/\//g;
-					$podname .= '.pm';
-				}
-			}
-			return $podname;
-		}
-	);
-
-	my @results = $q->search($topic);
-	my @help_results;
-	for my $r (@results) {
-		next if $r->podname =~ /perltoc/i;
-		my $podname = $r->podname;
-		$podname =~ s/^.+::(.+)$/$1/;
-		push @help_results,
-		  {
-			'podname' => $podname,
-			'context' => $r->context,
-			'html'    => _pod2html( $r->pod ),
-		  };
-	}
-
-	if ( open my $fh, '<', $module_index_filename ) {
-		my $filter = quotemeta $topic;
-		while (<$fh>) {
-			chomp;
-			my ( $module, $filename ) = split /\t/;
-			if ( $module =~ /^$filter$/i ) {
-				push @help_results,
-				  {
-					'podname' => $module,
-					'context' => '',
-					'html'    => _pod2html( $self->_module_pod($filename) ),
-				  },
-				  ;
-			}
-		}
-		close $fh;
-	}
-
-	$self->render(json => \@help_results);
+	$self->render( json => \%result );
 }
 
 sub _module_pod {
@@ -516,76 +441,47 @@ sub _module_pod {
 	return $pod;
 }
 
-#
-# q{Taken from Padre}... Written by AZAWAWI :)
-#
-# Finds installed CPAN modules via @INC
-# This solution resides at:
-# http://stackoverflow.com/questions/115425/how-do-i-get-a-list-of-installed-cpan-modules
-sub _find_installed_modules {
-	my $self = shift;
-
-	my %modules;
-	require File::Find::Rule;
-	require File::Basename;
-	foreach my $path (@INC) {
-		next if $path eq '.';    # Traversing this is a bad idea
-		                         # as it may be the root of the file
-		                         # system or the home directory
-		foreach
-		  my $file ( File::Find::Rule->name( '*.pm', '*.pod' )->in($path) )
-		{
-			my $module = substr( $file, length($path) + 1 );
-			$module =~ s/.(pm|pod)$//;
-			$module =~ s{[\\/]}{::}g;
-			$modules{$module} = $file;
-		}
-	}
-	return %modules;
-}
-
 # Convert Perl POD source to HTML
 sub pod2html {
-	my $self = shift;
-	my $source =$self->param('source') // '';
+	my $self  = shift;
+	my $text  = $self->param('source') // '';
 	my $style = $self->param('style') // 'metacpan';
 
-	my %stylesheets = (
-    'cpan'=> [
-        'assets/podstyle/orig/cpan.css',
-        'assets/podstyle/cpan.css'
-    ],
-    'metacpan'=> [
-        'assets/podstyle/orig/metacpan.css',
-        'assets/podstyle/metacpan/shCore.css',
-        'assets/podstyle/metacpan/shThemeDefault.css',
-        'assets/podstyle/metacpan.css'
-    ],
-    'github'=> [
-        'assets/podstyle/orig/github.css',
-        'assets/podstyle/github.css'
-    ],
-    'none'=> []
-	);
-
-	my $html = _pod2html($source);
-	my $t = '';
-	for my $style (@{$stylesheets{$style}}) {
-		$t .= qq{<link class="pod-stylesheet" rel="stylesheet" type="text/css" href="$style">\n};
-	}
-	$html =~ s{(</head>)}{</head>$t$1};
-	$self->render(text => $html, format => 'html');
+	$self->render( text => _pod2html( $text, $style ), format => 'html' );
 }
 
 sub _pod2html {
-	my $pod = shift;
+	my $text  = shift;
+	my $style = shift;
 
 	require Pod::Simple::HTML;
 	my $psx = Pod::Simple::HTML->new;
+
 	#$psx->no_errata_section(1);
 	#$psx->no_whining(1);
 	$psx->output_string( \my $html );
-	$psx->parse_string_document($pod);
+	$psx->parse_string_document($text);
+
+	my %stylesheets = (
+		'cpan' =>
+		  [ 'assets/podstyle/orig/cpan.css', 'assets/podstyle/cpan.css' ],
+		'metacpan' => [
+			'assets/podstyle/orig/metacpan.css',
+			'assets/podstyle/metacpan/shCore.css',
+			'assets/podstyle/metacpan/shThemeDefault.css',
+			'assets/podstyle/metacpan.css'
+		],
+		'github' =>
+		  [ 'assets/podstyle/orig/github.css', 'assets/podstyle/github.css' ],
+		'none' => []
+	);
+
+	my $t = '';
+	for my $style ( @{ $stylesheets{$style} } ) {
+		$t .=
+qq{<link class="pod-stylesheet" rel="stylesheet" type="text/css" href="$style">\n};
+	}
+	$html =~ s{(</head>)}{</head>$t$1};
 
 	return $html;
 }
@@ -595,10 +491,10 @@ sub md2html {
 	my $text = $self->param('text') // '';
 
 	require Text::Markdown;
-	my $m = Text::Markdown->new;
+	my $m    = Text::Markdown->new;
 	my $html = $m->markdown($text);
 
-	$self->render(text => $html);
+	$self->render( text => $html );
 }
 
 # Code borrowed from Padre::Plugin::Experimento - written by me :)
@@ -633,7 +529,7 @@ sub pod_check {
 		}
 	}
 
-	$self->render(json => \@problems);
+	$self->render( json => \@problems );
 }
 
 # Find a list of matched actions
@@ -662,7 +558,7 @@ sub find_action {
 	@matches = sort { $a->{name} cmp $b->{name} } @matches;
 
 	# And return matches array reference
-	$self->render(json => \@matches);
+	$self->render( json => \@matches );
 }
 
 # Find a list of matches files
@@ -708,7 +604,7 @@ sub find_file {
 	}
 
 	# Return the matched file array reference
-	$self->render(json => \@matches);
+	$self->render( json => \@matches );
 }
 
 # Return the file contents or a failure string
@@ -744,7 +640,7 @@ sub open_file {
 	}
 
 	# Return the file contents or the error message
-	$self->render(json => \%result);
+	$self->render( json => \%result );
 }
 
 # Add or update record file record
@@ -820,6 +716,7 @@ sub _find_editor_mode_from_filename {
 		coffee     => 'coffeescript',
 		diff       => 'diff',
 		patch      => 'diff',
+		sql        => 'sql',
 	);
 
 	# No extension, let us use default text mode
@@ -863,7 +760,7 @@ sub repl_eval {
 		my %result = ( err => "Failed to find runtime '$runtime_id'", );
 
 		# Return the REPL result
-		$self->render(json => \%result);
+		$self->render( json => \%result );
 		return;
 	}
 
@@ -890,7 +787,7 @@ sub repl_eval {
 	$result{err} = $err;
 
 	# Return the REPL result
-	$self->render(json => \%result);
+	$self->render( json => \%result );
 }
 
 # Global shared object at the moment
@@ -917,7 +814,7 @@ sub _devel_repl_eval {
 			$result{err} = 'Unable to find Devel::REPL';
 
 			# Return the REPL result
-			$self->render(json => \%result);
+			$self->render( json => \%result );
 			return;
 		}
 
@@ -947,7 +844,7 @@ sub _devel_repl_eval {
 	}
 
 	# Return the REPL result
-	$self->render(json => \%result);
+	$self->render( json => \%result );
 }
 
 # Save(s) the specified filename
@@ -966,7 +863,7 @@ sub save_file {
 		$result{err} = "filename parameter is invalid";
 
 		# Return the result
-		$self->render(json => \%result);
+		$self->render( json => \%result );
 		return;
 	}
 
@@ -977,7 +874,7 @@ sub save_file {
 		$result{err} = "source parameter is invalid";
 
 		# Return the REPL result
-		$self->render(json => \%result);
+		$self->render( json => \%result );
 		return;
 	}
 
@@ -992,7 +889,7 @@ sub save_file {
 		$result{err} = "Cannot save $filename";
 	}
 
-	$self->render(json => \%result);
+	$self->render( json => \%result );
 }
 
 # Find duplicate Perl code in the current 'lib' folder
@@ -1011,7 +908,7 @@ sub code_cutnpaste {
 
 		# Return the error result
 		$result{error} = "Error:\ndirs parameter is invalid";
-		$self->render(json => \%result);
+		$self->render( json => \%result );
 		return;
 	}
 
@@ -1037,7 +934,7 @@ sub code_cutnpaste {
 
 		# Return the error result
 		$result{error} = "Code::CutNPaste validation error:\n" . $@;
-		$self->render(json => \%result);
+		$self->render( json => \%result );
 		return;
 	}
 
@@ -1063,7 +960,7 @@ END
 	$result{count}  = scalar @$duplicates;
 	$result{output} = $output;
 
-	$self->render(json => \%result);
+	$self->render( json => \%result );
 }
 
 # Dumps the PPI tree for the given source parameter
@@ -1082,7 +979,7 @@ sub dump_ppi_tree {
 
 		# Return the error JSON result
 		$result{error} = "Error:\nSource parameter is undefined";
-		$self->render(json => \%result);
+		$self->render( json => \%result );
 		return;
 	}
 
@@ -1103,7 +1000,7 @@ sub dump_ppi_tree {
 	$result{output} = $dumper->string;
 
 	# Return the JSON result
-	$self->render(json => \%result);
+	$self->render( json => \%result );
 }
 
 # Syntax check the provided source string
@@ -1130,7 +1027,7 @@ sub syntax_check {
 	# Sort problems by line numerically
 	@problems = sort { $a->{line} <=> $b->{line} } @problems;
 
-	$self->render(json => \@problems);
+	$self->render( json => \@problems );
 }
 
 # Create a project using Module::Starter
@@ -1153,13 +1050,25 @@ sub create_project {
 	Module::Starter->create_distro(%args);
 }
 
-# Show Git changes between commits
-sub git_diff {
+# Run git 'diff|log" and return its output
+sub git {
 	my $self = shift;
+	my $cmd = $self->param('cmd') // '';
 
-	my $o = $self->_capture_cmd_output( 'git', ['diff'] );
+	my %valid_cmds = ( 'diff' => 1, 'log' => 1, 'status' => 1);
+	my $o;
+	if ( defined $valid_cmds{$cmd} ) {
+		$o = $self->_capture_cmd_output( 'git', [$cmd] );
+	}
+	else {
+		$o = {
+			stdout => 'Unknown git command',
+			stderr => '',
+			'exit' => 0,
+		};
+	}
 
-	$self->render(json => $o);
+	$self->render( json => $o );
 }
 
 # Search files in your current project folder for a textual pattern
@@ -1167,11 +1076,12 @@ sub ack {
 	my $self = shift;
 	my $text = $self->param('text');
 
-	#TODO needs more thought on how to secure it again --xyz-command or escaping...
-	# WARNING at the moment this is not secure
-	my $o = $self->_capture_cmd_output( 'ack', [q{--literal}, q{--sort-files}, q{--match}, qq{$text}] );
+ #TODO needs more thought on how to secure it again --xyz-command or escaping...
+ # WARNING at the moment this is not secure
+	my $o = $self->_capture_cmd_output( 'ack',
+		[ q{--literal}, q{--sort-files}, q{--match}, qq{$text} ] );
 
-	$self->render(json => $o);
+	$self->render( json => $o );
 }
 
 # Check requires & test_requires of your package for CPAN inclusion.
@@ -1184,28 +1094,53 @@ sub midgen {
 	$o->{stdout} =~ s/\e\[[\d;]*[a-zA-Z]//g;
 	$o->{stderr} =~ s/\e\[[\d;]*[a-zA-Z]//g;
 
-	$self->render(json => $o);
+	$self->render( json => $o );
 }
 
-
-# Runs 'minil test' in the current project folder
-sub minil_test {
+# Install module XYZ via App::cpanminus
+sub cpanm {
 	my $self = shift;
+	my $module = $self->param('module') // '';
 
-	my $o = $self->_capture_cmd_output( 'minil', ['test'] );
+	my $o = $self->_capture_cmd_output( 'cpanm', [$module] );
 
-	$self->render(json => $o);
+	$self->render( json => $o );
 }
 
-# Runs 'dzil test' in the current project folder
-sub dzil_test {
+# Runs dzil or makefile build commands in the current project folder
+sub project {
 	my $self = shift;
+	my $cmd = $self->param('cmd') // '';
 
-	my $o = $self->_capture_cmd_output( 'dzil', ['test'] );
+	# Detect project type
+	my $project_type = 'dzil';
+	if(-z 'dist.ini') {
+		# Dist::Zilla (dzil) support
+		$project_type = 'dzil';
+	} elsif (-z 'Makefile.PL') {
+		# Module::Install or ExtUtils::MakeMaker project
+		$project_type = 'make';
+	}
 
-	$self->render(json => $o);
+	my %valid_cmds = ( 'build'=> 1, 'test' => 1, 'clean' => 1 );
+	my $o;
+	if ( defined $valid_cmds{$cmd} ) {
+		if($cmd eq 'build') {
+			$o = $self->_capture_cmd_output( 'make', $project_type eq 'dzil'? ['build'] : [] ); ;
+		} else {
+			$o = $self->_capture_cmd_output( 'make', [$cmd] );
+		}
+	}
+	else {
+		$o = {
+			stdout => 'Unknown project command',
+			stderr => '',
+			'exit' => 0,
+		};
+	}
+
+	$self->render( json => $o );
 }
-
 
 sub perl_strip {
 	my $self   = shift;
@@ -1219,17 +1154,17 @@ sub perl_strip {
 	# Check 'source' parameter
 	unless ( defined $source ) {
 		$self->app->log->warn('Undefined "source" parameter');
-		$self->render(json => \%result);
+		$self->render( json => \%result );
 		return;
 	}
 
 	eval {
 		require Perl::Strip;
-		my $ps  = Perl::Strip->new;
+		my $ps = Perl::Strip->new;
 		$result{source} = $ps->strip($source);
 	};
 
-	$self->render(json => \%result);
+	$self->render( json => \%result );
 }
 
 sub spellunker {
@@ -1238,22 +1173,47 @@ sub spellunker {
 
 	require Spellunker::Pod;
 	my $spellunker = Spellunker::Pod->new();
-	my @errors = $spellunker->check_text($text);
+	my @errors     = $spellunker->check_text($text);
 
 	my @problems;
 	foreach my $error (@errors) {
 		push @problems,
 		  {
-		  message => join(" ", @{$error->[2]}),,
-			file    => '-',
-			line    => $error->[0],
+			message => join( " ", @{ $error->[2] } ),
+			,
+			file => '-',
+			line => $error->[0],
 		  };
 	}
 
 	# Sort problems by line numerically
 	@problems = sort { $a->{line} <=> $b->{line} } @problems;
 
-	$self->render(json => \@problems);
+	$self->render( json => \@problems );
+}
+
+sub help {
+	my $self  = shift;
+	my $topic  = $self->param('topic') // '';
+	my $style = $self->param('style') // 'metacpan';
+	
+	if($topic eq '') {
+		$self->render( text => "No help found" );
+		return;
+	}
+
+	my @cmd;
+	if($Type{$topic}) {
+		@cmd = ('-f', $topic);
+	} else {
+		@cmd = ($topic);
+	}
+
+	my $result = $self->_capture_cmd_output( 'perldoc', [ '-T', '-u', @cmd ] );
+
+	my $html = _pod2html( $result->{stdout}, $style );
+
+	$self->render( text => $html );
 }
 
 # The default root handler
@@ -1268,7 +1228,7 @@ sub default {
 }
 
 sub ping {
-	$_[0]->render(text => "pong");
+	$_[0]->render( text => "pong" );
 }
 
 1;
@@ -1285,7 +1245,7 @@ Farabi::Editor - Controller
 
 =head1 VERSION
 
-version 0.46
+version 0.47
 
 =head1 AUTHOR
 

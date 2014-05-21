@@ -4,7 +4,7 @@ use Mojo::Base 'Mojolicious';
 use Path::Tiny;
 
 # ABSTRACT: Modern Perl IDE
-our $VERSION = '0.46'; # VERSION
+our $VERSION = '0.47'; # VERSION
 
 
 # Application SQLite database and projects are stored in this directory
@@ -20,7 +20,7 @@ sub startup {
 	my $app = shift;
 
 	# Change secret passphrase that is used for signed cookies
-	$app->secrets(['Hulk, Smash!']);
+	$app->secrets( ['Hulk, Smash!'] );
 
 	# Use content from directories under lib/Farabi/files
 	$app->home->parse( path( path(__FILE__)->dirname, 'Farabi' ) );
@@ -38,7 +38,7 @@ sub startup {
 	$route->post("/perl_strip")->to('editor#perl_strip');
 	$route->post("/spellunker")->to('editor#spellunker');
 	$route->post("/code_cutnpaste")->to('editor#code_cutnpaste');
-	$route->post("/git_diff")->to('editor#git_diff');
+	$route->post("/git")->to('editor#git');
 	$route->post("/open_file")->to('editor#open_file');
 	$route->post("/save_file")->to('editor#save_file');
 	$route->post("/find_file")->to('editor#find_file');
@@ -50,8 +50,9 @@ sub startup {
 	$route->post("/ping")->to('editor#ping');
 	$route->post("/ack")->to('editor#ack');
 	$route->post("/midgen")->to('editor#midgen');
-	$route->post("/minil_test")->to('editor#minil_test');
-	$route->post("/dzil_test")->to('editor#dzil_test');
+	$route->post("/project")->to('editor#project');
+	$route->post("/cpanm")->to('editor#cpanm');
+	$route->post("/help")->to('editor#help');
 
 	eval { $app->_setup_dirs };
 	if ($@) {
@@ -59,7 +60,7 @@ sub startup {
 	}
 
 	# The database name
-	$app->db_name(path($app->home_dir, 'farabi.db'));
+	$app->db_name( path( $app->home_dir, 'farabi.db' ) );
 
 	# Setup the Farabi database
 	eval { $app->_setup_database };
@@ -68,29 +69,32 @@ sub startup {
 	}
 }
 
+
 sub support_can_be_enabled {
-	my $app = shift;
+	my $app    = shift;
 	my $module = shift;
 
 	my %REQUIRED_VERSION = (
-		'Perl::Critic' => '1.118',
-		'Perl::Tidy' => '20121207',
-		'Perl::Strip' => '1.1',
-		'Spellunker'  => '0.0.17',
+		'Perl::Critic'    => '1.118',
+		'Perl::Tidy'      => '20121207',
+		'Perl::Strip'     => '1.1',
+		'Spellunker'      => '0.0.17',
 		'Code::CutNPaste' => '0.04',
-		'App::Midgen' => '0.32',
-		'Minilla' => '0.4.6',
-		'Dist::Zilla' => '5.016',
+		'App::Midgen'     => '0.32',
+		'Dist::Zilla'     => '5.016',
 	);
 
 	my $version = $REQUIRED_VERSION{$module};
 	return 0 unless defined $version;
 
 	eval qq{use $module $version;};
-	if($@) {
-		$app->log->warn("$module support is disabled. Please install $module $version or later.");
+	if ($@) {
+		$app->log->warn(
+"$module support is disabled. Please install $module $version or later."
+		);
 		return 0;
-	} else {
+	}
+	else {
 		$app->log->info("$module support is enabled");
 		return 1;
 	}
@@ -118,7 +122,7 @@ sub _setup_database {
 	# Connect and create the Farabi SQLite database if not found
 	require DBIx::Simple;
 	my $db_name = $app->db_name;
-	my $db = DBIx::Simple->connect("dbi:SQLite:dbname=$db_name");
+	my $db      = DBIx::Simple->connect("dbi:SQLite:dbname=$db_name");
 
 	# Create tables if they do not exist
 	$db->query(<<SQL);
@@ -148,7 +152,7 @@ Farabi - Modern Perl IDE
 
 =head1 VERSION
 
-version 0.46
+version 0.47
 
 =head1 SYNOPSIS
 

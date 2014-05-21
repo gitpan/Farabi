@@ -12,7 +12,7 @@ build_requires:
 configure_requires:
   ExtUtils::MakeMaker: '6.30'
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 5.016, CPAN::Meta::Converter version 2.141170'
+generated_by: 'Dist::Zilla version 5.017, CPAN::Meta::Converter version 2.141170'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -22,6 +22,7 @@ no_index:
   directory:
     - t
     - xt
+    - eg
     - lib/Farabi/files
 requires:
   Capture::Tiny: '0.21'
@@ -41,4 +42,4 @@ resources:
   bugtracker: https://github.com/azawawi/farabi/issues
   homepage: https://github.com/azawawi/farabi
   repository: git://github.com/azawawi/farabi.git
-version: '0.46'
+version: '0.47'
